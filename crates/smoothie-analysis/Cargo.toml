@@ -1,0 +1,10 @@
+[package]
+name    = "smoothie-analysis"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+smoothie-math = { workspace = true }
+rustfft       = { workspace = true }

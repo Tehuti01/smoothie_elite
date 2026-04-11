@@ -1,0 +1,11 @@
+[package]
+name    = "smoothie-format-clap"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+smoothie-core   = { workspace = true }
+smoothie-params = { workspace = true }
+clap-sys        = { workspace = true }

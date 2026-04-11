@@ -1,0 +1,10 @@
+[package]
+name    = "smoothie-graph"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+smoothie-core = { workspace = true }
+parking_lot   = { workspace = true }

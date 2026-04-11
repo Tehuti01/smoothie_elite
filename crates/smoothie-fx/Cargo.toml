@@ -1,0 +1,10 @@
+[package]
+name    = "smoothie-fx"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+smoothie-math = { workspace = true }
+smoothie-dsp  = { workspace = true }

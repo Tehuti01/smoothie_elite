@@ -1,0 +1,11 @@
+[package]
+name    = "smoothie-format-vst3"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+smoothie-core   = { workspace = true }
+smoothie-params = { workspace = true }
+vst3-sys        = { workspace = true }
