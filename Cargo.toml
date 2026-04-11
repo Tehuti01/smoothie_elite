@@ -1,0 +1,98 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/smoothie-core",
+    "crates/smoothie-dsp",
+    "crates/smoothie-vst3",
+    "crates/smoothie-clap",
+    "crates/smoothie-au",
+    "crates/smoothie-aax",
+    "crates/smoothie-validator",
+    "crates/smoothie-ui",
+    "crates/smoothie-params",
+    "crates/smoothie-graphics",
+    "crates/smoothie-presets",
+    "crates/smoothie-midi",
+    "crates/smoothie-cli",
+    "standalone/src-tauri",
+    "xtask",
+]
+
+[workspace.package]
+version     = "0.1.0"
+edition     = "2021"
+authors     = ["Seraphic Sonic <info@seraphicsonic.com>"]
+license     = "MIT OR Apache-2.0"
+repository  = "https://github.com/SeraphicSonic/smoothie-elite"
+homepage    = "https://seraphicsonic.com/smoothie"
+
+[workspace.dependencies]
+# ── Smoothie internal crates ──
+smoothie-core     = { path = "crates/smoothie-core" }
+smoothie-dsp      = { path = "crates/smoothie-dsp" }
+smoothie-params   = { path = "crates/smoothie-params" }
+smoothie-midi     = { path = "crates/smoothie-midi" }
+smoothie-vst3     = { path = "crates/smoothie-vst3" }
+smoothie-clap     = { path = "crates/smoothie-clap" }
+smoothie-au       = { path = "crates/smoothie-au" }
+smoothie-aax      = { path = "crates/smoothie-aax" }
+smoothie-validator = { path = "crates/smoothie-validator" }
+smoothie-ui       = { path = "crates/smoothie-ui" }
+smoothie-graphics = { path = "crates/smoothie-graphics" }
+smoothie-presets  = { path = "crates/smoothie-presets" }
+
+# ── Plugin format ABIs (exact sources used in the wild) ──
+vst3-sys  = { git = "https://github.com/RustAudio/vst3-sys.git", branch = "fix/drop-box-from-raw" }
+clap-sys  = { git = "https://github.com/micahrj/clap-sys.git", rev = "25d7f53" }
+
+# ── Audio I/O ──
+cpal     = "0.15"
+rtrb     = "0.3"
+midir    = "0.9"
+ringbuf  = "0.4"
+
+# ── DSP ──
+biquad   = "0.4"
+rustfft  = "6"
+realfft  = "3"
+dasp     = { version = "0.11", features = ["all"] }
+
+# ── Graphics / UI ──
+wgpu     = "22"
+winit    = "0.30"
+egui     = "0.31"
+egui-wgpu = "0.31"
+
+# ── Serialization ──
+serde       = { version = "1", features = ["derive"] }
+serde_json  = "1"
+toml        = "0.8"
+
+# ── Utilities ──
+atomic_float  = "0.1"
+parking_lot   = "0.12"
+crossbeam     = "0.8"
+log           = "0.4"
+env_logger    = "0.11"
+thiserror     = "1"
+anyhow        = "1"
+uuid          = { version = "1", features = ["v4"] }
+semver        = "1"
+
+# ── CLI ──
+clap = { version = "4", features = ["derive"] }
+
+[profile.dev]
+opt-level = 1
+
+[profile.release]
+opt-level  = 3
+lto        = "thin"
+codegen-units = 1
+strip      = true
+panic      = "abort"
+
+[profile.release-debug]
+inherits   = "release"
+debug      = true
+strip      = false

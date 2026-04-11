@@ -1,0 +1,13 @@
+[package]
+name        = "smoothie-params"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Type-safe, real-time-safe, automatable parameter system for Smoothie Elite"
+
+[dependencies]
+serde          = { workspace = true }
+atomic_float   = { workspace = true }
+parking_lot    = { workspace = true }
+log            = { workspace = true }

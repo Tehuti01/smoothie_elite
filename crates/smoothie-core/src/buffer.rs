@@ -1,0 +1,100 @@
+//! Lock-free, allocation-free audio buffer for the processing thread.
+
+/// A multi-channel audio buffer.
+///
+/// Wraps a mutable slice of channel slices, matching the layout provided
+/// by the host. Zero-copy — no data is duplicated.
+pub struct AudioBuffer<'a> {
+    channels: &'a mut [&'a mut [f32]],
+    sample_rate: f32,
+}
+
+impl<'a> AudioBuffer<'a> {
+    /// Construct from raw channel slices provided by the host wrapper.
+    ///
+    /// # Safety
+    /// The caller must ensure the lifetime and non-aliasing of channel pointers.
+    #[inline]
+    pub fn new(channels: &'a mut [&'a mut [f32]], sample_rate: f32) -> Self {
+        Self { channels, sample_rate }
+    }
+
+    /// Number of channels.
+    #[inline]
+    pub fn channels(&self) -> usize { self.channels.len() }
+
+    /// Number of samples per channel in this block.
+    #[inline]
+    pub fn samples(&self) -> usize {
+        self.channels.first().map(|c| c.len()).unwrap_or(0)
+    }
+
+    /// Host sample rate.
+    #[inline]
+    pub fn sample_rate(&self) -> f32 { self.sample_rate }
+
+    /// Immutable access to a channel slice.
+    #[inline]
+    pub fn channel(&self, index: usize) -> &[f32] { &self.channels[index] }
+
+    /// Mutable access to a single channel slice.
+    #[inline]
+    pub fn channel_mut(&mut self, index: usize) -> &mut [f32] { &mut self.channels[index] }
+
+    /// Apply a scalar gain to all channels.
+    #[inline]
+    pub fn apply_gain(&mut self, gain: f32) {
+        for ch in self.channels.iter_mut() {
+            for s in ch.iter_mut() {
+                *s *= gain;
+            }
+        }
+    }
+
+    /// Zero (silence) all channels.
+    #[inline]
+    pub fn silence(&mut self) {
+        for ch in self.channels.iter_mut() {
+            for s in ch.iter_mut() {
+                *s = 0.0;
+            }
+        }
+    }
+
+    /// Copy this buffer into `dst`, converting mono→stereo if needed.
+    pub fn copy_to(&self, dst: &mut AudioBuffer<'_>) {
+        let src_ch = self.channels();
+        let dst_ch = dst.channels();
+        let n = self.samples().min(dst.samples());
+        for d in 0..dst_ch {
+            let s = d.min(src_ch - 1);
+            for i in 0..n {
+                dst.channels[d][i] = self.channels[s][i];
+            }
+        }
+    }
+}
+
+/// A single multi-channel frame (mutable reference to one sample per channel).
+pub struct FrameMut<'a> {
+    ptrs: Vec<*mut f32>,
+    _phantom: std::marker::PhantomData<&'a mut f32>,
+}
+
+impl<'a> FrameMut<'a> {
+    /// Get the sample for a specific channel.
+    #[inline]
+    pub fn get(&self, ch: usize) -> f32 {
+        unsafe { *self.ptrs[ch] }
+    }
+
+    /// Set the sample for a specific channel.
+    #[inline]
+    pub fn set(&mut self, ch: usize, value: f32) {
+        unsafe { *self.ptrs[ch] = value; }
+    }
+
+    /// Number of channels in this frame.
+    #[inline]
+    pub fn channels(&self) -> usize { self.ptrs.len() }
+}

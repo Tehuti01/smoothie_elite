@@ -1,0 +1,17 @@
+[package]
+name        = "smoothie-validator"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Plugin health checker, DAW compatibility engine, and vulnerability scanner for Smoothie Elite"
+
+[dependencies]
+serde        = { workspace = true }
+serde_json   = { workspace = true }
+log          = { workspace = true }
+thiserror    = { workspace = true }
+semver       = { workspace = true }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+# CoreAudio checks

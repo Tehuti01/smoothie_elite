@@ -1,0 +1,21 @@
+[package]
+name        = "cargo-smoothie"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "cargo-smoothie — CLI tool for Smoothie Elite plugin development"
+
+[[bin]]
+name = "cargo-smoothie"
+path = "src/main.rs"
+
+[dependencies]
+smoothie-validator = { workspace = true }
+clap    = { workspace = true }
+serde   = { workspace = true }
+serde_json = { workspace = true }
+anyhow  = { workspace = true }
+log     = { workspace = true }
+env_logger = { workspace = true }
+open = "5.3.3"

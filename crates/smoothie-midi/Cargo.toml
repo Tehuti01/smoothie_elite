@@ -1,0 +1,10 @@
+[package]
+name        = "smoothie-midi"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "MIDI 1.0, MPE, and MIDI 2.0 support for Smoothie Elite"
+
+[dependencies]
+serde = { workspace = true }

@@ -1,0 +1,14 @@
+[package]
+name        = "smoothie-dsp"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "DSP primitives: filters, dynamics, convolution, oversampling, oscillators"
+
+[dependencies]
+biquad  = "0.4"
+rustfft = "6"
+realfft = "3"
+rtrb    = "0.3"
+log     = { workspace = true }
