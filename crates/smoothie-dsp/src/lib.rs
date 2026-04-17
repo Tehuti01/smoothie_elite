@@ -17,4 +17,5 @@ pub use dynamics::{Compressor, Limiter};
 pub use delay::DelayLine;
 pub use oscillator::{Oscillator, WaveShape};
 pub use envelope::{AdsrEnvelope, EnvelopeState};
-pub use distortion::{softclip, hardclip, tanh_shaper, foldback};
+pub use distortion::{softclip, hardclip, tanh_shaper, foldback, TapeSaturator};
+pub use spectral::analyze_harmonicity;

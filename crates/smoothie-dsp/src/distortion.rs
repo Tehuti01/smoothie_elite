@@ -38,6 +38,38 @@ pub fn triode_model(x: f64, gain: f64, bias: f64) -> f64 {
     }
 }
 
+/// A simplified magnetic tape hysteresis model.
+/// Simulates the 'memory' effect of magnetic particles in tape.
+pub struct TapeSaturator {
+    last_out: f64,
+    drive: f64,
+}
+
+impl TapeSaturator {
+    pub fn new(drive: f64) -> Self {
+        Self { last_out: 0.0, drive }
+    }
+
+    pub fn process(&mut self, x: f64) -> f64 {
+        // Hysteresis calculation: output depends on current input and previous state
+        let saturation_limit = 0.9;
+        let delta = (x - self.last_out) * self.drive;
+        let out = (self.last_out + delta).clamp(-saturation_limit, saturation_limit);
+        
+        // Soft-clipping at the limit
+        let soft_out = if out.abs() > 0.7 {
+            let sign = out.signum();
+            let over = out.abs() - 0.7;
+            sign * (0.7 + (over / (1.0 + over * over)))
+        } else {
+            out
+        };
+        
+        self.last_out = soft_out;
+        soft_out
+    }
+}
+
 /// Asymmetric tube saturation (second-harmonic generation).
 #[inline]
 pub fn tube_asymmetric(x: f32, drive: f32) -> f32 {

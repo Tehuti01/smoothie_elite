@@ -3533,6 +3533,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "smoothie-effects"
+version = "0.1.0"
+dependencies = [
+ "atomic_float",
+ "log",
+ "parking_lot",
+ "smoothie-core",
+ "smoothie-dsp",
+ "smoothie-params",
+]
+
+[[package]]
 name = "smoothie-elite-standalone"
 version = "0.1.0"
 dependencies = [
@@ -3546,32 +3558,6 @@ dependencies = [
  "tauri-plugin-dialog",
  "tauri-plugin-fs",
  "tauri-plugin-shell",
-]
-
-[[package]]
-name = "smoothie-example-filter"
-version = "0.1.0"
-dependencies = [
- "atomic_float",
- "log",
- "parking_lot",
- "smoothie-core",
- "smoothie-dsp",
- "smoothie-midi",
- "smoothie-params",
-]
-
-[[package]]
-name = "smoothie-example-synth"
-version = "0.1.0"
-dependencies = [
- "atomic_float",
- "log",
- "parking_lot",
- "smoothie-core",
- "smoothie-dsp",
- "smoothie-midi",
- "smoothie-params",
 ]
 
 [[package]]

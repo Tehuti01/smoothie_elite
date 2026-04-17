@@ -1,0 +1,17 @@
+[package]
+name = "smoothie-effects"
+version = "0.1.0"
+edition = "2021"
+authors.workspace = true
+license.workspace = true
+description = "Professional audio effects suite for Smoothie Elite"
+
+[dependencies]
+smoothie-core   = { workspace = true }
+smoothie-dsp    = { workspace = true }
+smoothie-params = { workspace = true }
+log             = { workspace = true }
+parking_lot     = { workspace = true }
+atomic_float    = { workspace = true }
+
+[lib]
