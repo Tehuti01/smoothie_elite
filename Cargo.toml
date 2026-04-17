@@ -42,7 +42,7 @@ smoothie-graphics = { path = "crates/smoothie-graphics" }
 smoothie-presets  = { path = "crates/smoothie-presets" }
 
 # ── Plugin format ABIs (exact sources used in the wild) ──
-vst3-sys  = { git = "https://github.com/RustAudio/vst3-sys.git", branch = "fix/drop-box-from-raw" }
+vst3-sys  = { git = "https://github.com/RustAudio/vst3-sys.git" }
 clap-sys  = { git = "https://github.com/micahrj/clap-sys.git", rev = "25d7f53" }
 
 # ── Audio I/O ──

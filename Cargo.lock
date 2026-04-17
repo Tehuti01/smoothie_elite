@@ -402,6 +402,11 @@ dependencies = [
 ]
 
 [[package]]
+name = "clap-sys"
+version = "0.5.0"
+source = "git+https://github.com/micahrj/clap-sys.git?rev=25d7f53#25d7f53fdb6363ad63fbd80049cb7a42a97ac156"
+
+[[package]]
 name = "clap_builder"
 version = "4.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3490,8 +3495,12 @@ dependencies = [
 name = "smoothie-clap"
 version = "0.1.0"
 dependencies = [
+ "atomic_float",
+ "clap-sys",
  "log",
+ "parking_lot",
  "serde",
+ "smoothie-core",
 ]
 
 [[package]]
@@ -3506,12 +3515,8 @@ dependencies = [
  "parking_lot",
  "serde",
  "serde_json",
- "smoothie-aax",
- "smoothie-au",
- "smoothie-clap",
  "smoothie-midi",
  "smoothie-params",
- "smoothie-vst3",
  "thiserror 1.0.69",
  "uuid",
 ]
@@ -3616,8 +3621,13 @@ dependencies = [
 name = "smoothie-vst3"
 version = "0.1.0"
 dependencies = [
+ "atomic_float",
  "log",
+ "parking_lot",
  "serde",
+ "smoothie-core",
+ "smoothie-params",
+ "vst3-sys",
 ]
 
 [[package]]
@@ -4633,6 +4643,43 @@ name = "version_check"
 version = "0.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
+
+[[package]]
+name = "vst3-com"
+version = "0.1.0"
+source = "git+https://github.com/RustAudio/vst3-sys.git#f3e8f01c3de6d5df2f503c920c9f2bf8166a771b"
+dependencies = [
+ "vst3-com-macros",
+]
+
+[[package]]
+name = "vst3-com-macros"
+version = "0.2.0"
+source = "git+https://github.com/RustAudio/vst3-sys.git#f3e8f01c3de6d5df2f503c920c9f2bf8166a771b"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
+ "vst3-com-macros-support",
+]
+
+[[package]]
+name = "vst3-com-macros-support"
+version = "0.2.0"
+source = "git+https://github.com/RustAudio/vst3-sys.git#f3e8f01c3de6d5df2f503c920c9f2bf8166a771b"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
+]
+
+[[package]]
+name = "vst3-sys"
+version = "0.1.0"
+source = "git+https://github.com/RustAudio/vst3-sys.git#f3e8f01c3de6d5df2f503c920c9f2bf8166a771b"
+dependencies = [
+ "vst3-com",
+]
 
 [[package]]
 name = "vswhom"

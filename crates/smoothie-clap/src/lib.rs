@@ -4,6 +4,7 @@
 
 use smoothie_core::prelude::*;
 use clap_sys::plugin::*;
+use clap_sys::host::clap_host;
 use clap_sys::id::*;
 use parking_lot::RwLock;
 use std::sync::Arc;

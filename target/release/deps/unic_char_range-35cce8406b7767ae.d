@@ -1,0 +1,17 @@
+/Users/tehuti01/SeFi-Sam/smoothie_elite/target/release/deps/unic_char_range-35cce8406b7767ae.d: /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/lib.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/pkg_info.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/iter.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/range.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/macros.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/step.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/iter_fused.rs
+
+/Users/tehuti01/SeFi-Sam/smoothie_elite/target/release/deps/libunic_char_range-35cce8406b7767ae.rlib: /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/lib.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/pkg_info.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/iter.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/range.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/macros.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/step.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/iter_fused.rs
+
+/Users/tehuti01/SeFi-Sam/smoothie_elite/target/release/deps/libunic_char_range-35cce8406b7767ae.rmeta: /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/lib.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/pkg_info.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/iter.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/range.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/macros.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/step.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/iter_fused.rs
+
+/Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/lib.rs:
+/Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/pkg_info.rs:
+/Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/iter.rs:
+/Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/range.rs:
+/Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/macros.rs:
+/Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/step.rs:
+/Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/unic-char-range-0.9.0/src/iter_fused.rs:
+
+# env-dep:CARGO_PKG_DESCRIPTION=UNIC — Unicode Character Tools — Character Range and Iteration
+# env-dep:CARGO_PKG_NAME=unic-char-range
+# env-dep:CARGO_PKG_VERSION=0.9.0

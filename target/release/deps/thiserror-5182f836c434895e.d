@@ -1,0 +1,14 @@
+/Users/tehuti01/SeFi-Sam/smoothie_elite/target/release/deps/thiserror-5182f836c434895e.d: /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/lib.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/aserror.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/display.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/var.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/private.rs /Users/tehuti01/SeFi-Sam/smoothie_elite/target/release/build/thiserror-a19a75fc6fa5ceb2/out/private.rs
+
+/Users/tehuti01/SeFi-Sam/smoothie_elite/target/release/deps/libthiserror-5182f836c434895e.rlib: /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/lib.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/aserror.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/display.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/var.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/private.rs /Users/tehuti01/SeFi-Sam/smoothie_elite/target/release/build/thiserror-a19a75fc6fa5ceb2/out/private.rs
+
+/Users/tehuti01/SeFi-Sam/smoothie_elite/target/release/deps/libthiserror-5182f836c434895e.rmeta: /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/lib.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/aserror.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/display.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/var.rs /Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/private.rs /Users/tehuti01/SeFi-Sam/smoothie_elite/target/release/build/thiserror-a19a75fc6fa5ceb2/out/private.rs
+
+/Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/lib.rs:
+/Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/aserror.rs:
+/Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/display.rs:
+/Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/var.rs:
+/Users/tehuti01/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/private.rs:
+/Users/tehuti01/SeFi-Sam/smoothie_elite/target/release/build/thiserror-a19a75fc6fa5ceb2/out/private.rs:
+
+# env-dep:OUT_DIR=/Users/tehuti01/SeFi-Sam/smoothie_elite/target/release/build/thiserror-a19a75fc6fa5ceb2/out

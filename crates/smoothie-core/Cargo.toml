@@ -7,20 +7,12 @@ license.workspace = true
 description = "Core plugin trait, audio buffer, MIDI, and process context for Smoothie Elite"
 
 [features]
-default     = ["vst3", "clap"]
-vst3        = ["dep:smoothie-vst3"]
-clap        = ["dep:smoothie-clap"]
-au          = ["dep:smoothie-au"]
-aax         = ["dep:smoothie-aax"]
+default     = []
 standalone  = []
 
 [dependencies]
 smoothie-params   = { workspace = true }
 smoothie-midi     = { workspace = true }
-smoothie-vst3     = { workspace = true, optional = true }
-smoothie-clap     = { workspace = true, optional = true }
-smoothie-au       = { workspace = true, optional = true }
-smoothie-aax      = { workspace = true, optional = true }
 
 serde             = { workspace = true }
 serde_json        = { workspace = true }

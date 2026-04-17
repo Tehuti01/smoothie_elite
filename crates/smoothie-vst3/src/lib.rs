@@ -3,6 +3,7 @@
 //! Professional VST3 wrapper for **Smoothie Elite**.
 
 use smoothie_core::prelude::*;
+use smoothie_params::Param;
 use vst3_sys::vst::*;
 use parking_lot::RwLock;
 use std::sync::Arc;
