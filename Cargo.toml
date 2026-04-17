@@ -15,7 +15,7 @@ members = [
     "crates/smoothie-midi",
     "crates/smoothie-cli",
     "standalone/src-tauri",
-    "xtask",
+    "xtask", "crates/smoothie-ironstack",
 ]
 
 [workspace.package]
