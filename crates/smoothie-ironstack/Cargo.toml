@@ -1,0 +1,28 @@
+[package]
+name = "smoothie-ironstack"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "IRONSTACK-100 High-End Guitar DSP Engine integrated into Smoothie Elite"
+
+[dependencies]
+smoothie-core = { workspace = true }
+smoothie-dsp  = { workspace = true }
+smoothie-params = { workspace = true }
+
+# External dependencies (inherited from workspace or specific)
+rustfft    = { workspace = true }
+serde      = { workspace = true }
+serde_json = { workspace = true }
+log        = { workspace = true }
+anyhow     = { workspace = true }
+thiserror  = { workspace = true }
+parking_lot = { workspace = true }
+hound      = "3.5"
+
+[lib]
+name = "smoothie_ironstack"
+path = "src/lib.rs"
