@@ -4,7 +4,7 @@
 > VST3 · CLAP · AU · AAX · Standalone — all from one codebase.
 
 <p align="center">
-  <img src="assets/smoothie-elite-banner.png" alt="Smoothie Elite" width="800"/>
+  <img src="assets/valeon-logo.jpg" alt="IronStack Seraphic Star" width="400"/>
 </p>
 
 <p align="center">
@@ -69,6 +69,7 @@ It is built from the ground up in Rust for:
 - **Oversampling** — 2× and 4× with polyphase halfband anti-aliasing
 - **Distortion** — Softclip, Hardclip, Tanh shaper, Foldback, Asymmetric tube, Wavefolder, Chebyshev harmonics
 - **Dynamics** — Compressor (RMS/peak, soft knee), Limiter (brick-wall, lookahead), Expander, Noise gate
+- **IronStack Elite** — High-end guitar DSP (Tube saturation, multi-stage gain, analog-modeled filters)
 - **Analysis** — FFT spectrum analyzer, LUFS meter (ITU-R BS.1770-4), True peak, RMS/VU, Pitch detector, Transient detector, BPM detector
 
 ### Effects (smoothie-fx)
@@ -95,8 +96,8 @@ It is built from the ground up in Rust for:
 | Aural Exciter | Enhancement | Chebyshev polynomial 2nd/3rd harmonics |
 | Tape Saturation | Saturation | HF roll-off, bias distortion, noise |
 | Wow & Flutter | Modulation | Tape pitch instability simulation |
-| Cabinet Sim | Tone | FIR convolution with built-in 1x12 / 4x12 IRs |
-| Tube Overdrive | Distortion | Asymmetric tube character |
+| Cabinet Sim | Tone | High-end FIR convolution with IronStack resonance modeling |
+| Tube Overdrive | Distortion | Asymmetric tube character via IronStack saturation stage |
 | Fuzz | Distortion | Hard clip + bias, DC blocked |
 | Diode Clipper | Distortion | Germanium-style sigmoid |
 | Wavefolder | Distortion | Multi-stage sine wavefolder |
@@ -148,6 +149,7 @@ smoothie-elite/
 │   ├── smoothie-licensing   # Hardware fingerprint, HMAC key validation, trial
 │   ├── smoothie-network     # Update checker, preset sync, crash reporter
 │   ├── smoothie-validator   # Plugin health checker with detailed reports
+│   ├── smoothie-ironstack   # High-end IronStack guitar DSP engine
 │   ├── smoothie-vst3        # VST3 format wrapper
 │   ├── smoothie-clap        # CLAP format wrapper
 │   ├── smoothie-au          # Audio Units wrapper (macOS)
