@@ -14,6 +14,7 @@ members = [
     "crates/smoothie-presets",
     "crates/smoothie-midi",
     "crates/smoothie-cli",
+    "crates/smoothie-effects",
     "standalone/src-tauri",
     "xtask", "crates/smoothie-ironstack",
 ]
@@ -33,6 +34,7 @@ smoothie-core     = { path = "crates/smoothie-core" }
 smoothie-dsp      = { path = "crates/smoothie-dsp" }
 smoothie-params   = { path = "crates/smoothie-params" }
 smoothie-midi     = { path = "crates/smoothie-midi" }
+smoothie-effects  = { path = "crates/smoothie-effects" }
 smoothie-vst3     = { path = "crates/smoothie-vst3" }
 smoothie-clap     = { path = "crates/smoothie-clap" }
 smoothie-au       = { path = "crates/smoothie-au" }
