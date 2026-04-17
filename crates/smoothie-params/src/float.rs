@@ -1,20 +1,23 @@
 //! Float parameter — the workhorse of audio plugins.
 
-use std::sync::atomic::{AtomicU32, Ordering};
+use std::sync::atomic::Ordering;
+use atomic_float::AtomicF32;
 use crate::{ParamId, Param, FloatRange, Smoother, SmoothingStyle};
 
-fn f32_to_bits(v: f32) -> u32 { v.to_bits() }
-fn bits_to_f32(v: u32) -> f32 { f32::from_bits(v) }
-
 /// A real-time-safe, host-automatable float parameter.
+/// 
+/// This is the 'Elite' version: zero locks, atomic-backed, and 
+/// designed for high-performance DSP threads.
 pub struct FloatParam {
     id:       ParamId,
     name:     &'static str,
     default:  f32,
     unit:     &'static str,
     range:    FloatRange,
-    value:    AtomicU32,
-    smoother: Option<std::sync::Mutex<Smoother>>,
+    /// The target value (usually set by the host or UI).
+    value:    AtomicF32,
+    /// How the value should be smoothed in the audio thread.
+    style:    SmoothingStyle,
 }
 
 impl FloatParam {
@@ -25,8 +28,8 @@ impl FloatParam {
             default,
             unit: "",
             range: FloatRange::default(),
-            value: AtomicU32::new(f32_to_bits(default)),
-            smoother: None,
+            value: AtomicF32::new(default),
+            style: SmoothingStyle::None,
         }
     }
 
@@ -42,38 +45,32 @@ impl FloatParam {
         self
     }
 
-    /// Attach a smoother for the audio thread.
-    pub fn smoother(mut self, style: SmoothingStyle) -> Self {
-        self.smoother = Some(std::sync::Mutex::new(
-            Smoother::new(self.default, 44100.0, style)
-        ));
+    /// Set the smoothing style.
+    pub fn smoothing(mut self, style: SmoothingStyle) -> Self {
+        self.style = style;
         self
     }
 
-    /// Get current value (instant, no smoothing).
+    /// Get current target value (instant, no smoothing).
     #[inline]
     pub fn value(&self) -> f32 {
-        bits_to_f32(self.value.load(Ordering::Relaxed))
+        self.value.load(Ordering::Relaxed)
     }
 
     /// Set value. Thread-safe, lock-free.
     #[inline]
     pub fn set(&self, v: f32) {
         let clamped = self.range.denormalize(self.range.normalize(v));
-        self.value.store(f32_to_bits(clamped), Ordering::Relaxed);
+        self.value.store(clamped, Ordering::Release);
     }
 
-    /// Get next smoothed value. Call once per sample on audio thread.
-    pub fn smoothed(&self) -> f32 {
-        if let Some(smoother) = &self.smoother {
-            if let Ok(mut s) = smoother.try_lock() {
-                s.set_target(self.value());
-                return s.next();
-            }
-        }
-        self.value()
+    /// Create a new smoother that tracks this parameter.
+    /// This smoother lives on the audio thread.
+    pub fn create_smoother(&self, sample_rate: f32) -> Smoother {
+        Smoother::new(self.value(), sample_rate, self.style)
     }
 
+    pub fn style(&self) -> SmoothingStyle { self.style }
     pub fn range_ref(&self) -> &FloatRange { &self.range }
 }
 

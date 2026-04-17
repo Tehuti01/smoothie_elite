@@ -32,14 +32,14 @@ pub mod smoothing;
 pub mod range;
 
 pub use float::FloatParam;
-pub use int::IntParam;
+pub use int::{IntParam, EnumParam};
 pub use bool_param::BoolParam;
 pub use smoothing::{Smoother, SmoothingStyle};
 pub use range::{FloatRange, IntRange};
 
 /// Everything needed to use the params system.
 pub mod prelude {
-    pub use crate::{FloatParam, IntParam, BoolParam, Smoother, SmoothingStyle, FloatRange, IntRange};
+    pub use crate::{FloatParam, IntParam, EnumParam, BoolParam, Smoother, SmoothingStyle, FloatRange, IntRange};
 }
 
 /// Unique parameter ID for host automation.
@@ -57,4 +57,19 @@ pub trait Param: Send + Sync {
     fn set_normalized(&self, v: f32);
     /// Human-readable value string.
     fn display(&self) -> String;
+}
+
+/// A registry of parameters for a plugin.
+pub struct ParamRegistry {
+    pub params: Vec<std::sync::Arc<dyn Param>>,
+}
+
+impl ParamRegistry {
+    pub fn new() -> Self {
+        Self { params: Vec::new() }
+    }
+
+    pub fn add(&mut self, param: std::sync::Arc<dyn Param>) {
+        self.params.push(param);
+    }
 }
