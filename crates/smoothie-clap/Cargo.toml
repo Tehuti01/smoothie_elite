@@ -7,5 +7,9 @@ license.workspace = true
 description = "smoothie-clap — Smoothie Elite audio plugin framework"
 
 [dependencies]
-log     = { workspace = true }
-serde   = { workspace = true }
+log           = { workspace = true }
+serde         = { workspace = true }
+smoothie-core = { workspace = true }
+clap-sys      = { workspace = true }
+parking_lot   = { workspace = true }
+atomic_float  = { workspace = true }

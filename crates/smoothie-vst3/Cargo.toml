@@ -7,5 +7,10 @@ license.workspace = true
 description = "smoothie-vst3 — Smoothie Elite audio plugin framework"
 
 [dependencies]
-log     = { workspace = true }
-serde   = { workspace = true }
+log           = { workspace = true }
+serde         = { workspace = true }
+smoothie-core = { workspace = true }
+vst3-sys      = { workspace = true }
+parking_lot   = { workspace = true }
+# Atomic float for real-time safe parameter snapshots
+atomic_float  = { workspace = true }
