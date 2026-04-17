@@ -17,6 +17,7 @@ members = [
     "standalone/src-tauri",
     "xtask", "crates/smoothie-ironstack",
 ]
+exclude = ["examples/"]
 
 [workspace.package]
 version     = "0.1.0"

@@ -3549,6 +3549,32 @@ dependencies = [
 ]
 
 [[package]]
+name = "smoothie-example-filter"
+version = "0.1.0"
+dependencies = [
+ "atomic_float",
+ "log",
+ "parking_lot",
+ "smoothie-core",
+ "smoothie-dsp",
+ "smoothie-midi",
+ "smoothie-params",
+]
+
+[[package]]
+name = "smoothie-example-synth"
+version = "0.1.0"
+dependencies = [
+ "atomic_float",
+ "log",
+ "parking_lot",
+ "smoothie-core",
+ "smoothie-dsp",
+ "smoothie-midi",
+ "smoothie-params",
+]
+
+[[package]]
 name = "smoothie-graphics"
 version = "0.1.0"
 dependencies = [

@@ -17,12 +17,25 @@ pub fn tanh_shaper(x: f32) -> f32 { x.tanh() }
 
 /// Foldback distortion — the signal folds when it exceeds threshold.
 #[inline]
-pub fn foldback(x: f32, threshold: f32) -> f32 {
-    if x.abs() <= threshold { return x; }
-    let sign = x.signum();
-    let t2 = threshold * 2.0;
-    let x_wrap = ((x - sign * threshold) % t2 + t2) % t2;
-    sign * (threshold - (x_wrap - threshold).abs())
+pub fn foldback(x: f64, threshold: f64) -> f64 {
+    if x.abs() > threshold {
+        let over = x.abs() - threshold;
+        if x > 0.0 { threshold - over } else { -threshold + over }
+    } else {
+        x
+    }
+}
+
+/// A physical model of a Triode Vacuum Tube characteristic.
+/// Provides asymmetrical soft-clipping and rich 2nd-order harmonics.
+pub fn triode_model(x: f64, gain: f64, bias: f64) -> f64 {
+    let drive = x * gain + bias;
+    if drive > 0.0 {
+        // Power-law distortion (Child's law approximation)
+        drive.powf(1.5).min(1.0) * 2.0 - 1.0
+    } else {
+        -1.0
+    }
 }
 
 /// Asymmetric tube saturation (second-harmonic generation).
