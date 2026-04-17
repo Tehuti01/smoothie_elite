@@ -1,0 +1,13 @@
+[package]
+name = "smoothie-spatial"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Object-based 3D spatialization and bio-feedback modulation for Smoothie Elite"
+
+[dependencies]
+smoothie-core = { workspace = true}
+smoothie-math = { workspace = true }
+serde = { workspace = true }
+log = { workspace = true }

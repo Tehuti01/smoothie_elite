@@ -17,13 +17,14 @@ pub mod chorus;
 pub mod distortion;
 pub mod envelope;
 pub mod lfo;
+pub mod filters;
 
 pub use reverb::ReverbProcessor;
 pub use delay::DelayProcessor;
 pub use compressor::CompressorProcessor;
 pub use eq::EqProcessor;
 pub use chorus::ChorusProcessor;
-pub use distortion::DistortionProcessor;
+pub use distortion::{DistortionProcessor, DistortionType};
 pub use envelope::{Envelope, EnvelopeStage};
 pub use lfo::{Lfo, LfoShape};
 

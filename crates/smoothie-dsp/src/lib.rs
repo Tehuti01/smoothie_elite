@@ -11,6 +11,10 @@ pub mod envelope;
 pub mod oversampling;
 pub mod distortion;
 pub mod spectral;
+pub mod modulation;
+pub mod physical;
+pub mod convolution;
+pub mod simd;
 
 pub use filters::{BiquadFilter, FilterType, OnePoleFilter};
 pub use dynamics::{Compressor, Limiter};

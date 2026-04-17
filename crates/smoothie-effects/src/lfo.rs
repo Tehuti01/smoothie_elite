@@ -14,6 +14,7 @@ pub enum LfoShape {
 /// Low-Frequency Oscillator for parameter modulation.
 ///
 /// Generates modulation signals at sub-audio frequencies (typically 0.1–20 Hz).
+#[derive(Clone)]
 pub struct Lfo {
     phase: f32,
     frequency: f32,

@@ -1,0 +1,45 @@
+//! 'Elite' Neural Modulation Node for the modular ecosystem.
+
+use crate::ModularNode;
+use smoothie_dsp::modulation::NeuralLfo;
+use smoothie_params::Param;
+use dasp_graph::{Buffer, Node};
+use std::sync::Arc;
+
+/// A modular node containing chaotic neural modulators.
+pub struct NeuralModNode {
+    lfo1: NeuralLfo,
+    lfo2: NeuralLfo,
+}
+
+impl NeuralModNode {
+    pub fn new(sample_rate: f64) -> Self {
+        Self {
+            lfo1: NeuralLfo::new(sample_rate, 16),
+            lfo2: NeuralLfo::new(sample_rate, 32),
+        }
+    }
+}
+
+impl ModularNode for NeuralModNode {
+    fn process(&mut self, _inputs: &[&Buffer], outputs: &mut [Buffer], _sample_rate: f64) {
+        if outputs.is_empty() { return; }
+        
+        let out1 = self.lfo1.next_sample();
+        let out2 = self.lfo2.next_sample();
+        
+        // This node outputs its chaotic signals for other nodes to consume
+        for sample in outputs[0].iter_mut() {
+            *sample = out1; 
+        }
+        if outputs.len() > 1 {
+            for sample in outputs[1].iter_mut() {
+                *sample = out2;
+            }
+        }
+    }
+
+    fn parameters(&self) -> Vec<Arc<dyn Param>> {
+        vec![] // To be implemented
+    }
+}

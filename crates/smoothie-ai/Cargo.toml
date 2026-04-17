@@ -1,0 +1,15 @@
+[package]
+name = "smoothie-ai"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Local AI inference and generative orchestration for Smoothie Elite"
+
+[dependencies]
+smoothie-core = { workspace = true }
+tract-onnx = "0.21"
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+anyhow = { workspace = true }

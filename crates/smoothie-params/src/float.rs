@@ -33,6 +33,20 @@ impl FloatParam {
         }
     }
 
+    /// Create a new FloatParam with a simple name-based ID and min/max range.
+    /// Convenience method for plugin development.
+    pub fn simple(name: &'static str, default: f32, min: f32, max: f32) -> Self {
+        Self {
+            id: name,  // Use name as ID
+            name,
+            default: default.clamp(min, max),
+            unit: "",
+            range: FloatRange::Linear { min, max },
+            value: AtomicF32::new(default.clamp(min, max)),
+            style: SmoothingStyle::None,
+        }
+    }
+
     /// Set the value range.
     pub fn range(mut self, range: FloatRange) -> Self {
         self.range = range;

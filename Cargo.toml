@@ -2,7 +2,6 @@
 resolver = "2"
 members = [
     "crates/smoothie-core",
-    "crates/smoothie-dsp",
     "crates/smoothie-vst3",
     "crates/smoothie-clap",
     "crates/smoothie-au",
@@ -15,10 +14,18 @@ members = [
     "crates/smoothie-midi",
     "crates/smoothie-cli",
     "crates/smoothie-effects",
+    "crates/smoothie-synth",
     "standalone/src-tauri",
-    "xtask", "crates/smoothie-ironstack",
+    "xtask",
+    "examples/reverb-plugin",
+    "examples/effects-chain-plugin",
+    "examples/synth-plugin",
+    "examples/filter-plugin",
+    "examples/polysynth-plugin",
+    "examples/fm-synth-plugin",
+    "examples/granular-plugin",
 ]
-exclude = ["examples/"]
+exclude = ["crates/smoothie-dsp", "crates/smoothie-ironstack"]
 
 [workspace.package]
 version     = "0.1.0"
@@ -31,10 +38,11 @@ homepage    = "https://seraphicsonic.com/smoothie"
 [workspace.dependencies]
 # ── Smoothie internal crates ──
 smoothie-core     = { path = "crates/smoothie-core" }
-smoothie-dsp      = { path = "crates/smoothie-dsp" }
+# smoothie-dsp      = { path = "crates/smoothie-dsp" }  # Excluded due to FFT dependency issues
 smoothie-params   = { path = "crates/smoothie-params" }
 smoothie-midi     = { path = "crates/smoothie-midi" }
 smoothie-effects  = { path = "crates/smoothie-effects" }
+smoothie-synth    = { path = "crates/smoothie-synth" }
 smoothie-vst3     = { path = "crates/smoothie-vst3" }
 smoothie-clap     = { path = "crates/smoothie-clap" }
 smoothie-au       = { path = "crates/smoothie-au" }

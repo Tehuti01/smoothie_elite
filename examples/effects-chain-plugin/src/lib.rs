@@ -6,6 +6,9 @@
 //! - Per-effect parameter control
 //! - Real-time safe signal routing
 
+#[macro_use]
+extern crate smoothie_core;
+
 use smoothie_core::prelude::*;
 use smoothie_effects::{
     EffectProcessor, DistortionProcessor, EqProcessor, DelayProcessor, ReverbProcessor,
@@ -51,13 +54,13 @@ impl Default for EffectsChainPlugin {
             eq_on: true,
             delay_on: false,
             reverb_on: false,
-            master_level: Arc::new(FloatParam::new("Master", 1.0, 0.0, 2.0)),
-            dist_drive: Arc::new(FloatParam::new("Dist Drive", 1.0, 0.0, 10.0)),
-            eq_low_gain: Arc::new(FloatParam::new("EQ Low", 0.0, -24.0, 24.0)),
-            eq_mid_gain: Arc::new(FloatParam::new("EQ Mid", 0.0, -24.0, 24.0)),
-            eq_high_gain: Arc::new(FloatParam::new("EQ High", 0.0, -24.0, 24.0)),
-            delay_time: Arc::new(FloatParam::new("Delay MS", 500.0, 1.0, 4000.0)),
-            reverb_room: Arc::new(FloatParam::new("Reverb Room", 0.5, 0.0, 1.0)),
+            master_level: Arc::new(FloatParam::simple("Master", 1.0, 0.0, 2.0)),
+            dist_drive: Arc::new(FloatParam::simple("Dist Drive", 1.0, 0.0, 10.0)),
+            eq_low_gain: Arc::new(FloatParam::simple("EQ Low", 0.0, -24.0, 24.0)),
+            eq_mid_gain: Arc::new(FloatParam::simple("EQ Mid", 0.0, -24.0, 24.0)),
+            eq_high_gain: Arc::new(FloatParam::simple("EQ High", 0.0, -24.0, 24.0)),
+            delay_time: Arc::new(FloatParam::simple("Delay MS", 500.0, 1.0, 4000.0)),
+            reverb_room: Arc::new(FloatParam::simple("Reverb Room", 0.5, 0.0, 1.0)),
         }
     }
 }
@@ -66,12 +69,13 @@ impl SmoothiePlugin for EffectsChainPlugin {
     const NAME: &'static str = "Effects Chain";
     const VENDOR: &'static str = "Smoothie Sonic";
     const VERSION: &'static str = "0.1.0";
-    const UID: PluginUid = PluginUid(*b"EFXC0001");
+    const UID: PluginUid = PluginUid::new("com.seraphicsonic.effectschain");
     const URL: &'static str = "https://seraphicsonic.com/smoothie";
     const EMAIL: &'static str = "plugins@seraphicsonic.com";
 
     fn audio_layouts() -> &'static [AudioLayout] {
-        &[AudioLayout::stereo()]
+        const LAYOUTS: &[AudioLayout] = &[AudioLayout::stereo_in_stereo_out()];
+        LAYOUTS
     }
 
     fn parameters(&self) -> Vec<Arc<dyn smoothie_params::Param>> {
@@ -99,7 +103,7 @@ impl SmoothiePlugin for EffectsChainPlugin {
         // Update effect parameters
         self.distortion.set_drive(self.dist_drive.value());
         self.eq.set_low(200.0, self.eq_low_gain.value());
-        self.eq.set_mid(1000.0, self.eq_mid_gain.value());
+        self.eq.set_mid(1000.0, self.eq_mid_gain.value(), 1.0);
         self.eq.set_high(5000.0, self.eq_high_gain.value());
         self.delay.set_delay(self.delay_time.value());
         self.reverb.set_room_size(self.reverb_room.value());
@@ -108,46 +112,42 @@ impl SmoothiePlugin for EffectsChainPlugin {
 
         // Process stereo
         let buffer = ctx.buffer_mut();
-        if buffer.channels() >= 2 {
-            let ch_l = buffer.channel_mut(0);
-            let ch_r = buffer.channel_mut(1);
+        let num_samples = buffer.samples();
 
-            for i in 0..ch_l.len() {
-                let mut sig_l = ch_l[i];
-                let mut sig_r = ch_r[i];
+        for i in 0..num_samples {
+            let mut sig_l = buffer.channel(0)[i];
+            let mut sig_r = buffer.channel(1)[i];
 
-                // Process left channel through chain
-                if self.distortion_on {
-                    sig_l = self.distortion.process(sig_l);
-                }
-                if self.eq_on {
-                    sig_l = self.eq.process(sig_l);
-                }
-                if self.delay_on {
-                    sig_l = self.delay.process(sig_l);
-                }
-                if self.reverb_on {
-                    sig_l = self.reverb.process(sig_l);
-                }
-
-                // Process right channel independently
-                let mut sig_r = ch_r[i];
-                if self.distortion_on {
-                    sig_r = self.distortion.process(sig_r);
-                }
-                if self.eq_on {
-                    sig_r = self.eq.process(sig_r);
-                }
-                if self.delay_on {
-                    sig_r = self.delay.process(sig_r);
-                }
-                if self.reverb_on {
-                    sig_r = self.reverb.process(sig_r);
-                }
-
-                ch_l[i] = sig_l * master;
-                ch_r[i] = sig_r * master;
+            // Process left channel through chain
+            if self.distortion_on {
+                sig_l = self.distortion.process(sig_l);
             }
+            if self.eq_on {
+                sig_l = self.eq.process(sig_l);
+            }
+            if self.delay_on {
+                sig_l = self.delay.process(sig_l);
+            }
+            if self.reverb_on {
+                sig_l = self.reverb.process(sig_l);
+            }
+
+            // Process right channel independently
+            if self.distortion_on {
+                sig_r = self.distortion.process(sig_r);
+            }
+            if self.eq_on {
+                sig_r = self.eq.process(sig_r);
+            }
+            if self.delay_on {
+                sig_r = self.delay.process(sig_r);
+            }
+            if self.reverb_on {
+                sig_r = self.reverb.process(sig_r);
+            }
+
+            buffer.channel_mut(0)[i] = sig_l * master;
+            buffer.channel_mut(1)[i] = sig_r * master;
         }
 
         ProcessStatus::Normal

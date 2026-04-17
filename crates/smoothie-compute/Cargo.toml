@@ -1,0 +1,15 @@
+[package]
+name = "smoothie-compute"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "GPU-accelerated audio compute engine for Smoothie Elite"
+
+[dependencies]
+smoothie-core = { workspace = true }
+wgpu = "0.19"
+bytemuck = { version = "1.14", features = ["derive"] }
+pollster = "0.3"
+log = { workspace = true }
+parking_lot = { workspace = true }

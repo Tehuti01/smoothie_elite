@@ -1,7 +1,7 @@
 //! 3-band parametric equalizer.
 
 use crate::EffectProcessor;
-use smoothie_dsp::filters::{BiquadFilter, FilterType};
+use crate::filters::{BiquadFilter, FilterType};
 
 /// 3-band parametric EQ processor.
 ///

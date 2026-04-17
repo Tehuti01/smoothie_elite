@@ -8,6 +8,9 @@
 //! - Wet/dry balance
 //! - Real-time safe processing
 
+#[macro_use]
+extern crate smoothie_core;
+
 use smoothie_core::prelude::*;
 use smoothie_effects::{ReverbProcessor, EffectProcessor};
 use smoothie_params::FloatParam;
@@ -31,11 +34,11 @@ impl Default for ReverbPlugin {
         Self {
             reverb_l: ReverbProcessor::default(),
             reverb_r: ReverbProcessor::default(),
-            room_size: Arc::new(FloatParam::new("Room Size", 0.5, 0.0, 1.0)),
-            damping: Arc::new(FloatParam::new("Damping", 0.5, 0.0, 1.0)),
-            width: Arc::new(FloatParam::new("Width", 1.0, 0.0, 1.0)),
-            wet_level: Arc::new(FloatParam::new("Wet", 0.3, 0.0, 1.0)),
-            dry_level: Arc::new(FloatParam::new("Dry", 0.7, 0.0, 1.0)),
+            room_size: Arc::new(FloatParam::simple("Room Size", 0.5, 0.0, 1.0)),
+            damping: Arc::new(FloatParam::simple("Damping", 0.5, 0.0, 1.0)),
+            width: Arc::new(FloatParam::simple("Width", 1.0, 0.0, 1.0)),
+            wet_level: Arc::new(FloatParam::simple("Wet", 0.3, 0.0, 1.0)),
+            dry_level: Arc::new(FloatParam::simple("Dry", 0.7, 0.0, 1.0)),
         }
     }
 }
@@ -44,12 +47,13 @@ impl SmoothiePlugin for ReverbPlugin {
     const NAME: &'static str = "Reverb";
     const VENDOR: &'static str = "Smoothie Sonic";
     const VERSION: &'static str = "0.1.0";
-    const UID: PluginUid = PluginUid(*b"REVB0001");
+    const UID: PluginUid = PluginUid::new("com.seraphicsonic.reverb");
     const URL: &'static str = "https://seraphicsonic.com/smoothie";
     const EMAIL: &'static str = "plugins@seraphicsonic.com";
 
     fn audio_layouts() -> &'static [AudioLayout] {
-        &[AudioLayout::stereo()]
+        const LAYOUTS: &[AudioLayout] = &[AudioLayout::stereo_in_stereo_out()];
+        LAYOUTS
     }
 
     fn parameters(&self) -> Vec<Arc<dyn smoothie_params::Param>> {
@@ -87,20 +91,17 @@ impl SmoothiePlugin for ReverbPlugin {
 
         // Process stereo
         let buffer = ctx.buffer_mut();
-        if buffer.channels() >= 2 {
-            let ch_l = buffer.channel_mut(0);
-            let ch_r = buffer.channel_mut(1);
+        let num_samples = buffer.samples();
 
-            for i in 0..ch_l.len() {
-                let in_l = ch_l[i];
-                let in_r = ch_r[i];
+        for i in 0..num_samples {
+            let in_l = buffer.channel(0)[i];
+            let in_r = buffer.channel(1)[i];
 
-                let out_l = self.reverb_l.process(in_l);
-                let out_r = self.reverb_r.process(in_r);
+            let out_l = self.reverb_l.process(in_l);
+            let out_r = self.reverb_r.process(in_r);
 
-                ch_l[i] = in_l * dry + out_l * wet;
-                ch_r[i] = in_r * dry + out_r * wet;
-            }
+            buffer.channel_mut(0)[i] = in_l * dry + out_l * wet;
+            buffer.channel_mut(1)[i] = in_r * dry + out_r * wet;
         }
 
         ProcessStatus::Normal

@@ -1,0 +1,13 @@
+[package]
+name = "smoothie-evolution"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Self-optimizing audio ecosystem using Genetic Algorithms for Smoothie Elite"
+
+[dependencies]
+smoothie-core    = { workspace = true }
+smoothie-params  = { workspace = true }
+rand = "0.8"
+log = { workspace = true }

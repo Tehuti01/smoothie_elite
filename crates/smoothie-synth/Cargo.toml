@@ -1,11 +1,15 @@
 [package]
-name    = "smoothie-synth"
-version.workspace = true
-edition.workspace = true
+name = "smoothie-synth"
+version = "0.1.0"
+edition = "2021"
 authors.workspace = true
 license.workspace = true
+description = "Advanced synthesis engines for Smoothie Elite"
 
 [dependencies]
-smoothie-math   = { workspace = true }
+smoothie-core   = { workspace = true }
 smoothie-params = { workspace = true }
+smoothie-effects = { workspace = true }
+log             = { workspace = true }
+parking_lot     = { workspace = true }
 atomic_float    = { workspace = true }

@@ -12,6 +12,7 @@ pub enum EnvelopeStage {
 /// Attack-Decay-Sustain-Release envelope generator.
 ///
 /// Classic ADSR envelope with exponential curves.
+#[derive(Clone)]
 pub struct Envelope {
     stage: EnvelopeStage,
     value: f32,

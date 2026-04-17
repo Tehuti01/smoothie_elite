@@ -1456,12 +1456,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 
 [[package]]
-name = "hound"
-version = "3.5.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "62adaabb884c94955b19907d60019f4e145d091c75345379e70d1ee696f7854f"
-
-[[package]]
 name = "html5ever"
 version = "0.29.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3540,7 +3534,6 @@ dependencies = [
  "log",
  "parking_lot",
  "smoothie-core",
- "smoothie-dsp",
  "smoothie-params",
 ]
 
@@ -3561,28 +3554,100 @@ dependencies = [
 ]
 
 [[package]]
+name = "smoothie-example-effects-chain"
+version = "0.1.0"
+dependencies = [
+ "atomic_float",
+ "log",
+ "parking_lot",
+ "smoothie-core",
+ "smoothie-effects",
+ "smoothie-params",
+]
+
+[[package]]
+name = "smoothie-example-filter"
+version = "0.1.0"
+dependencies = [
+ "atomic_float",
+ "log",
+ "parking_lot",
+ "smoothie-core",
+ "smoothie-dsp",
+ "smoothie-midi",
+ "smoothie-params",
+]
+
+[[package]]
+name = "smoothie-example-fm-synth"
+version = "0.1.0"
+dependencies = [
+ "atomic_float",
+ "log",
+ "parking_lot",
+ "smoothie-core",
+ "smoothie-effects",
+ "smoothie-params",
+ "smoothie-synth",
+]
+
+[[package]]
+name = "smoothie-example-granular"
+version = "0.1.0"
+dependencies = [
+ "atomic_float",
+ "log",
+ "parking_lot",
+ "smoothie-core",
+ "smoothie-effects",
+ "smoothie-params",
+ "smoothie-synth",
+]
+
+[[package]]
+name = "smoothie-example-polysynth"
+version = "0.1.0"
+dependencies = [
+ "atomic_float",
+ "log",
+ "parking_lot",
+ "smoothie-core",
+ "smoothie-effects",
+ "smoothie-params",
+ "smoothie-synth",
+]
+
+[[package]]
+name = "smoothie-example-reverb"
+version = "0.1.0"
+dependencies = [
+ "atomic_float",
+ "log",
+ "parking_lot",
+ "smoothie-core",
+ "smoothie-effects",
+ "smoothie-params",
+]
+
+[[package]]
+name = "smoothie-example-synth"
+version = "0.1.0"
+dependencies = [
+ "atomic_float",
+ "log",
+ "parking_lot",
+ "smoothie-core",
+ "smoothie-dsp",
+ "smoothie-midi",
+ "smoothie-params",
+]
+
+[[package]]
 name = "smoothie-graphics"
 version = "0.1.0"
 dependencies = [
  "log",
  "serde",
-]
-
-[[package]]
-name = "smoothie-ironstack"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "hound",
- "log",
- "parking_lot",
- "rustfft",
- "serde",
- "serde_json",
- "smoothie-core",
- "smoothie-dsp",
- "smoothie-params",
- "thiserror 1.0.69",
 ]
 
 [[package]]
@@ -3608,6 +3673,18 @@ version = "0.1.0"
 dependencies = [
  "log",
  "serde",
+]
+
+[[package]]
+name = "smoothie-synth"
+version = "0.1.0"
+dependencies = [
+ "atomic_float",
+ "log",
+ "parking_lot",
+ "smoothie-core",
+ "smoothie-effects",
+ "smoothie-params",
 ]
 
 [[package]]

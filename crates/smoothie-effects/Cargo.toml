@@ -8,7 +8,6 @@ description = "Professional audio effects suite for Smoothie Elite"
 
 [dependencies]
 smoothie-core   = { workspace = true }
-smoothie-dsp    = { workspace = true }
 smoothie-params = { workspace = true }
 log             = { workspace = true }
 parking_lot     = { workspace = true }
