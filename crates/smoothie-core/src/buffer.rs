@@ -44,9 +44,24 @@ impl<'a> AudioBuffer<'a> {
     /// Apply a scalar gain to all channels.
     #[inline]
     pub fn apply_gain(&mut self, gain: f32) {
+        if gain == 1.0 { return; }
+        if gain == 0.0 { return self.silence(); }
+        
         for ch in self.channels.iter_mut() {
             for s in ch.iter_mut() {
                 *s *= gain;
+            }
+        }
+    }
+
+    /// Apply a block of gains (one per sample) to all channels.
+    /// Useful for smoothed parameter automation.
+    #[inline]
+    pub fn apply_block_gain(&mut self, gains: &[f32]) {
+        let n = self.samples().min(gains.len());
+        for ch in self.channels.iter_mut() {
+            for i in 0..n {
+                ch[i] *= gains[i];
             }
         }
     }
@@ -55,9 +70,7 @@ impl<'a> AudioBuffer<'a> {
     #[inline]
     pub fn silence(&mut self) {
         for ch in self.channels.iter_mut() {
-            for s in ch.iter_mut() {
-                *s = 0.0;
-            }
+            ch.fill(0.0);
         }
     }
 
@@ -68,33 +81,32 @@ impl<'a> AudioBuffer<'a> {
         let n = self.samples().min(dst.samples());
         for d in 0..dst_ch {
             let s = d.min(src_ch - 1);
-            for i in 0..n {
-                dst.channels[d][i] = self.channels[s][i];
-            }
+            dst.channels[d][..n].copy_from_slice(&self.channels[s][..n]);
         }
     }
 }
 
 /// A single multi-channel frame (mutable reference to one sample per channel).
+/// This 'Elite' version uses a zero-cost wrapper around the underlying buffer.
 pub struct FrameMut<'a> {
-    ptrs: Vec<*mut f32>,
-    _phantom: std::marker::PhantomData<&'a mut f32>,
+    buffer: &'a mut AudioBuffer<'a>,
+    index: usize,
 }
 
 impl<'a> FrameMut<'a> {
     /// Get the sample for a specific channel.
     #[inline]
     pub fn get(&self, ch: usize) -> f32 {
-        unsafe { *self.ptrs[ch] }
+        self.buffer.channel(ch)[self.index]
     }
 
     /// Set the sample for a specific channel.
     #[inline]
     pub fn set(&mut self, ch: usize, value: f32) {
-        unsafe { *self.ptrs[ch] = value; }
+        self.buffer.channel_mut(ch)[self.index] = value;
     }
 
     /// Number of channels in this frame.
     #[inline]
-    pub fn channels(&self) -> usize { self.ptrs.len() }
+    pub fn channels(&self) -> usize { self.buffer.channels() }
 }

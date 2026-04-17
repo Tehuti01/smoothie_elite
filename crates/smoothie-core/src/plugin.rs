@@ -28,11 +28,17 @@ pub trait SmoothiePlugin: Default + Send + 'static {
     /// Support email.
     const EMAIL: &'static str = "";
 
-    // ── Audio I/O ─────────────────────────────────────────────────────────────
-
     /// Declare all supported audio I/O configurations.
     /// The first layout is the default.
     fn audio_layouts() -> &'static [AudioLayout];
+
+    // ── Parameters ────────────────────────────────────────────────────────────
+
+    /// Return all automatable parameters for this plugin.
+    /// The host uses this to build the automation list.
+    fn parameters(&self) -> Vec<Arc<dyn smoothie_params::Param>> {
+        vec![]
+    }
 
     // ── Plugin formats this plugin supports ───────────────────────────────────
 
