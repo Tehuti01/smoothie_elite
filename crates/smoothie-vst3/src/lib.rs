@@ -4,10 +4,8 @@
 
 use smoothie_core::prelude::*;
 use smoothie_params::Param;
-use vst3_sys::vst::*;
 use parking_lot::RwLock;
 use std::sync::Arc;
-use std::ffi::c_void;
 
 /// The VST3 Component (Audio Processor).
 pub struct SmtComponent<P: SmoothiePlugin> {

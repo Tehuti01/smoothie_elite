@@ -60,15 +60,18 @@ pub trait Param: Send + Sync {
 }
 
 /// A registry of parameters for a plugin.
+#[derive(Default)]
 pub struct ParamRegistry {
     pub params: Vec<std::sync::Arc<dyn Param>>,
 }
 
 impl ParamRegistry {
+    /// Create a new empty parameter registry.
     pub fn new() -> Self {
-        Self { params: Vec::new() }
+        Self::default()
     }
 
+    /// Add a parameter to the registry.
     pub fn add(&mut self, param: std::sync::Arc<dyn Param>) {
         self.params.push(param);
     }
