@@ -1,0 +1,16 @@
+[package]
+name = "smoothie-example-pluck"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+smoothie-core   = { path = "../../crates/smoothie-core" }
+smoothie-params = { path = "../../crates/smoothie-params" }
+smoothie-synth  = { path = "../../crates/smoothie-synth" }
+smoothie-effects = { path = "../../crates/smoothie-effects" }
+log             = "0.4"
+parking_lot     = "0.12"
+atomic_float    = "0.1"
+
+[lib]
+crate-type = ["cdylib"]

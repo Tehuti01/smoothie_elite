@@ -26,6 +26,10 @@ members = [
     "examples/granular-plugin",
     "examples/additive-synth",
     "examples/subtractive-synth",
+    "examples/pad-synth",
+    "examples/pluck-synth",
+    "examples/morphing-synth",
+    "examples/noise-synth",
 ]
 exclude = ["crates/smoothie-dsp", "crates/smoothie-ironstack"]
 
