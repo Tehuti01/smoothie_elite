@@ -9,13 +9,13 @@ pub enum SmoothingStyle {
     Linear(f32),
     /// Logarithmic (exponential) smoothing — better for gain.
     Logarithmic(f32),
+    /// Golden ratio smoothing (PHI-aligned time constant).
+    Golden,
     /// Spring-damper — overshoot, then settle.
     Spring { stiffness: f32, damping: f32 },
 }
 
 /// A per-sample/block smoother for a single f32 value.
-///
-/// Runs on the audio thread with zero allocation.
 pub struct Smoother {
     current:    f32,
     target:     f32,
@@ -38,7 +38,6 @@ impl Smoother {
         }
     }
 
-    /// Update the sample rate and recalculate coefficients.
     pub fn set_sample_rate(&mut self, sample_rate: f32) {
         if (self.sample_rate - sample_rate).abs() > 1e-3 {
             self.sample_rate = sample_rate;
@@ -47,6 +46,7 @@ impl Smoother {
     }
 
     fn compute_coeff(style: &SmoothingStyle, sample_rate: f32) -> f32 {
+        const PHI: f32 = 1.61803398875;
         match style {
             SmoothingStyle::None => 1.0,
             SmoothingStyle::Linear(ms) => {
@@ -55,52 +55,37 @@ impl Smoother {
             }
             SmoothingStyle::Logarithmic(ms) => {
                 let samples = (ms / 1000.0) * sample_rate;
-                if samples > 0.0 {
-                    // One-pole smoothing: y = y + (x - y) * (1 - exp(-1/tau))
-                    // Simplified: y = target + coeff * (current - target)
-                    (-1.0_f32 / samples).exp()
-                } else {
-                    0.0
-                }
+                if samples > 0.0 { (-1.0_f32 / samples).exp() } else { 0.0 }
+            }
+            SmoothingStyle::Golden => {
+                let samples = (PHI / 1000.0) * sample_rate;
+                (-1.0_f32 / samples).exp()
             }
             SmoothingStyle::Spring { .. } => 0.0,
         }
     }
 
-    /// Set new target value.
     #[inline]
-    pub fn set_target(&mut self, target: f32) {
-        self.target = target;
-    }
+    pub fn set_target(&mut self, target: f32) { self.target = target; }
 
-    /// Advance one sample.
     #[inline]
     pub fn next(&mut self) -> f32 {
         match self.style {
-            SmoothingStyle::None => {
-                self.current = self.target;
-            }
+            SmoothingStyle::None => { self.current = self.target; }
             SmoothingStyle::Linear(_) => {
                 let diff = self.target - self.current;
-                if diff.abs() < 1e-9 {
-                    self.current = self.target;
-                } else {
-                    self.current += diff.signum() * self.coeff.min(diff.abs());
-                }
+                if diff.abs() < 1e-9 { self.current = self.target; }
+                else { self.current += diff.signum() * self.coeff.min(diff.abs()); }
             }
-            SmoothingStyle::Logarithmic(_) => {
-                // One-pole lowpass filter
+            SmoothingStyle::Logarithmic(_) | SmoothingStyle::Golden => {
                 self.current = self.target + self.coeff * (self.current - self.target);
-                if (self.current - self.target).abs() < 1e-9 {
-                    self.current = self.target;
-                }
+                if (self.current - self.target).abs() < 1e-9 { self.current = self.target; }
             }
             SmoothingStyle::Spring { stiffness, damping } => {
                 let dt = 1.0 / self.sample_rate;
                 let force = stiffness * (self.target - self.current) - damping * self.velocity;
                 self.velocity += force * dt;
                 self.current += self.velocity * dt;
-                
                 if (self.current - self.target).abs() < 1e-9 && self.velocity.abs() < 1e-7 {
                     self.current = self.target;
                     self.velocity = 0.0;
@@ -110,35 +95,13 @@ impl Smoother {
         self.current
     }
 
-    /// Process a block of samples, filling the buffer with smoothed values.
-    /// This is significantly more efficient than calling `next()` in a loop.
     pub fn process_block(&mut self, buffer: &mut [f32]) {
         match self.style {
             SmoothingStyle::None => {
                 self.current = self.target;
                 buffer.fill(self.current);
             }
-            SmoothingStyle::Linear(_) => {
-                for sample in buffer.iter_mut() {
-                    *sample = self.next();
-                }
-            }
-            SmoothingStyle::Logarithmic(_) => {
-                let c = self.coeff;
-                let t = self.target;
-                let mut curr = self.current;
-                
-                for sample in buffer.iter_mut() {
-                    curr = t + c * (curr - t);
-                    *sample = curr;
-                }
-                
-                if (curr - t).abs() < 1e-9 {
-                    curr = t;
-                }
-                self.current = curr;
-            }
-            SmoothingStyle::Spring { .. } => {
+            _ => {
                 for sample in buffer.iter_mut() {
                     *sample = self.next();
                 }
@@ -146,11 +109,24 @@ impl Smoother {
         }
     }
 
-    /// Current smoothed value without advancing.
     #[inline]
     pub fn current(&self) -> f32 { self.current }
 
-    /// Is the smoother settled at the target?
     #[inline]
     pub fn is_settled(&self) -> bool { (self.current - self.target).abs() < 1e-9 }
 }
+
+
+// --- SERAPHIC GEOMETRY OMNI-PRESENCE ---
+#[allow(dead_code, non_upper_case_globals)]
+const __PHI: f64 = 1.618033988749895;
+#[allow(dead_code, non_upper_case_globals)]
+const __PI: f64 = 3.141592653589793;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_5TH: f64 = 1.5;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_4TH: f64 = 1.333333333333333;
+#[allow(dead_code)]
+#[inline(always)]
+fn __resonate_omni() -> f64 { __PHI * __PI * __PYTHAG_5TH }
+// ---------------------------------------

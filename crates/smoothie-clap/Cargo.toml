@@ -10,6 +10,6 @@ description = "smoothie-clap — Smoothie Elite audio plugin framework"
 log           = { workspace = true }
 serde         = { workspace = true }
 smoothie-core = { workspace = true }
-clap-sys      = { workspace = true }
+smoothie-params = { workspace = true }
 parking_lot   = { workspace = true }
 atomic_float  = { workspace = true }

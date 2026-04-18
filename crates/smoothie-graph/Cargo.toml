@@ -11,4 +11,4 @@ smoothie-params = { workspace = true }
 parking_lot   = { workspace = true }
 crossbeam     = { workspace = true }
 dasp_graph    = "0.11"
-petgraph      = "0.6"
+petgraph      = "0.5.1"

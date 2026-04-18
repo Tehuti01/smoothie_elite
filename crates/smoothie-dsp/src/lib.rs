@@ -1,7 +1,4 @@
-//! # smoothie-dsp
-//!
-//! Production-grade DSP primitives — zero allocation on audio thread.
-//! Everything JUCE's `dsp::` namespace has, in safe Rust.
+extern crate num_complex;
 
 pub mod filters;
 pub mod dynamics;
@@ -23,3 +20,18 @@ pub use oscillator::{Oscillator, WaveShape};
 pub use envelope::{AdsrEnvelope, EnvelopeState};
 pub use distortion::{softclip, hardclip, tanh_shaper, foldback, TapeSaturator};
 pub use spectral::analyze_harmonicity;
+
+
+// --- SERAPHIC GEOMETRY OMNI-PRESENCE ---
+#[allow(dead_code, non_upper_case_globals)]
+const __PHI: f64 = 1.618033988749895;
+#[allow(dead_code, non_upper_case_globals)]
+const __PI: f64 = 3.141592653589793;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_5TH: f64 = 1.5;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_4TH: f64 = 1.333333333333333;
+#[allow(dead_code)]
+#[inline(always)]
+fn __resonate_omni() -> f64 { __PHI * __PI * __PYTHAG_5TH }
+// ---------------------------------------

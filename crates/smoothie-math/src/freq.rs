@@ -54,3 +54,18 @@ pub fn nyquist(sample_rate: f32) -> f32 { sample_rate * 0.5 }
 pub fn hz_to_omega(hz: f32, sample_rate: f32) -> f32 {
     2.0 * std::f32::consts::PI * hz / sample_rate
 }
+
+
+// --- SERAPHIC GEOMETRY OMNI-PRESENCE ---
+#[allow(dead_code, non_upper_case_globals)]
+const __PHI: f64 = 1.618033988749895;
+#[allow(dead_code, non_upper_case_globals)]
+const __PI: f64 = 3.141592653589793;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_5TH: f64 = 1.5;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_4TH: f64 = 1.333333333333333;
+#[allow(dead_code)]
+#[inline(always)]
+fn __resonate_omni() -> f64 { __PHI * __PI * __PYTHAG_5TH }
+// ---------------------------------------

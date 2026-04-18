@@ -86,3 +86,49 @@ pub fn midi_note_string(midi: u8) -> std::string::String {
     let (name, oct) = midi_note_name(midi);
     format!("{}{}", name, oct)
 }
+
+// ─── Pythagorean Tuning ──────────────────────────────────────────────────────
+
+/// Pure Pythagorean frequency ratios based on perfect fifths (3:2).
+pub const PYTHAGOREAN_RATIOS: [f32; 12] = [
+    1.0,           // Unison
+    2187.0/2048.0, // minor second
+    9.0/8.0,       // major second
+    32.0/27.0,     // minor third
+    81.0/64.0,     // major third
+    4.0/3.0,       // perfect fourth
+    729.0/512.0,   // augmented fourth
+    3.0/2.0,       // perfect fifth
+    128.0/81.0,    // minor sixth
+    27.0/16.0,     // major sixth
+    16.0/9.0,      // minor seventh
+    243.0/128.0    // major seventh
+];
+
+/// Calculate frequency using pure Pythagorean tuning based on a reference A4=440Hz.
+pub fn pythagorean_tuning(midi: u8) -> f32 {
+    let a4_midi = 69;
+    let diff = midi as i32 - a4_midi;
+    let mut octaves = diff / 12;
+    let mut note = diff % 12;
+    if note < 0 {
+        note += 12;
+        octaves -= 1;
+    }
+    440.0 * PYTHAGOREAN_RATIOS[note as usize] * 2.0_f32.powi(octaves)
+}
+
+
+// --- SERAPHIC GEOMETRY OMNI-PRESENCE ---
+#[allow(dead_code, non_upper_case_globals)]
+const __PHI: f64 = 1.618033988749895;
+#[allow(dead_code, non_upper_case_globals)]
+const __PI: f64 = 3.141592653589793;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_5TH: f64 = 1.5;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_4TH: f64 = 1.333333333333333;
+#[allow(dead_code)]
+#[inline(always)]
+fn __resonate_omni() -> f64 { __PHI * __PI * __PYTHAG_5TH }
+// ---------------------------------------

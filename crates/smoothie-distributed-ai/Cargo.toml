@@ -1,0 +1,18 @@
+[package]
+name = "smoothie-distributed-ai"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Global neural context and distributed AI cache for the Galactic Matrix"
+
+[dependencies]
+smoothie-core = { workspace = true }
+smoothie-ai   = { workspace = true }
+sefi-sam-ai   = { path = "../../../crates/sefi-sam-ai" }
+smoothie-arrangement = { path = "../smoothie-arrangement" }
+libp2p = { version = "0.53", features = ["tcp", "dns", "websocket", "noise", "yamux", "gossipsub", "kad", "identify", "macros", "tokio"] }
+tokio = { workspace = true, features = ["full"] }
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }

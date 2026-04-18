@@ -1,11 +1,14 @@
 [package]
-name        = "smoothie-presets"
+name = "smoothie-presets"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
-description = "smoothie-presets — Smoothie Elite audio plugin framework"
+description = "Universal neural-indexed preset lattice for Smoothie Elite"
 
 [dependencies]
-log     = { workspace = true }
-serde   = { workspace = true }
+smoothie-core = { workspace = true }
+loro = "0.16"
+serde = { workspace = true }
+log = { workspace = true }
+anyhow = { workspace = true }

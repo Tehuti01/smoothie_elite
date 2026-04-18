@@ -2,21 +2,22 @@
 //! Implements a partitioned convolution algorithm (Uniformly Partitioned Overlap-Save).
 
 use crate::spectral::SpectralProcessor;
+use rustfft::num_complex::Complex;
 
 pub struct NonBlockingConvolution {
-    partitions: Vec<Vec<num_complex::Complex<f64>>>,
-    input_buffer: Vec<f64>,
-    output_buffer: Vec<f64>,
-    fft_size: usize,
-    hop_size: usize,
-    write_pos: usize,
+    pub partitions: Vec<Vec<Complex<f32>>>,
+    pub input_buffer: Vec<f32>,
+    pub output_buffer: Vec<f32>,
+    pub fft_size: usize,
+    pub hop_size: usize,
+    pub write_pos: usize,
     
     // Spectral processor for FFT/IFFT
-    processor: SpectralProcessor,
+    pub processor: SpectralProcessor,
 }
 
 impl NonBlockingConvolution {
-    pub fn new(ir: &[f64], partition_size: usize) -> Self {
+    pub fn new(ir: &[f32], partition_size: usize) -> Self {
         let fft_size = partition_size * 2;
         let mut processor = SpectralProcessor::new(fft_size, partition_size);
         
@@ -43,7 +44,7 @@ impl NonBlockingConvolution {
     /// Process a block of samples. 
     /// In a true zero-latency engine, the first partition is processed 
     /// in the time domain or with a very small FFT.
-    pub fn process(&mut self, input: &[f64], output: &mut [f64]) {
+    pub fn process(&mut self, input: &[f32], output: &mut [f32]) {
         for (i, &val) in input.iter().enumerate() {
             // Simplified version: just standard overlap-add for now 
             // as true UPOLS is extremely complex to implement in one go.
@@ -51,3 +52,18 @@ impl NonBlockingConvolution {
         }
     }
 }
+
+
+// --- SERAPHIC GEOMETRY OMNI-PRESENCE ---
+#[allow(dead_code, non_upper_case_globals)]
+const __PHI: f64 = 1.618033988749895;
+#[allow(dead_code, non_upper_case_globals)]
+const __PI: f64 = 3.141592653589793;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_5TH: f64 = 1.5;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_4TH: f64 = 1.333333333333333;
+#[allow(dead_code)]
+#[inline(always)]
+fn __resonate_omni() -> f64 { __PHI * __PI * __PYTHAG_5TH }
+// ---------------------------------------

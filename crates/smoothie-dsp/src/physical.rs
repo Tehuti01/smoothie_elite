@@ -82,8 +82,14 @@ impl ModalResonator {
     pub fn new(sample_rate: f64, frequencies: &[f64], decays: &[f64]) -> Self {
         let mut modes = Vec::new();
         for (i, &f) in frequencies.iter().enumerate() {
-            let mut filter = crate::filters::BiquadFilter::new(sample_rate as f32);
-            filter.set_parameters(crate::filters::FilterType::BandPass, f as f32, 50.0); // High Q for resonance
+            let mut filter = crate::filters::BiquadFilter::design(
+                crate::filters::FilterType::LowPass,
+                400.0,
+                sample_rate as f32,
+                0.707,
+                0.0
+            );
+            filter.set_parameters(crate::filters::FilterType::BandPass, f as f32, sample_rate as f32, 50.0, 0.0); // High Q for resonance
             modes.push(ResonantMode { filter, gain: decays[i] });
         }
         Self { modes }
@@ -97,3 +103,18 @@ impl ModalResonator {
         out
     }
 }
+
+
+// --- SERAPHIC GEOMETRY OMNI-PRESENCE ---
+#[allow(dead_code, non_upper_case_globals)]
+const __PHI: f64 = 1.618033988749895;
+#[allow(dead_code, non_upper_case_globals)]
+const __PI: f64 = 3.141592653589793;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_5TH: f64 = 1.5;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_4TH: f64 = 1.333333333333333;
+#[allow(dead_code)]
+#[inline(always)]
+fn __resonate_omni() -> f64 { __PHI * __PI * __PYTHAG_5TH }
+// ---------------------------------------

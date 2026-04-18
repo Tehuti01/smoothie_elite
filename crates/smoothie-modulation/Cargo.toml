@@ -1,11 +1,14 @@
 [package]
-name    = "smoothie-modulation"
+name = "smoothie-modulation"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
+description = "Sample-accurate high-priority modulation engine for Smoothie Elite"
 
 [dependencies]
-smoothie-math   = { workspace = true }
-smoothie-params = { workspace = true }
-atomic_float    = { workspace = true }
+smoothie-core = { workspace = true }
+rtrb = "0.3"
+atomic_float = { workspace = true }
+serde = { workspace = true }
+log = { workspace = true }

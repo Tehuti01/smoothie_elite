@@ -1,0 +1,13 @@
+[package]
+name = "smoothie-sync"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Conflict-free state synchronization for the Galactic Matrix"
+
+[dependencies]
+smoothie-core = { workspace = true }
+loro = "0.16"
+serde = { workspace = true }
+log = { workspace = true }

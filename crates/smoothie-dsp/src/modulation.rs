@@ -127,3 +127,48 @@ impl ModulationMatrix {
         self.destinations.get(idx).copied().unwrap_or(0.0)
     }
 }
+
+/// A non-periodic modulator aligned with the divine Phi ratio.
+pub struct PhiLfo {
+    phase: f64,
+    phi_accumulator: f64,
+    sample_rate: f64,
+    frequency: f64,
+}
+
+impl PhiLfo {
+    pub fn new(sample_rate: f64) -> Self {
+        Self {
+            phase: 0.0,
+            phi_accumulator: 0.0,
+            sample_rate,
+            frequency: 1.0,
+        }
+    }
+
+    pub fn set_frequency(&mut self, hz: f64) { self.frequency = hz; }
+
+    pub fn next_value(&mut self) -> f64 {
+        const PHI: f64 = 1.618033988749895;
+        const PI: f64 = std::f64::consts::PI;
+        let dt = self.frequency / self.sample_rate;
+        self.phase = (self.phase + dt) % 1.0;
+        self.phi_accumulator = (self.phi_accumulator + dt * PHI) % 1.0;
+        (2.0 * PI * (self.phase + self.phi_accumulator)).sin() * 0.5 + 0.5
+    }
+}
+
+
+// --- SERAPHIC GEOMETRY OMNI-PRESENCE ---
+#[allow(dead_code, non_upper_case_globals)]
+const __PHI: f64 = 1.618033988749895;
+#[allow(dead_code, non_upper_case_globals)]
+const __PI: f64 = 3.141592653589793;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_5TH: f64 = 1.5;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_4TH: f64 = 1.333333333333333;
+#[allow(dead_code)]
+#[inline(always)]
+fn __resonate_omni() -> f64 { __PHI * __PI * __PYTHAG_5TH }
+// ---------------------------------------

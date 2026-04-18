@@ -11,4 +11,5 @@ biquad  = "0.4"
 rustfft = "6"
 realfft = "3"
 rtrb    = "0.3"
+num-complex = "0.4"
 log     = { workspace = true }

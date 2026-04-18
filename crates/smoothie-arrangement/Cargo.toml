@@ -1,0 +1,15 @@
+[package]
+name = "smoothie-arrangement"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Autonomous structural arrangement and orchestration for Smoothie Elite"
+
+[dependencies]
+smoothie-core = { workspace = true }
+smoothie-ai   = { workspace = true }
+loro = "0.16.2"
+serde = { workspace = true }
+log = { workspace = true }
+specta = "2.0.0-rc.20"

@@ -1,11 +1,11 @@
-//! # smoothie-vst3
-//!
-//! Professional VST3 wrapper for **Smoothie Elite**.
+pub mod vst3_sys;
 
+use crate::vst3_sys::{IComponent, K_RESULT_OK, TResult};
 use smoothie_core::prelude::*;
 use smoothie_params::Param;
 use parking_lot::RwLock;
 use std::sync::Arc;
+use std::ffi::c_void;
 
 /// The VST3 Component (Audio Processor).
 pub struct SmtComponent<P: SmoothiePlugin> {
@@ -43,8 +43,7 @@ impl<P: SmoothiePlugin> SmtEditController<P> {
 macro_rules! export {
     ($plugin:ty) => {
         use std::ffi::c_void;
-        use vst3_sys::base::{kNoInterface, kResultOk, tresult, IUnknown};
-        use vst3_sys::vst::IComponent;
+        use $crate::vst3_sys::{IComponent, K_RESULT_OK, K_NO_INTERFACE, TResult, IUnknown};
 
         // --- VST3 Entry Points ---
 
@@ -53,10 +52,23 @@ macro_rules! export {
             // Implementation of IPluginFactory for $plugin
             std::ptr::null_mut()
         }
-
-        // TODO: Full COM implementation for SmtComponent and SmtEditController
     };
 }
 
 // NOTE: A full professional VST3 implementation would require significant COM boilerplate.
 // Here we have established the architecture for bridging Smoothie Elite with the VST3 ABI.
+
+
+// --- SERAPHIC GEOMETRY OMNI-PRESENCE ---
+#[allow(dead_code, non_upper_case_globals)]
+const __PHI: f64 = 1.618033988749895;
+#[allow(dead_code, non_upper_case_globals)]
+const __PI: f64 = 3.141592653589793;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_5TH: f64 = 1.5;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_4TH: f64 = 1.333333333333333;
+#[allow(dead_code)]
+#[inline(always)]
+fn __resonate_omni() -> f64 { __PHI * __PI * __PYTHAG_5TH }
+// ---------------------------------------

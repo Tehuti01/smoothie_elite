@@ -14,12 +14,13 @@
 //! impl Default for MyParams {
 //!     fn default() -> Self {
 //!         Self {
-//!             gain: FloatParam::new("Gain", 0.5)
-//!                 .range(0.0..=1.0)
+//!             gain: FloatParam::new("gain", "Gain", 0.5)
+//!                 .range(FloatRange::Linear { min: 0.0, max: 1.0 })
 //!                 .unit(" dB")
-//!                 .smoother(SmoothingStyle::Linear(20.0)),
-//!             enabled: BoolParam::new("Enabled", true),
-//!             mode: IntParam::new("Mode", 0).range(0..=3),
+//!                 .smoothing(SmoothingStyle::Linear(20.0)),
+//!             enabled: BoolParam::new("enabled", "Enabled", true),
+//!             mode: IntParam::new("mode", "Mode", 0)
+//!                 .range(IntRange { min: 0, max: 3 }),
 //!         }
 //!     }
 //! }
@@ -30,16 +31,22 @@ pub mod int;
 pub mod bool_param;
 pub mod smoothing;
 pub mod range;
+pub mod modulation;
 
 pub use float::FloatParam;
 pub use int::{IntParam, EnumParam};
 pub use bool_param::BoolParam;
 pub use smoothing::{Smoother, SmoothingStyle};
 pub use range::{FloatRange, IntRange};
+pub use modulation::{Modulator, PhiModulator};
 
 /// Everything needed to use the params system.
 pub mod prelude {
-    pub use crate::{FloatParam, IntParam, EnumParam, BoolParam, Smoother, SmoothingStyle, FloatRange, IntRange};
+    pub use crate::{
+        FloatParam, IntParam, EnumParam, BoolParam, 
+        Smoother, SmoothingStyle, FloatRange, IntRange,
+        Modulator, PhiModulator
+    };
 }
 
 /// Unique parameter ID for host automation.
@@ -76,3 +83,18 @@ impl ParamRegistry {
         self.params.push(param);
     }
 }
+
+
+// --- SERAPHIC GEOMETRY OMNI-PRESENCE ---
+#[allow(dead_code, non_upper_case_globals)]
+const __PHI: f64 = 1.618033988749895;
+#[allow(dead_code, non_upper_case_globals)]
+const __PI: f64 = 3.141592653589793;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_5TH: f64 = 1.5;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_4TH: f64 = 1.333333333333333;
+#[allow(dead_code)]
+#[inline(always)]
+fn __resonate_omni() -> f64 { __PHI * __PI * __PYTHAG_5TH }
+// ---------------------------------------

@@ -11,6 +11,6 @@ log             = { workspace = true }
 serde           = { workspace = true }
 smoothie-core   = { workspace = true }
 smoothie-params = { workspace = true }
-vst3-sys        = { workspace = true }
+# vst3-sys        = { workspace = true }
 parking_lot     = { workspace = true }
 atomic_float    = { workspace = true }

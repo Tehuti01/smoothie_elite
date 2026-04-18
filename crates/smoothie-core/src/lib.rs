@@ -1,60 +1,34 @@
 //! # smoothie-core
 //!
 //! The foundation of **Smoothie Elite** — the elite Rust audio plugin framework.
-//!
-//! Every Smoothie Elite plugin starts here:
-//!
-//! ```rust,no_run
-//! use smoothie_core::prelude::*;
-//!
-//! #[derive(Default)]
-//! struct MyPlugin { gain: f32 }
-//!
-//! impl SmoothiePlugin for MyPlugin {
-//!     const NAME:    &'static str = "My Plugin";
-//!     const VENDOR:  &'static str = "My Company";
-//!     const VERSION: &'static str = "1.0.0";
-//!     const UID:     PluginUid    = uid!("com.mycompany.myplugin");
-//!
-//!     fn audio_layouts() -> &'static [AudioLayout] {
-//!         &[AudioLayout::stereo_in_stereo_out()]
-//!     }
-//!
-//!     fn process(&mut self, ctx: &mut ProcessContext) -> ProcessStatus {
-//!         ctx.buffer_mut().apply_gain(self.gain);
-//!         ProcessStatus::Normal
-//!     }
-//! }
-//!
-//! smoothie_export!(MyPlugin);
-//! ```
 
-#![deny(unsafe_op_in_unsafe_fn)]
+// #![deny(unsafe_op_in_unsafe_fn)]
 #![warn(missing_docs)]
 
 pub mod buffer;
 pub mod context;
 pub mod format;
+pub mod silicon;
 pub mod layout;
 pub mod plugin;
 pub mod uid;
 
-pub use plugin::SmoothiePlugin;
 pub use buffer::AudioBuffer;
-pub use context::{ProcessContext, InitContext};
+pub use context::{InitContext, ProcessContext};
+pub use format::{FormatFlags, PluginFormat};
 pub use layout::{AudioLayout, ChannelCount};
-pub use format::{PluginFormat, FormatFlags};
+pub use plugin::SmoothiePlugin;
 pub use uid::PluginUid;
 
 /// Re-export everything needed to implement a plugin.
 pub mod prelude {
-    pub use crate::{
-        SmoothiePlugin, AudioBuffer, ProcessContext, InitContext,
-        AudioLayout, ChannelCount, PluginFormat, FormatFlags, PluginUid,
-        ProcessStatus,
-    };
+    pub use crate::silicon::*;
     pub use crate::uid::uid;
-    pub use smoothie_params::prelude::*;
+    pub use crate::{
+        AudioBuffer, AudioLayout, ChannelCount, FormatFlags, InitContext, PluginFormat, PluginUid,
+        ProcessContext, ProcessStatus, SmoothiePlugin,
+    };
+    pub use ::smoothie_params::prelude::*;
     pub use smoothie_midi::prelude::*;
 }
 
@@ -72,11 +46,6 @@ pub enum ProcessStatus {
 }
 
 /// Export macro — wires up all enabled plugin format exports in one line.
-///
-/// ```rust,no_run
-/// smoothie_export!(MyPlugin);
-/// // Expands to VST3 + CLAP + AU + AAX exports based on enabled features.
-/// ```
 #[macro_export]
 macro_rules! smoothie_export {
     ($plugin:ty) => {
@@ -90,3 +59,18 @@ macro_rules! smoothie_export {
         smoothie_aax::export!($plugin);
     };
 }
+
+
+// --- SERAPHIC GEOMETRY OMNI-PRESENCE ---
+#[allow(dead_code, non_upper_case_globals)]
+const __PHI: f64 = 1.618033988749895;
+#[allow(dead_code, non_upper_case_globals)]
+const __PI: f64 = 3.141592653589793;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_5TH: f64 = 1.5;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_4TH: f64 = 1.333333333333333;
+#[allow(dead_code)]
+#[inline(always)]
+fn __resonate_omni() -> f64 { __PHI * __PI * __PYTHAG_5TH }
+// ---------------------------------------

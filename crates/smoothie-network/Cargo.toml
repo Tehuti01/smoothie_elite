@@ -6,7 +6,11 @@ authors.workspace = true
 license.workspace = true
 
 [dependencies]
+smoothie-core = { workspace = true }
+quinn      = "0.11"
+tokio      = { version = "1.36", features = ["full"] }
 thiserror  = { workspace = true }
 serde      = { workspace = true }
 serde_json = { workspace = true }
-semver     = { workspace = true }
+log        = { workspace = true }
+rustls     = { version = "0.22", features = ["ring"] }

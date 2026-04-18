@@ -1,0 +1,17 @@
+[package]
+name = "smoothie-holographic"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Immersive 3D holographic node canvas for the Galactic Matrix"
+
+[dependencies]
+smoothie-core = { workspace = true }
+smoothie-distributed-ai = { workspace = true }
+bevy = "0.13"
+bevy_egui = "0.25"
+petgraph = "0.5.1"
+atomic_float = "0.1"
+serde = { workspace = true }
+log = { workspace = true }

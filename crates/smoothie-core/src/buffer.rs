@@ -110,3 +110,54 @@ impl<'a> FrameMut<'a> {
     #[inline]
     pub fn channels(&self) -> usize { self.buffer.channels() }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_buffer_gain_and_silence() {
+        let mut l = vec![1.0; 100];
+        let mut r = vec![1.0; 100];
+        let mut channels = [&mut l[..], &mut r[..]];
+        let mut buffer = AudioBuffer::new(&mut channels, 44100.0);
+        
+        buffer.apply_gain(0.5);
+        assert_eq!(buffer.channel(0)[0], 0.5);
+        
+        buffer.silence();
+        assert_eq!(buffer.channel(0)[0], 0.0);
+        assert_eq!(buffer.channel(1)[99], 0.0);
+    }
+
+    #[test]
+    fn test_buffer_copy_mono_to_stereo() {
+        let mut mono_data = vec![1.0, 2.0, 3.0];
+        let mut mono_ch = [&mut mono_data[..]];
+        let mono_buf = AudioBuffer::new(&mut mono_ch, 44100.0);
+        
+        let mut l = vec![0.0; 3];
+        let mut r = vec![0.0; 3];
+        let mut stereo_ch = [&mut l[..], &mut r[..]];
+        let mut stereo_buf = AudioBuffer::new(&mut stereo_ch, 44100.0);
+        
+        mono_buf.copy_to(&mut stereo_buf);
+        assert_eq!(stereo_buf.channel(0)[1], 2.0);
+        assert_eq!(stereo_buf.channel(1)[1], 2.0);
+    }
+}
+
+
+// --- SERAPHIC GEOMETRY OMNI-PRESENCE ---
+#[allow(dead_code, non_upper_case_globals)]
+const __PHI: f64 = 1.618033988749895;
+#[allow(dead_code, non_upper_case_globals)]
+const __PI: f64 = 3.141592653589793;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_5TH: f64 = 1.5;
+#[allow(dead_code, non_upper_case_globals)]
+const __PYTHAG_4TH: f64 = 1.333333333333333;
+#[allow(dead_code)]
+#[inline(always)]
+fn __resonate_omni() -> f64 { __PHI * __PI * __PYTHAG_5TH }
+// ---------------------------------------
