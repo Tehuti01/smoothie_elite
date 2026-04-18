@@ -1,35 +1,41 @@
 //! A professional multi-mode filter plugin.
 //!
 //! Demonstrates:
-//! - Zero-Delay Feedback (ZDF) filters
+//! - Second-order IIR biquad filters
 //! - Parameter automation
 //! - Real-time safe DSP
 
+#[macro_use]
+extern crate smoothie_core;
+
 use smoothie_core::prelude::*;
-use smoothie_dsp::filters::ZdfFilter;
-use smoothie_params::{FloatParam, EnumParam, Param};
+use smoothie_effects::BiquadFilter;
+use smoothie_effects::FilterType;
+use smoothie_params::{FloatParam, Param};
 use std::sync::Arc;
 
-/// Professional multi-mode filter plugin using ZDF technology.
+/// Professional multi-mode filter plugin using biquad technology.
 pub struct ProFilter {
     // DSP
-    filter_l: ZdfFilter,
-    filter_r: ZdfFilter,
+    filter_l: BiquadFilter,
+    filter_r: BiquadFilter,
 
     // Parameters (real-time safe, atomic updates)
     cutoff: Arc<FloatParam>,
     resonance: Arc<FloatParam>,
-    mode: Arc<EnumParam>,
+    mode: Arc<FloatParam>,  // 0=Lowpass, 1=Highpass, 2=Bandpass
+    sample_rate: f32,
 }
 
 impl Default for ProFilter {
     fn default() -> Self {
         Self {
-            filter_l: ZdfFilter::new(),
-            filter_r: ZdfFilter::new(),
-            cutoff: Arc::new(FloatParam::new("Cutoff", 2000.0, 20.0, 20000.0)),
-            resonance: Arc::new(FloatParam::new("Resonance", 1.0, 0.1, 10.0)),
-            mode: Arc::new(EnumParam::new("Mode", 0, &["Lowpass", "Highpass", "Bandpass"])),
+            filter_l: BiquadFilter::design(FilterType::LowPass, 2000.0, 44100.0, 1.0, 0.0),
+            filter_r: BiquadFilter::design(FilterType::LowPass, 2000.0, 44100.0, 1.0, 0.0),
+            cutoff: Arc::new(FloatParam::simple("cutoff", 2000.0, 20.0, 20000.0)),
+            resonance: Arc::new(FloatParam::simple("resonance", 1.0, 0.1, 10.0)),
+            mode: Arc::new(FloatParam::simple("mode", 0.0, 0.0, 2.0)),  // 3 modes: 0, 1, 2
+            sample_rate: 44100.0,
         }
     }
 }
@@ -39,16 +45,17 @@ impl SmoothiePlugin for ProFilter {
     const NAME: &'static str = "Pro Filter";
     const VENDOR: &'static str = "Smoothie Sonic";
     const VERSION: &'static str = "0.1.0";
-    const UID: PluginUid = PluginUid(*b"PFLT0001");
+    const UID: PluginUid = PluginUid::new("com.seraphicsonic.profilter");
     const URL: &'static str = "https://seraphicsonic.com/smoothie";
     const EMAIL: &'static str = "plugins@seraphicsonic.com";
 
     // ── Audio I/O ───────────────────────────────────────────────────────────────
     fn audio_layouts() -> &'static [AudioLayout] {
-        &[
-            AudioLayout::stereo(),
-            AudioLayout::mono(),
-        ]
+        const LAYOUTS: &[AudioLayout] = &[
+            AudioLayout::stereo_in_stereo_out(),
+            AudioLayout::mono_in_stereo_out(),
+        ];
+        LAYOUTS
     }
 
     // ── Parameters ──────────────────────────────────────────────────────────────
@@ -63,60 +70,49 @@ impl SmoothiePlugin for ProFilter {
     // ── Lifecycle ───────────────────────────────────────────────────────────────
     fn initialize(&mut self, ctx: &mut InitContext) -> bool {
         let sr = ctx.sample_rate as f32;
-        self.filter_l.set_params(2000.0, 1.0, sr);
-        self.filter_r.set_params(2000.0, 1.0, sr);
+        self.sample_rate = sr;
         true
     }
 
     fn reset(&mut self) {
-        self.filter_l.reset();
-        self.filter_r.reset();
+        self.filter_l = BiquadFilter::design(FilterType::LowPass, 2000.0, self.sample_rate, 1.0, 0.0);
+        self.filter_r = BiquadFilter::design(FilterType::LowPass, 2000.0, self.sample_rate, 1.0, 0.0);
     }
 
     fn process(&mut self, ctx: &mut ProcessContext) -> ProcessStatus {
         let cutoff = self.cutoff.value();
-        let resonance = self.resonance.value();
-        let mode = self.mode.value();
+        let q = self.resonance.value(); // Map resonance to Q factor
+        let mode_idx = self.mode.value() as usize;
 
-        // Update filter coefficients (cheap operation, safe to do per-frame)
-        self.filter_l.set_params(cutoff, resonance, ctx.buffer().sample_rate());
-        self.filter_r.set_params(cutoff, resonance, ctx.buffer().sample_rate());
+        // Select filter type based on mode
+        let filter_type = match mode_idx {
+            0 => FilterType::LowPass,
+            1 => FilterType::HighPass,
+            2 => FilterType::BandPass,
+            _ => FilterType::LowPass,
+        };
+
+        // Recreate filters with new parameters (coefficients recomputed each frame)
+        self.filter_l = BiquadFilter::design(filter_type, cutoff, self.sample_rate, q, 0.0);
+        self.filter_r = BiquadFilter::design(filter_type, cutoff, self.sample_rate, q, 0.0);
 
         // Process audio buffer
         let buffer = ctx.buffer_mut();
-        let samples = buffer.samples();
 
         if buffer.channels() >= 2 {
             // Stereo processing
-            let ch_l = buffer.channel_mut(0);
-            for sample in ch_l.iter_mut() {
-                *sample = match mode {
-                    0 => self.filter_l.process_lowpass(*sample),
-                    1 => self.filter_l.process_highpass(*sample),
-                    2 => self.filter_l.process_bandpass(*sample),
-                    _ => *sample,
-                };
-            }
+            for i in 0..buffer.samples() {
+                let sample_l = buffer.channel(0)[i];
+                let sample_r = buffer.channel(1)[i];
 
-            let ch_r = buffer.channel_mut(1);
-            for sample in ch_r.iter_mut() {
-                *sample = match mode {
-                    0 => self.filter_r.process_lowpass(*sample),
-                    1 => self.filter_r.process_highpass(*sample),
-                    2 => self.filter_r.process_bandpass(*sample),
-                    _ => *sample,
-                };
+                buffer.channel_mut(0)[i] = self.filter_l.process(sample_l);
+                buffer.channel_mut(1)[i] = self.filter_r.process(sample_r);
             }
         } else if buffer.channels() == 1 {
             // Mono processing
-            let ch = buffer.channel_mut(0);
-            for sample in ch.iter_mut() {
-                *sample = match mode {
-                    0 => self.filter_l.process_lowpass(*sample),
-                    1 => self.filter_l.process_highpass(*sample),
-                    2 => self.filter_l.process_bandpass(*sample),
-                    _ => *sample,
-                };
+            for i in 0..buffer.samples() {
+                let sample = buffer.channel(0)[i];
+                buffer.channel_mut(0)[i] = self.filter_l.process(sample);
             }
         }
 
@@ -148,7 +144,7 @@ impl SmoothiePlugin for ProFilter {
                 self.resonance.set(f32::from_le_bytes(res_bytes));
             }
             if let Ok(mode_byte) = TryInto::<[u8; 1]>::try_into(&data[8..9]) {
-                self.mode.set(mode_byte[0] as i32);
+                self.mode.set(mode_byte[0] as f32);
             }
         }
     }

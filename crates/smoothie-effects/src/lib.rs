@@ -27,6 +27,7 @@ pub use chorus::ChorusProcessor;
 pub use distortion::{DistortionProcessor, DistortionType};
 pub use envelope::{Envelope, EnvelopeStage};
 pub use lfo::{Lfo, LfoShape};
+pub use filters::{BiquadFilter, FilterType};
 
 /// Common trait for all effect processors.
 pub trait EffectProcessor: Send + Sync {
