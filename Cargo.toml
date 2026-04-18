@@ -30,6 +30,9 @@ members = [
     "examples/pluck-synth",
     "examples/morphing-synth",
     "examples/noise-synth",
+    "examples/modulated-delay",
+    "examples/dynamics-processor",
+    "examples/parametric-eq",
 ]
 exclude = ["crates/smoothie-dsp", "crates/smoothie-ironstack"]
 
