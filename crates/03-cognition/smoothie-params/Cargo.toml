@@ -1,0 +1,21 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x901dcf8e | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/03-cognition/smoothie-params/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-params"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Type-safe parameter system for Smoothie Elite audio plugins"
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }
+
+[lib]
+path = "src/lib.rs"

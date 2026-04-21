@@ -1,0 +1,20 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0xc6ba701b | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/02-resonance/smoothie-granular/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-granular"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }
+smoothie-math = { path = "../../01-silicon/smoothie-math" }
+smoothie-params = { path = "../../03-cognition/smoothie-params" }

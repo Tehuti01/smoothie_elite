@@ -1,0 +1,28 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0xb7f8c1f1 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/02-resonance/gpu-fft/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-gpu-fft"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }
+smoothie-advanced-dsp = { path = "../advanced-dsp" }
+wgpu = "0.19"
+num-complex = "0.4"
+rustfft = "6.1"

@@ -1,0 +1,23 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x8ee57ac4 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/02-resonance/synth/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-synth"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+smoothie-midi = { path = "../../03-cognition/smoothie-midi" }
+smoothie-core = { path = "../../01-silicon/core" }
+smoothie-dsp = { path = "../dsp" }
+smoothie-ironstack = { path = "../ironstack" }
+seraphic-multiverse = { path = "../../03-cognition/seraphic-multiverse" }
+
+[lib]
+path = "src/lib.rs"

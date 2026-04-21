@@ -1,0 +1,27 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0xb0144154 | REVISION: 2026.04.20
+#   PATH: crates/04-holography/smoothie-ui-render/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-ui-render"
+version = "1.0.0-LTS"
+edition = "2021"
+authors = ["Smoothie Audio <smoothie@smoothieaudio.dev>"]
+license = "MIT OR Apache-2.0"
+description = "Industrial-grade rendering engine for the Smoothie UI framework"
+
+[dependencies]
+smoothie-core = { workspace = true }
+smoothie-ui-core = { workspace = true }
+smoothie-math = { workspace = true }
+anyhow = { workspace = true }
+log = { workspace = true }
+bytemuck = { workspace = true }
+
+[dev-dependencies]
+tokio = { workspace = true }

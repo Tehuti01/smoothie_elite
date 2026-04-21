@@ -1,0 +1,33 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x464e02e5 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/05-praxis/cargo-smoothie/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "cargo-smoothie"
+version = "1.0.0-LTS"
+edition = "2021"
+authors = ["Smoothie Audio <smoothie@smoothieaudio.dev>"]
+license = "MIT OR Apache-2.0"
+description = "Industrial CLI tool for the Smoothie Elite audio plugin framework"
+repository = "https://github.com/tehuti01/smoothie_elite"
+
+[[bin]]
+name = "cargo-smoothie"
+path = "src/main.rs"
+
+[dependencies]
+smoothie-core = { workspace = true }
+clap = { version = "4.5", features = ["derive"] }
+colored = "2.1"
+indicatif = "0.17"
+anyhow = "1.0"
+log = "0.4"
+env_logger = "0.11"
+walkdir = "2.5"
+regex = "1.10"
+include_dir = "0.7"

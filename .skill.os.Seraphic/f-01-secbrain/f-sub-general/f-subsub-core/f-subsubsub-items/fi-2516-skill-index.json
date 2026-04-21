@@ -1,0 +1,185 @@
+---
+id: fi-2516-skill-index.json
+category: f-01-secbrain
+---
+
+{
+  "version": "2.0.0",
+  "description": "Unified Skill Index - Links triggers to actual skill implementations",
+  "last_updated": "2025-04-20",
+  "skills": [
+    {
+      "id": "001",
+      "name": "A0-Zero-Allocation",
+      "path": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite/01-A0-Zero-Allocation",
+      "triggers": ["zero allocation", "no allocation", "A0", "arena", "memory pool"],
+      "complexity": "L0",
+      "features": ["SIMD", "Real-time", "Pre-allocated"]
+    },
+    {
+      "id": "002",
+      "name": "L0-Non-Blocking",
+      "path": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite/02-L0-Non-Blocking",
+      "triggers": ["non-blocking", "async", "L0", "low latency", "real-time"],
+      "complexity": "L0",
+      "features": ["Thread-safe", "Lock-free"]
+    },
+    {
+      "id": "006",
+      "name": "SIMD-Vectorization",
+      "path": "07-The-Devo/01-Rust-Premium-1000/01-Core-Language/006-ELITE-SIMD-Vectorization",
+      "triggers": ["SIMD", "vectorization", "neon", "avx", "sse", "vectorized"],
+      "complexity": "L1",
+      "features": ["SIMD", "Performance"]
+    },
+    {
+      "id": "007",
+      "name": "DSP-Fundamentals",
+      "path": "07-The-Devo/01-Rust-Premium-1000/01-Core-Language/007-ELITE-DSP-Fundamentals",
+      "triggers": ["DSP", "audio processing", "samples", "waveform"],
+      "complexity": "Foundation",
+      "features": ["A0", "L0", "SIMD"]
+    },
+    {
+      "id": "008",
+      "name": "ELITE-Audio-Plugin",
+      "path": "07-The-Devo/01-Rust-Premium-1000/01-Core-Language/008-ELITE-Audio-Plugin",
+      "triggers": ["plugin", "oscillator", "synthesis", "synth"],
+      "complexity": "Foundation",
+      "features": ["VST3", "CLAP", "AU"]
+    },
+    {
+      "id": "009",
+      "name": "ELITE-Filter-Design",
+      "path": "07-The-Devo/01-Rust-Premium-1000/01-Core-Language/009-ELITE-Filter-Design",
+      "triggers": ["filter", "EQ", "biquad", "lowpass", "highpass", "bandpass"],
+      "complexity": "Foundation",
+      "features": ["A0", "L0"]
+    },
+    {
+      "id": "010",
+      "name": "ELITE-Effects-Processing",
+      "path": "07-The-Devo/01-Rust-Premium-1000/01-Core-Language/010-ELITE-Effects-Processing",
+      "triggers": ["effects", "distortion", "saturation", "overdrive"],
+      "complexity": "Foundation",
+      "features": ["A0", "L0"]
+    },
+    {
+      "id": "026",
+      "name": "Neural-Processing",
+      "path": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite/26-Neural-Processing",
+      "triggers": ["neural", "AI", "deep learning", "tensorflow", "onnx"],
+      "complexity": "Advanced",
+      "features": ["Inference", "ONNX"]
+    },
+    {
+      "id": "051",
+      "name": "VST3-Plugin-Development",
+      "path": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite/51-VST3_Plugin_Development",
+      "triggers": ["VST3", "vst", "plugin development"],
+      "complexity": "Intermediate",
+      "features": ["VST3", "Audio", "MIDI"]
+    },
+    {
+      "id": "052",
+      "name": "CLAP-Plugin-Development",
+      "path": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite/52-CLAP_Plugin_Development",
+      "triggers": ["CLAP", "plugin", "cherry"},
+      "complexity": "Intermediate",
+      "features": ["CLAP", "Audio", "MIDI"]
+    },
+    {
+      "id": "070",
+      "name": "FM-Synthesis",
+      "path": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite/70-FM_Synthesis",
+      "triggers": ["FM", "frequency modulation", "DX7", "synthesis"],
+      "complexity": "Intermediate",
+      "features": ["Operators", "Algorithms"]
+    },
+    {
+      "id": "082",
+      "name": "DSP-Filters",
+      "path": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite/82-DSP-Filters",
+      "triggers": ["DSP filter", "IIR", "FIR", "filter design"],
+      "complexity": "Intermediate",
+      "features": ["A0", "L0"]
+    },
+    {
+      "id": "101",
+      "name": "DSP-Envelopes",
+      "path": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite/101-DSP-Envelopes",
+      "triggers": ["envelope", "ADSR", "attack", "decay", "gate"],
+      "complexity": "Foundation",
+      "features": ["A0", "L0"]
+    },
+    {
+      "id": "112",
+      "name": "Ambisonics",
+      "path": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite/112-Ambisonics",
+      "triggers": ["ambisonics", "spatial audio", "3D audio", "binaural"],
+      "complexity": "Advanced",
+      "features": ["3D", "Surround"]
+    },
+    {
+      "id": "165",
+      "name": "UI-Components",
+      "path": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite/165-UI-Components",
+      "triggers": ["UI", "knob", "slider", "interface", "parameter"],
+      "complexity": "Intermediate",
+      "features": ["GUI", "Controls"]
+    },
+    {
+      "id": "173",
+      "name": "Source-Separation",
+      "path": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite/173-Source-Separation",
+      "triggers": ["source separation", "demixing", "SSS", "isolating stems"],
+      "complexity": "Advanced",
+      "features": ["Neural", "ML"]
+    },
+    {
+      "id": "194",
+      "name": "Spatial-Reverb",
+      "path": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite/194-Spatial-Reverb",
+      "triggers": ["spatial reverb", "3D reverb", "immersive reverb"],
+      "complexity": "Advanced",
+      "features": ["3D", "Reverb"]
+    },
+    {
+      "id": "305",
+      "name": "Neuromorphic-Audio",
+      "path": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite/305-Neuromorphic-Audio",
+      "triggers": ["neuromorphic", "spike", "brain-inspired", "event-driven"],
+      "complexity": "Advanced",
+      "features": ["Event-driven", "Low-power"]
+    },
+    {
+      "id": "306",
+      "name": "Quantum-Audio",
+      "path": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite/306-Quantum-Audio",
+      "triggers": ["quantum", "QFT", "amplitude estimation"],
+      "complexity": "Advanced",
+      "features": ["Quantum"]
+    },
+    {
+      "id": "307",
+      "name": "Sonification-Framework",
+      "path": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite/307-Sonification-Framework",
+      "triggers": ["sonification", "data to audio", "data visualization"],
+      "complexity": "Intermediate",
+      "features": ["Mapping", "Visualization"]
+    }
+  ],
+  "categories": {
+    "Foundation": ["001", "002", "007", "008", "009", "010", "101"],
+    "Intermediate": ["026", "051", "052", "070", "082", "165", "307"],
+    "Advanced": ["112", "173", "194", "305", "306"],
+    "Core": ["006"]
+  },
+  "activation_protocol": {
+    "step_1": "Extract keywords from user intent",
+    "step_2": "Match against triggers in SKILL_INDEX",
+    "step_3": "Score matches by relevance",
+    "step_4": "Load best matching skill file",
+    "step_5": "Execute with user context"
+  }
+}

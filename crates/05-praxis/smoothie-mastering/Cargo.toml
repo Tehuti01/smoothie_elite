@@ -1,0 +1,16 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0xaaa669db | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/05-praxis/smoothie-mastering/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-mastering"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }

@@ -1,0 +1,18 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x380b7629 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/05-praxis/smoothie-vst3/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-vst3"
+version = "1.0.0"
+edition = "2021"
+description = "VST3 Steinberg COM API bridge for Smoothie Elite"
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }
+smoothie-params = { path = "../../03-cognition/smoothie-params" }

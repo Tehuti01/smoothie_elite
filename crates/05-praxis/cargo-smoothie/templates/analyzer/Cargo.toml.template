@@ -1,0 +1,19 @@
+[package]
+name = "{{project_name}}"
+version = "0.1.0"
+edition = "2021"
+description = "A sovereign audio effect built with Smoothie Elite"
+
+[dependencies]
+smoothie-core = { git = "https://github.com/tehuti01/smoothie_elite", branch = "main" }
+smoothie-dsp = { git = "https://github.com/tehuti01/smoothie_elite", branch = "main" }
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = true

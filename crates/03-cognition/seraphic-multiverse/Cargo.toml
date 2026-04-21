@@ -1,0 +1,26 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0xb71ab550 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/03-cognition/seraphic-multiverse/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "seraphic-multiverse"
+version = "0.1.0"
+edition = "2021"
+description = "Ultra-high-end audio and UI framework for the Seraphic Tech Company."
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }
+smoothie-math = { path = "../../01-silicon/smoothie-math" }
+smoothie-dsp = { path = "../../02-resonance/dsp" }
+seraphic-agent = { path = "../seraphic-agent" }
+atomic_float = "0.1"
+wide = "0.7" # For SIMD
+serde = { version = "1.0", features = ["derive"] }
+
+[dev-dependencies]
+criterion = "0.5" # For high-end benchmarking

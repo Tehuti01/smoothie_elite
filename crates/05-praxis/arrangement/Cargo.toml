@@ -1,0 +1,10 @@
+[package]
+name = "smoothie-arrangement"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }
+smoothie-ai = { path = "../../03-cognition/smoothie-ai" }
+serde = { workspace = true, features = ["derive"] }
+anyhow.workspace = true

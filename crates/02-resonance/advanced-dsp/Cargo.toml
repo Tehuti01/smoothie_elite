@@ -1,0 +1,31 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x4de1bb06 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/02-resonance/advanced-dsp/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-advanced-dsp"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }
+smoothie-math = { path = "../../01-silicon/smoothie-math" }
+smoothie-realtime-pool = { path = "../../01-silicon/realtime-pool" }
+smoothie-lock-free-queue = { path = "../../01-silicon/lock-free-queue" }
+smoothie-dsp = { path = "../dsp" }
+rustfft = "6"
+realfft = "3"
+num-complex = "0.4"

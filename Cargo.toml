@@ -1,162 +1,136 @@
+#  S E R A P H I C   T E C H N O L O G I E S
+# ╭──────────────────────────────────────────────────────────────────────────╮
+# │ FILE ID: SER-0x80398c5f | REVISION: 2026.04.20                           │
+# │ PATH: Cargo.toml                                                         │
+# ├──────────────────────────────────────────────────────────────────────────┤
+# │ DESCRIPTION: Unified Monorepo Workspace Manifest for the Seraphic Tech ecosystem. │
+# │ COMPONENTS:  [Workspace Members, Package Metadata, Global Dependencies]    │
+# ├──────────────────────────────────────────────────────────────────────────┤
+# │ TECHNICAL NOTES: Master configuration for framework and applications.      │
+# ╰──────────────────────────────────────────────────────────────────────────╯
+#   SERAPHIC TECH - Precision Engineering
+
 [workspace]
 resolver = "2"
 members = [
-    "smoothie_elite/crates/04-holography/smoothie-au",
-    "smoothie_elite/crates/04-holography/smoothie-net",
-    "smoothie_elite/crates/03-cognition/smoothie-ai",
-    "smoothie_elite/crates/04-holography/smoothie-frontend",
-    "smoothie_elite/crates/03-cognition/seraphic-agent",
-    "smoothie_elite/crates/02-resonance/smoothie-dynamics",
-    "smoothie_elite/crates/03-cognition/smoothie-preset",
-    "smoothie_elite/crates/02-resonance/smoothie-granular",
-    "smoothie_elite/crates/01-silicon/core",
-    "smoothie_elite/crates/04-holography/smoothie-standalone",
-    "smoothie_elite/crates/02-resonance/smoothie-physics",
-    "smoothie_elite/crates/04-holography/smoothie-aax",
-    "smoothie_elite/crates/02-resonance/ironstack",
-    "smoothie_elite/crates/03-cognition/smoothie-graph",
-    "smoothie_elite/crates/03-cognition/smoothie-modulation",
-    "smoothie_elite/crates/01-silicon/async",
-    "smoothie_elite/crates/03-cognition/smoothie-ai-core",
-    "smoothie_elite/crates/04-holography/cli",
-    "smoothie_elite/crates/04-holography/smoothie-clap",
-    "smoothie_elite/crates/03-cognition/seraphic-multiverse",
-    "smoothie_elite/crates/04-holography/smoothie-ui-render",
-    "smoothie_elite/crates/03-cognition/seraphic-prime",
-    "smoothie_elite/crates/02-resonance/smoothie-mastering",
-    "smoothie_elite/crates/02-resonance/synth",
-    "smoothie_elite/crates/02-resonance/smoothie-sound-design",
-    "smoothie_elite/crates/02-resonance/smoothie-reverb",
-    "smoothie_elite/crates/04-holography/smoothie-ui",
-    "smoothie_elite/crates/02-resonance/smoothie-audio-format",
-    "smoothie_elite/crates/02-resonance/smoothie-tuning",
-    "smoothie_elite/crates/01-silicon/smoothie-math",
-    "smoothie_elite/crates/03-cognition/smoothie-params",
-    "smoothie_elite/crates/04-holography/smoothie-ui-vfx",
-    "smoothie_elite/crates/01-silicon/sync",
-    "smoothie_elite/crates/04-holography/smoothie-cli-backend",
-    "smoothie_elite/crates/04-holography/smoothie-ui-core",
-    "smoothie_elite/crates/02-resonance/effects",
-    "smoothie_elite/crates/02-resonance/dsp",
-    "smoothie_elite/crates/04-holography/smoothie-cli-frontend",
-    "smoothie_elite/crates/03-cognition/smoothie-midi",
-    "smoothie_elite/crates/01-silicon/serde",
-    "smoothie_elite/crates/01-silicon/logging",
-    "smoothie_elite/crates/02-resonance/smoothie-spectrum",
-    "smoothie_elite/crates/02-resonance/smoothie-eq",
-    "smoothie_elite/crates/04-holography/smoothie-vst3",
-    "smoothie_elite/crates/04-holography/smoothie-wasm",
-    "smoothie_elite/crates/01-silicon/smoothie-macros",
-    "smoothie_elite/crates/01-silicon/smoothie-security",
-    "smoothie_elite/crates/03-cognition/smoothie-registry",
+    "crates/01-silicon/*",
+    "crates/02-resonance/*",
+    "crates/03-cognition/*",
+    "crates/04-holography/*",
+    "crates/05-praxis/*",
+    "crates/05-praxis/ironstack-plugin",
 ]
 
 [workspace.package]
-version = "1.0.0"
+version = "1.0.0-LTS"
 edition = "2021"
 authors = ["Smoothie Audio <smoothie@smoothieaudio.dev>"]
 license = "MIT OR Apache-2.0"
-description = "SeFi-Sam — Seraphic Omni-Sampler: The world's most advanced sampler built on smoothie_elite"
+rust-version = "1.75"
+description = "High-performance Rust framework for building professional audio plugins"
 repository = "https://github.com/tehuti01/smoothie_elite"
 homepage = "https://github.com/tehuti01/smoothie_elite"
 keywords = ["audio", "dsp", "vst", "plugin", "music"]
 categories = ["multimedia::audio", "no-std"]
-rust-version = "1.75"
 
 [workspace.dependencies]
-# Internal crates
-sefi-sam-core = { path = "crates/sefi-sam-core" }
-sefi-sam-dsp = { path = "crates/sefi-sam-dsp" }
-sefi-sam-stems = { path = "crates/sefi-sam-stems" }
-sefi-sam-sampler = { path = "crates/sefi-sam-sampler" }
-sefi-sam-mixer = { path = "crates/sefi-sam-mixer" }
-sefi-sam-master = { path = "crates/sefi-sam-master" }
-sefi-sam-ai = { path = "crates/sefi-sam-ai" }
-smoothie = { path = "crates/smoothie" }
+# Core Internal Dependencies (Silicon)
+smoothie-core = { path = "crates/01-silicon/core" }
+smoothie-macros = { path = "crates/01-silicon/smoothie-macros" }
+smoothie-math = { path = "crates/01-silicon/smoothie-math" }
+smoothie-realtime-pool = { path = "crates/01-silicon/realtime-pool" }
+smoothie-lock-free-queue = { path = "crates/01-silicon/lock-free-queue" }
+smoothie-async = { path = "crates/01-silicon/async" }
+smoothie-sync = { path = "crates/01-silicon/sync" }
+smoothie-logging = { path = "crates/01-silicon/logging" }
+smoothie-serde = { path = "crates/01-silicon/serde" }
+smoothie-security = { path = "crates/01-silicon/smoothie-security" }
 
-# Framework crates (Local path links)
-smoothie-core = { path = "smoothie_elite/crates/01-silicon/core" }
-smoothie-dsp = { path = "smoothie_elite/crates/02-resonance/dsp" }
-smoothie-params = { path = "smoothie_elite/crates/03-cognition/smoothie-params" }
-smoothie-midi = { path = "smoothie_elite/crates/03-cognition/smoothie-midi" }
-smoothie-ui = { path = "smoothie_elite/crates/04-holography/smoothie-ui" }
-smoothie-ui-render = { path = "smoothie_elite/crates/04-holography/smoothie-ui-render" }
-smoothie-vst3 = { path = "smoothie_elite/crates/04-holography/smoothie-vst3" }
-smoothie-clap = { path = "smoothie_elite/crates/04-holography/smoothie-clap" }
-smoothie-au   = { path = "smoothie_elite/crates/04-holography/smoothie-au" }
-smoothie-aax  = { path = "smoothie_elite/crates/04-holography/smoothie-aax" }
-smoothie-presets = { path = "smoothie_elite/crates/03-cognition/smoothie-preset" }
-smoothie-graph = { path = "smoothie_elite/crates/03-cognition/smoothie-graph" }
-smoothie-math = { path = "smoothie_elite/crates/01-silicon/smoothie-math" }
-smoothie-modulation = { path = "smoothie_elite/crates/03-cognition/smoothie-modulation" }
-smoothie-sync = { path = "smoothie_elite/crates/01-silicon/sync" }
-smoothie-ai = { path = "smoothie_elite/crates/03-cognition/smoothie-ai" }
-smoothie-macros = { path = "smoothie_elite/crates/01-silicon/smoothie-macros" }
-smoothie-dynamics = { path = "smoothie_elite/crates/02-resonance/smoothie-dynamics" }
-smoothie-granular = { path = "smoothie_elite/crates/02-resonance/smoothie-granular" }
-smoothie-reverb = { path = "smoothie_elite/crates/02-resonance/smoothie-reverb" }
-smoothie-eq = { path = "smoothie_elite/crates/02-resonance/smoothie-eq" }
-smoothie-spectrum = { path = "smoothie_elite/crates/02-resonance/smoothie-spectrum" }
-smoothie-physics = { path = "smoothie_elite/crates/02-resonance/smoothie-physics" }
-smoothie-security = { path = "smoothie_elite/crates/01-silicon/smoothie-security" }
-smoothie-net = { path = "smoothie_elite/crates/04-holography/smoothie-net" }
-smoothie-registry = { path = "smoothie_elite/crates/03-cognition/smoothie-registry" }
-smoothie-ai-core = { path = "smoothie_elite/crates/03-cognition/smoothie-ai-core" }
-smoothie-ui-core = { path = "smoothie_elite/crates/04-holography/smoothie-ui-core" }
-smoothie-ui-vfx = { path = "smoothie_elite/crates/04-holography/smoothie-ui-vfx" }
-smoothie-async = { path = "smoothie_elite/crates/01-silicon/async" }
-smoothie-logging = { path = "smoothie_elite/crates/01-silicon/logging" }
-smoothie-serde = { path = "smoothie_elite/crates/01-silicon/serde" }
+# Resonance (DSP & Audio)
+smoothie-dsp = { path = "crates/02-resonance/dsp" }
+smoothie-eq = { path = "crates/02-resonance/smoothie-eq" }
+smoothie-dynamics = { path = "crates/02-resonance/smoothie-dynamics" }
+smoothie-modulation = { path = "crates/02-resonance/smoothie-modulation" }
+smoothie-physics = { path = "crates/02-resonance/smoothie-physics" }
+smoothie-reverb = { path = "crates/02-resonance/smoothie-reverb" }
+smoothie-spectrum = { path = "crates/02-resonance/smoothie-spectrum" }
+smoothie-tuning = { path = "crates/02-resonance/smoothie-tuning" }
+smoothie-advanced-dsp = { path = "crates/02-resonance/advanced-dsp" }
+smoothie-gpu-fft = { path = "crates/02-resonance/gpu-fft" }
+smoothie-convolution = { path = "crates/02-resonance/convolution" }
+smoothie-spatial-audio = { path = "crates/02-resonance/spatial-audio" }
+smoothie-synth = { path = "crates/02-resonance/synth" }
+smoothie-effects = { path = "crates/02-resonance/effects" }
 
-# Core dependencies
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
-toml = "0.8"
-tokio = { version = "1", features = ["full"] }
-reqwest = { version = "0.12", features = ["json", "stream"] }
+# Cognition (AI & Data)
+smoothie-ai = { path = "crates/03-cognition/smoothie-ai" }
+smoothie-ai-core = { path = "crates/03-cognition/smoothie-ai-core" }
+smoothie-params = { path = "crates/03-cognition/smoothie-params" }
+smoothie-graph = { path = "crates/03-cognition/smoothie-graph" }
+smoothie-midi = { path = "crates/03-cognition/smoothie-midi" }
+smoothie-preset = { path = "crates/03-cognition/smoothie-preset" }
+smoothie-param-automation = { path = "crates/03-cognition/param-automation" }
+
+# Holography (Graphics & UI)
+smoothie-ui = { path = "crates/04-holography/smoothie-ui" }
+smoothie-ui-core = { path = "crates/04-holography/smoothie-ui-core" }
+smoothie-ui-render = { path = "crates/04-holography/smoothie-ui-render" }
+smoothie-ui-vfx = { path = "crates/04-holography/smoothie-ui-vfx" }
+smoothie-gpu-renderer = { path = "crates/04-holography/gpu-renderer" }
+smoothie-vector-graphics = { path = "crates/04-holography/vector-graphics" }
+smoothie-cli-frontend = { path = "crates/04-holography/smoothie-cli-frontend" }
+
+# Praxis (Protocols & Platforms)
+smoothie-vst3 = { path = "crates/05-praxis/smoothie-vst3" }
+smoothie-au = { path = "crates/05-praxis/smoothie-au" }
+smoothie-clap = { path = "crates/05-praxis/smoothie-clap" }
+smoothie-aax = { path = "crates/05-praxis/smoothie-aax" }
+smoothie-net = { path = "crates/05-praxis/smoothie-net" }
+smoothie-standalone = { path = "crates/05-praxis/smoothie-standalone" }
+smoothie-mastering = { path = "crates/05-praxis/smoothie-mastering" }
+cargo-smoothie = { path = "crates/05-praxis/cargo-smoothie" }
+
+# Distributed Extensions
+smoothie-sync-distributed = { path = "crates/01-silicon/sync-distributed" }
+smoothie-ai-distributed = { path = "crates/03-cognition/distributed-ai" }
+smoothie-arrangement = { path = "crates/05-praxis/arrangement" }
+
+# Third-Party Dependencies
+anyhow = "1.0"
+clap = { version = "4.5", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.36", features = ["full"] }
+colored = "2.1"
 log = "0.4"
 env_logger = "0.11"
-parking_lot = "0.12"
-crossbeam = "0.8"
-crossbeam-channel = "0.5"
-anyhow = "1"
-thiserror = "1"
-uuid = { version = "1", features = ["v4"] }
-semver = "1"
-atomic_float = "0.1"
-rand = "0.8"
-rayon = "1.10"
-specta = "2.0.0-rc.20"
-
-# Audio & DSP dependencies
-cpal = "0.15"
-rtrb = "0.3"
-midir = "0.9"
-ringbuf = "0.4"
-biquad = "0.4"
-rustfft = "6"
-realfft = "3"
-dasp = { version = "0.11", features = ["all"] }
-
-# UI & Graphics
-wgpu = "22"
+walkdir = "2.5"
+regex = "1.10"
+wgpu = "0.19"
 winit = "0.30"
-egui = "0.31"
-egui-wgpu = "0.31"
-
-# Standalone Framework
-smoothie-standalone = { path = "smoothie_elite/crates/04-holography/smoothie-standalone" }
-
-# Plugin system bindings (Virtualization Pending)
-# clap-sys = { virtualized = true }
-# vst3-sys = { virtualized = true }
+egui = "0.26"
+egui-wgpu = "0.26"
+cpal = "0.15"
+midir = "0.9"
+bytemuck = "1.21"
+wide = "0.7"
+rayon = "1.10"
+rand = "0.8"
+uuid = { version = "1", features = ["v4"] }
+thiserror = "1"
+crossbeam = "0.8"
+parking_lot = "0.12"
+toml = "0.8"
+reqwest = { version = "0.12", features = ["json", "stream"] }
 
 [profile.release]
 opt-level = 3
 lto = "fat"
 codegen-units = 1
+strip = true
 panic = "abort"
-strip = "symbols"
-debug = false
-overflow-checks = false
-incremental = false
+
+[profile.release-debug]
+inherits = "release"
+debug = true
+strip = false

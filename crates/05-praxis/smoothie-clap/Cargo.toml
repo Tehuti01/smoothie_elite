@@ -1,0 +1,23 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0xaa6cd604 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/05-praxis/smoothie-clap/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-clap"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }
+smoothie-params = { path = "../../03-cognition/smoothie-params" }
+smoothie-midi = { path = "../../03-cognition/smoothie-midi" }
+
+[features]
+default = []

@@ -4,7 +4,11 @@
       "Bash(git init:*)",
       "Bash(cargo init:*)",
       "Bash(cargo check:*)",
-      "Bash(cargo build:*)"
+      "Bash(cargo build:*)",
+      "Bash(git commit:*)",
+      "Bash(cargo test:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)"
     ]
   }
 }

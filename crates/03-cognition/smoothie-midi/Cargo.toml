@@ -1,0 +1,21 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x740b3361 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/03-cognition/smoothie-midi/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-midi"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "MIDI protocol and note management for Smoothie Elite"
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }
+
+[lib]
+path = "src/lib.rs"

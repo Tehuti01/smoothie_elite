@@ -1,0 +1,28 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0xf9d46750 | REVISION: 2026.04.20
+#   PATH: crates/04-holography/smoothie-cli-frontend/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-cli-frontend"
+version = "1.0.0-LTS"
+edition = "2021"
+authors = ["Smoothie Audio <smoothie@smoothieaudio.dev>"]
+license = "MIT OR Apache-2.0"
+description = "Professional CLI frontend for the Smoothie Elite ecosystem"
+
+[dependencies]
+smoothie-core = { workspace = true }
+clap = { workspace = true }
+colored = { workspace = true }
+indicatif = "0.17"
+anyhow = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+tokio = { workspace = true }
+log = { workspace = true }
+env_logger = { workspace = true }

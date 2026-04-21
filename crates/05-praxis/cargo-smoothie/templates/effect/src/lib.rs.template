@@ -1,0 +1,20 @@
+use smoothie_core::prelude::*;
+
+#[repr(align(64))]
+pub struct {{project_name_pascal}} {
+    params: {{project_name_pascal}}Params,
+}
+
+#[repr(align(64))]
+struct {{project_name_pascal}}Params {
+    gain: f64,
+}
+
+impl PluginOsNode for {{project_name_pascal}} {
+    #[seraphic_mandate(L0, A0, PHI)]
+    fn process(&mut self, input: f64) -> f64 {
+        input * self.params.gain
+    }
+
+    fn reset(&mut self) {}
+}

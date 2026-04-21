@@ -1,0 +1,10 @@
+[package]
+name = "smoothie-ai-distributed"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+libp2p = { version = "0.53", features = ["gossipsub", "mdns", "tcp", "noise", "yamux"] }
+smoothie-ai = { path = "../smoothie-ai" }
+anyhow.workspace = true
+tokio.workspace = true

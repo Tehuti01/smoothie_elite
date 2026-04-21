@@ -1,0 +1,30 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x457ebeb7 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/05-praxis/plugin-host/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-plugin-host"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }
+smoothie-lock-free-queue = { path = "../../01-silicon/lock-free-queue" }
+smoothie-param-automation = { path = "../../03-cognition/param-automation" }
+smoothie-advanced-dsp = { path = "../../02-resonance/advanced-dsp" }
+parking_lot = "0.12"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"

@@ -1,0 +1,37 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x7f4a2b1c | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/05-praxis/seraphic-orchestrator/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "seraphic-orchestrator"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Native Rust executive tier for autonomic self-healing orchestration"
+
+[dependencies]
+# Workspace Dependencies
+smoothie-core = { workspace = true }
+seraphic-agent = { path = "../../03-cognition/seraphic-agent" }
+seraphic-prime = { path = "../../03-cognition/seraphic-prime" }
+
+# Third-Party
+anyhow = { workspace = true }
+clap = { workspace = true }
+regex = { workspace = true }
+walkdir = { workspace = true }
+colored = { workspace = true }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+subprocess = "0.2"
+
+[[bin]]
+name = "seraphic-orchestrator"
+path = "src/main.rs"

@@ -1,0 +1,13 @@
+---
+id: fi-2451-turbo-pipeline.json
+category: f-01-secbrain
+---
+
+{
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**"]
+    }
+  }
+}

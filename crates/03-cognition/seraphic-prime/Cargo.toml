@@ -1,0 +1,22 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0xa18e5d31 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/03-cognition/seraphic-prime/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "seraphic-prime"
+version = "1.0.0-LTS"
+edition = "2021"
+description = "Sovereign cognitive engine for the Smoothie Elite framework"
+
+[dependencies]
+smoothie-core = { workspace = true }
+smoothie-math = { workspace = true }
+heapless = "0.8"
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }

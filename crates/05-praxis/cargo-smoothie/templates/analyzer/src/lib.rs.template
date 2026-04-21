@@ -1,0 +1,26 @@
+use smoothie_core::prelude::*;
+use smoothie_core::seraphic_mandate;
+
+#[repr(align(64))]
+pub struct {{project_name_pascal}} {
+    params: {{project_name_pascal}}Params,
+}
+
+#[repr(align(64))]
+struct {{project_name_pascal}}Params {
+    gain: f64,
+}
+
+impl PluginOsNode for {{project_name_pascal}} {
+    #[seraphic_mandate(L0, A0, PHI)]
+    fn process(&mut self, input: f64) -> f64 {
+        input * self.params.gain
+    }
+
+    fn reset(&mut self) {
+        // [Strophe 14]: Reset to stable equilibrium
+    }
+}
+
+// 🌌 Export to VST3/AU/CLAP handled by Praxis Tier
+// smoothie_vst3_export!({{project_name_pascal}});

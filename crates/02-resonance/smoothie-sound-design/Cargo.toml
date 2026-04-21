@@ -1,0 +1,18 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0xd388b29d | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/02-resonance/smoothie-sound-design/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-sound-design"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }
+smoothie-dsp = { path = "../dsp" }
+smoothie-math = { path = "../../01-silicon/smoothie-math" }

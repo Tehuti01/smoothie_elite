@@ -1,0 +1,17 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0xf61ac046 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/05-praxis/smoothie-au/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-au"
+version = "1.0.0"
+edition = "2021"
+description = "Apple AUv2 CoreAudio bridge for Smoothie Elite"
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }

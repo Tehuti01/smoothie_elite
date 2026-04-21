@@ -1,0 +1,31 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x95292139 | REVISION: 2026.04.20
+#   PATH: crates/02-resonance/ironstack/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-ironstack"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "High-performance IRONSTACK-100 DSP engine with WDF and physical modeling"
+
+[dependencies]
+smoothie-core = { workspace = true }
+smoothie-sync = { workspace = true }
+smoothie-dsp = { workspace = true }
+smoothie-effects = { workspace = true }
+smoothie-physics = { workspace = true }
+smoothie-params = { workspace = true }
+smoothie-convolution = { workspace = true }
+smoothie-logging = { workspace = true }
+smoothie-serde = { workspace = true }
+serde = { workspace = true }
+bytemuck = { workspace = true }
+wide = { workspace = true }
+smoothie-ai = { path = "../../03-cognition/smoothie-ai" }

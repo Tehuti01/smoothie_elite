@@ -1,0 +1,21 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x9416ab7f | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/01-silicon/smoothie-math/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-math"
+version = "1.0.0"
+edition = "2021"
+publish = false
+description = "Advanced Mathematical Subsystem with Hardware Intrinsics (SIMD) for Audio DSP"
+
+[dependencies]
+smoothie-core = { path = "../core" }
+
+[lib]
+path = "src/lib.rs"

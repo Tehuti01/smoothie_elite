@@ -1,0 +1,17 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0xeb24d0d7 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/05-praxis/smoothie-aax/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-aax"
+version = "1.0.0"
+edition = "2021"
+description = "Avid AAX plugin bridge for Smoothie Elite"
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }

@@ -1,0 +1,42 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x5b246d21 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/05-praxis/smoothie-standalone/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-standalone"
+version = "0.1.0"
+edition = "2021"
+description = "Sovereign standalone application framework for Smoothie Elite (Replacement for Tauri)"
+
+[dependencies]
+smoothie-core = { workspace = true }
+smoothie-dsp = { workspace = true }
+smoothie-ui = { workspace = true }
+smoothie-ui-render = { workspace = true }
+smoothie-graph = { workspace = true }
+smoothie-params = { workspace = true }
+wgpu = { workspace = true }
+winit = { workspace = true }
+egui = { workspace = true }
+egui-wgpu = { workspace = true }
+cpal = { workspace = true }
+midir = { workspace = true }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+log = { workspace = true }
+raw-window-handle = "0.6"
+
+[lib]
+name = "smoothie_standalone"
+path = "src/lib.rs"
+
+[[bin]]
+name = "smoothie-app"
+path = "src/main.rs"

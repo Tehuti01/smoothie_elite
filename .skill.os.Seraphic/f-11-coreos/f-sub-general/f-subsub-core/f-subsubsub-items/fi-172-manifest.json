@@ -1,0 +1,68 @@
+---
+id: fi-172-manifest.json
+category: f-11-coreos
+---
+
+{
+  "devo_version": "2.0.0",
+  "last_updated": "2025-04-20",
+  "description": "THE DEVO Skill Library v2.0 - Numerical Format",
+  "total_directories": 894,
+  "unique_skill_ids": 311,
+  "active_indexed_skills": 20,
+  "known_issues": [
+    "Duplicate skill IDs exist (multiple directories with same prefix)",
+    "Naming inconsistencies (underscore vs hyphen)",
+    "Some directories are empty - need consolidation"
+  ],
+  "structure": {
+    "index": "06-Agent-Second-Brain/01-Skill-Trigger-System/SKILL_INDEX.json",
+    "guide": "00-SKILL_SYSTEM_README.md",
+    "skills_root": "07-The-Devo/01-Rust-Premium-1000/05-Audio-Music-Plugins/smoothie_elite"
+  },
+  "activation": {
+    "method": "JSON_INDEX",
+    "steps": [
+      "Read SKILL_INDEX.json",
+      "Match user intent to triggers",
+      "Load skill file from path",
+      "Execute implementation"
+    ]
+  },
+  "categories": [
+    {
+      "name": "01-Rust-Premium-1000",
+      "target": 1000,
+      "active": true,
+      "subcategories": [
+        "01-Core-Language",
+        "02-Systems-Programming",
+        "05-Audio-Music-Plugins"
+      ]
+    },
+    {
+      "name": "02-TypeScript-Premium-1000",
+      "target": 1000,
+      "active": true
+    },
+    {
+      "name": "03-Skill-Lib-Optimization-500",
+      "target": 500,
+      "active": true
+    },
+    {
+      "name": "04-Application-Development",
+      "target": "unlimited",
+      "active": true
+    },
+    {
+      "name": "05-The-Infinite-Loop-Protocol",
+      "target": "protocol",
+      "active": true
+    }
+  ],
+  "quality_gates": {
+    "must_have": ["implementation_code", "research_commands", "30_steps"],
+    "should_have": ["connected_skills", "sub_systems", "features"]
+  }
+}

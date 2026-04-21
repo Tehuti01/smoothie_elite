@@ -1,0 +1,17 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x3aeb5b83 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/examples/synth_basic/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-example-synth"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+smoothie-core = { path = "../../crates/core" }

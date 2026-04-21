@@ -1,0 +1,31 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0xbf2d4e13 | REVISION: 2026.04.20
+#   PATH: crates/05-praxis/ironstack-plugin/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "ironstack-plugin"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Industrial-grade VST3/CLAP wrapper for the IRONSTACK-100 instrument"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+smoothie-core = { workspace = true }
+smoothie-ironstack = { path = "../../02-resonance/ironstack" }
+smoothie-synth = { workspace = true }
+smoothie-ui = { workspace = true }
+smoothie-preset = { workspace = true }
+smoothie-params = { workspace = true }
+smoothie-vst3 = { workspace = true }
+smoothie-clap = { workspace = true }
+smoothie-logging = { workspace = true }
+anyhow = { workspace = true }

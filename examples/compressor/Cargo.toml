@@ -1,0 +1,19 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x05ed3736 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/examples/compressor/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-example-compressor"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+smoothie-core = { path = "../../crates/core" }
+smoothie-effects = { path = "../../crates/effects" }
+smoothie-params = { path = "../../crates/smoothie-params" }

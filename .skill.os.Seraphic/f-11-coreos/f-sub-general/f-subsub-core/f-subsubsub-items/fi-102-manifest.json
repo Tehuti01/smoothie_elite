@@ -1,0 +1,34 @@
+---
+id: fi-102-manifest.json
+category: f-11-coreos
+---
+
+{
+  "matrix_version": "0.2.6",
+  "stratums": [
+    {
+      "name": "01-Seraphic-Mandate",
+      "skills": ["strophe-0-seraphic-init", "strophe-1-alignment", "strophe-8-security-integrity", "strophe-19-github-sovereignty", "strophe-0-skill-finder"]
+    },
+    {
+      "name": "02-Sovereign-Math",
+      "skills": ["strophe-20-seraphic-math", "strophe-21-seraphic-physics", "strophe-22-geometrical-sovereignty", "strophe-23-chromatic-design", "strophe-24-astro-math", "strophe-7-neural-oracle"]
+    },
+    {
+      "name": "03-DSP-Resonance",
+      "skills": ["strophe-2-latency-l0", "strophe-3-allocation-a0", "strophe-4-resonance-phi", "strophe-5-silicon-simd", "strophe-10-spectral-mastering", "strophe-12-universal-ascension"]
+    },
+    {
+      "name": "04-System-Architecture",
+      "skills": ["strophe-6-atomic-weaver", "strophe-11-crate-orchestrator", "strophe-14-mythos"]
+    },
+    {
+      "name": "05-Holographic-Aesthetics",
+      "skills": ["strophe-9-holographic-ui", "strophe-16-nexus-forge"]
+    },
+    {
+      "name": "06-Agent-Second-Brain",
+      "skills": ["strophe-13-skill-creator", "mythos-context-manager", "mythos-mcp-forge", "mythos-omni-director", "strophe-15-hyper-docs", "strophe-17-skill-custodian", "strophe-18-billion-dollar-fullstack", "strophe-25-recursive-ascension", "strophe-26-error-sovereignty", "strophe-27-multi-faceted-testing", "strophe-28-autonomous-skill-forge"]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+[package]
+name = "smoothie-sync-distributed"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+loro = "0.16"
+anyhow.workspace = true

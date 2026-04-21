@@ -1,0 +1,34 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x988a56c9 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/04-holography/gpu-renderer/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-gpu-renderer"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }
+smoothie-math = { path = "../../01-silicon/smoothie-math" }
+smoothie-realtime-pool = { path = "../../01-silicon/realtime-pool" }
+smoothie-lock-free-queue = { path = "../../01-silicon/lock-free-queue" }
+wgpu = "0.19"
+winit = "0.30"
+egui = "0.26"
+egui-wgpu = "0.26"
+glam = "0.27"
+bytemuck = { version = "1.14", features = ["derive"] }
+parking_lot = "0.12"

@@ -1,0 +1,21 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0xcc03650e | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/05-praxis/smoothie-net/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-net"
+version = "1.0.0"
+edition = "2021"
+publish = false
+description = "Zero-allocation Open Sound Control (OSC) and Network Synchronization Engine"
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }
+
+[lib]
+path = "src/lib.rs"

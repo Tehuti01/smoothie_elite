@@ -1,0 +1,89 @@
+---
+id: fi-171-master-index.json
+category: f-11-coreos
+---
+
+{
+  "version": "0.7.0",
+  "mandate": "HIGH_QUALITY_ELITE_ONLY",
+  "skills": {
+    "RS-205-automation-curves": {
+      "path": "01-Rust-Premium-1000/03-Cognition-Mastery/RS-205-automation-curves",
+      "standard_compliant": true,
+      "doc_lines": 1205,
+      "quality_tier": "Elite",
+      "verified": true
+    },
+    "RS-012-cache": {
+      "path": "01-Rust-Premium-1000/01-Core-Language/RS-012-cache",
+      "standard_compliant": true,
+      "doc_lines": 1603,
+      "quality_tier": "Elite",
+      "verified": true
+    },
+    "RS-002-unsafe": {
+      "path": "01-Rust-Premium-1000/01-Core-Language/RS-002-unsafe",
+      "standard_compliant": true,
+      "doc_lines": 2810,
+      "quality_tier": "Elite",
+      "verified": true
+    },
+    "RS-202-zdf-filters": {
+      "path": "01-Rust-Premium-1000/02-Resonance-Mastery/RS-202-zdf-filters",
+      "standard_compliant": true,
+      "doc_lines": 1211,
+      "quality_tier": "Elite",
+      "verified": true
+    },
+    "RS-204-lstm-cognition": {
+      "path": "01-Rust-Premium-1000/03-Cognition-Mastery/RS-204-lstm-cognition",
+      "standard_compliant": true,
+      "doc_lines": 1205,
+      "quality_tier": "Elite",
+      "verified": true
+    },
+    "RS-201-fm-synthesis": {
+      "path": "01-Rust-Premium-1000/02-Resonance-Mastery/RS-201-fm-synthesis",
+      "standard_compliant": true,
+      "doc_lines": 1211,
+      "quality_tier": "Elite",
+      "verified": true
+    },
+    "RS-203-harmonic-lattice": {
+      "path": "01-Rust-Premium-1000/02-Resonance-Mastery/RS-203-harmonic-lattice",
+      "standard_compliant": true,
+      "doc_lines": 1205,
+      "quality_tier": "Elite",
+      "verified": true
+    },
+    "RS-011-atomics": {
+      "path": "01-Rust-Premium-1000/01-Core-Language/RS-011-atomics",
+      "standard_compliant": true,
+      "doc_lines": 1207,
+      "quality_tier": "Elite",
+      "verified": true
+    },
+    "RS-014-arena": {
+      "path": "01-Rust-Premium-1000/01-Core-Language/RS-014-arena",
+      "standard_compliant": true,
+      "doc_lines": 1603,
+      "quality_tier": "Elite",
+      "verified": true
+    },
+    "TS-001-v8-oracle": {
+      "path": "02-TypeScript-Premium-1000/01-V8-Internal-Sovereignty/TS-001-v8-oracle",
+      "standard_compliant": true,
+      "doc_lines": 2810,
+      "quality_tier": "Elite",
+      "verified": true
+    },
+    "RS-001-memory": {
+      "path": "01-Rust-Premium-1000/01-Core-Language/RS-001-memory",
+      "standard_compliant": true,
+      "doc_lines": 2810,
+      "quality_tier": "Elite",
+      "verified": true
+    }
+  },
+  "last_audit": "2026-04-20T08:50:48.905376+00:00"
+}

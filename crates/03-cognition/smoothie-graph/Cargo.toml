@@ -1,0 +1,24 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x99a8bff4 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/03-cognition/smoothie-graph/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-graph"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }
+smoothie-params = { path = "../smoothie-params" }
+smoothie-midi = { path = "../smoothie-midi" }
+smoothie-dsp = { path = "../../02-resonance/dsp" }
+
+[features]
+default = []

@@ -1,0 +1,18 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x17ed7342 | REVISION: 2026.04.20
+#   PATH: smoothie_elite/crates/02-resonance/smoothie-audio-format/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "smoothie-audio-format"
+version = "1.0.0"
+edition = "2021"
+description = "Zero-allocation audio file format codecs for Smoothie Elite"
+
+[dependencies]
+smoothie-core = { path = "../../01-silicon/core" }
+smoothie-sync = { path = "../../01-silicon/sync" }
