@@ -78,8 +78,8 @@ impl DistributedEnvironmentEnv {
 
         // PHI-weighted coefficients for organic response
         self.attack_coeff = 1.0 / self.attack_samples;
-        self.decay_coeff = (1.0 - self.sustain_level) / (self.decay_samples * (PHI as f32).sqrt());
-        self.release_coeff = self.sustain_level / (self.release_samples * PHI as f32);
+        self.decay_coeff = (1.0 - self.sustain_level) / (self.decay_samples * PHI.sqrt());
+        self.release_coeff = self.sustain_level / (self.release_samples * PHI);
     }
 
     /// 🧠 Process one sample and return current amplitude

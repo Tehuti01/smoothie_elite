@@ -9,11 +9,11 @@
 
 [package]
 name = "smoothie-example-compressor"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
 publish = false
 
 [dependencies]
-smoothie-core = { path = "../../crates/core" }
-smoothie-effects = { path = "../../crates/effects" }
-smoothie-params = { path = "../../crates/smoothie-params" }
+smoothie-core = { workspace = true }
+smoothie-effects = { workspace = true }
+smoothie-params = { workspace = true }

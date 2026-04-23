@@ -47,7 +47,7 @@ impl HookParamDef {
 mod core {
     pub mod math {
         /// Technical implementation of the powf logic.
-        pub fn powf(base: f32, exp: f32) -> f32 {
+        pub fn powf(base: f32, _exp: f32) -> f32 {
             // Placeholder: Full `no_std` powf requires libm. We approximate or mock for now.
             // A real implementation would invoke a fast transcendent assembly or `libm::powf`.
             base // Mock

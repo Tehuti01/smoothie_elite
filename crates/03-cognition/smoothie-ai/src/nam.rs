@@ -12,8 +12,6 @@
  */
 
 use crate::dense::DenseLayer;
-use alloc::vec;
-use alloc::vec::Vec;
 
 /// Technical implementation of the NAMBlock structure.
 pub struct NAMBlock {

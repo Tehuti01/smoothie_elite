@@ -26,10 +26,19 @@ pub mod scaffold;
 
 /// Technical implementation of the print_seraphic_header logic.
 pub fn print_seraphic_header(subtitle: &str) {
-    println!("{}", "╔══════════════════════════════════════════════════╗".bright_cyan());
-    println!("║ {} ║", format!("{:^48}", "S E R A P H I C   T E C H N O L O G I E S").bold());
+    println!(
+        "{}",
+        "╔══════════════════════════════════════════════════╗".bright_cyan()
+    );
+    println!(
+        "║ {} ║",
+        format!("{:^48}", "S E R A P H I C   T E C H N O L O G I E S").bold()
+    );
     println!("║ {} ║", format!("{:^48}", subtitle).bright_green());
-    println!("{}", "╚══════════════════════════════════════════════════╝".bright_cyan());
+    println!(
+        "{}",
+        "╚══════════════════════════════════════════════════╝".bright_cyan()
+    );
     println!();
 }
 
@@ -40,7 +49,12 @@ pub fn print_success(message: &str) {
 
 /// Technical implementation of the print_error logic.
 pub fn print_error(message: &str) {
-    eprintln!("  {} {}: {}", "✗".red().bold(), "ERROR".red().bold(), message);
+    eprintln!(
+        "  {} {}: {}",
+        "✗".red().bold(),
+        "ERROR".red().bold(),
+        message
+    );
 }
 
 /// Technical implementation of the print_step logic.

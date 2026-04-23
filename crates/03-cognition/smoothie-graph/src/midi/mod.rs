@@ -11,7 +11,7 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 ///
 /// to appropriate graph nodes. Each event carries a sample-accurate timestamp
 /// so that the receiving node can schedule voice events with sub-block jitter.
@@ -109,7 +109,7 @@ impl MidiEvent {
 /// combined with octave doubling.
 fn fast_pow2_semitones(semitones: i32) -> f32 {
     const SEMITONE_RATIOS: [f32; 12] = [
-        1.000000, 1.059463, 1.122462, 1.189207, 1.259921, 1.334840, 1.414214, 1.498307, 1.587401,
+        1.000000, 1.059463, 1.122462, 1.189207, 1.259921, 1.334_84, 1.414214, 1.498307, 1.587401,
         1.681793, 1.781797, 1.887749,
     ];
 

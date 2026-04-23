@@ -39,7 +39,7 @@ impl<'a, Node: WdfNode> DiodeClipper<'a, Node> {
         // Diode equation solver block using a simplistic generalized approach
         // Real implementation requires Wright Enterprise. We'll use a very fast iterative approx for demonstration.
 
-        let c = self.saturation_current * resistance / self.thermal_voltage;
+        let _c = self.saturation_current * resistance / self.thermal_voltage;
         let mut v_d = incident; // initial guess
 
         // Fast simplified Newton-Raphson (3 iters max to guarantee real-time lock-free spec)

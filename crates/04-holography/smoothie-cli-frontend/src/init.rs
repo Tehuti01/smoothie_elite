@@ -11,18 +11,21 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use crate::{print_seraphic_header, print_success, print_step};
+use crate::{print_seraphic_header, print_step, print_success};
 use colored::Colorize;
 
 /// Technical implementation of the perform_init logic.
 pub fn perform_init() {
     print_seraphic_header("Autonomous Environment Sync");
-    
+
     print_step("Auditing Silicon Substrate...");
     print_step("Verifying DSP Resonance Clusters...");
     print_step("Injecting Neural Skill Matrices...");
     println!();
-    
+
     print_success("Smoothie Elite environment is now fully synchronized.");
-    println!("  {} Performance metrics meet STROPHE-23 industrial standards.", "★".yellow());
+    println!(
+        "  {} Performance metrics meet STROPHE-23 industrial standards.",
+        "★".yellow()
+    );
 }

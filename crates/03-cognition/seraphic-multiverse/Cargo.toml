@@ -9,15 +9,17 @@
 
 [package]
 name = "seraphic-multiverse"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
-description = "Ultra-high-end audio and UI framework for the Seraphic Tech Company."
+license = "MIT"
+description = "A Seraphic Technologies Elite audio plugin framework crate."
+repository = "https://github.com/seraphic/smoothie-elite"
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
-smoothie-math = { path = "../../01-silicon/smoothie-math" }
-smoothie-dsp = { path = "../../02-resonance/dsp" }
-seraphic-agent = { path = "../seraphic-agent" }
+smoothie-core = { workspace = true }
+smoothie-math = { workspace = true }
+smoothie-dsp = { workspace = true }
+seraphic-agent = { path = "../seraphic-agent" , version = "1.0.0"}
 atomic_float = "0.1"
 wide = "0.7" # For SIMD
 serde = { version = "1.0", features = ["derive"] }

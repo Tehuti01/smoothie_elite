@@ -11,11 +11,12 @@
 name = "smoothie-math"
 version = "1.0.0"
 edition = "2021"
-publish = false
-description = "Advanced Mathematical Subsystem with Hardware Intrinsics (SIMD) for Audio DSP"
+license = "MIT"
+description = "A Seraphic Technologies Elite audio plugin framework crate."
+repository = "https://github.com/seraphic/smoothie-elite"
 
 [dependencies]
-smoothie-core = { path = "../core" }
+smoothie-core = { workspace = true }
 
 [lib]
 path = "src/lib.rs"

@@ -22,6 +22,7 @@ pub struct Triode12AX7<'a, GridPort: WdfNode, PlatePort: WdfNode, CathodePort: W
 
     // Physical Characteristics (Typical 12AX7 parameters)
     mu: f32,  // Amplification factor
+    #[allow(dead_code)]
     ex: f32,  // Exponent factor
     kg1: f32, // Perveance
     kp: f32,  // Plate characteristic

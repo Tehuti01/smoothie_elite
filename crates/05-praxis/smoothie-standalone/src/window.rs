@@ -14,7 +14,6 @@
 use alloc::vec;
 ///
 /// Egui-powered holographic UI.
-use smoothie_core::prelude::*;
 use winit::window::Window;
 
 use alloc::sync::Arc;
@@ -34,7 +33,7 @@ impl AutonomousWindow {
         let window = Arc::new(window);
         let size = window.inner_size();
         let instance = wgpu::Instance::default();
-        let surface = unsafe { instance.create_surface(window.clone())? };
+        let surface = instance.create_surface(window.clone())?;
         let adapter = instance
             .request_adapter(&wgpu::RequestAdapterOptions {
                 power_preference: wgpu::PowerPreference::HighPerformance,

@@ -12,7 +12,7 @@
  */
 
 use crate::wdf::ports::WdfNode;
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 
 /// Technical implementation of the TransformerComponent structure.
 pub struct TransformerComponent {
@@ -20,9 +20,12 @@ pub struct TransformerComponent {
     primary_inductance: f32,
     secondary_inductance: f32,
     saturation_flux: f32,
+    #[allow(dead_code)]
     coercivity: f32,
+    #[allow(dead_code)]
     remnance: f32,
     primary_flux: f32,
+    #[allow(dead_code)]
     secondary_flux: f32,
     primary_state: f32,
     secondary_state: f32,

@@ -165,7 +165,7 @@ impl<T, const N: usize> JitterBuffer<T, N> {
     }
 
     /// Technical implementation of the adaptive_update logic.
-    pub fn adaptive_update(&mut self, arrival_delta_ms: f64, _sample_rate: u32) {
+    pub fn adaptive_update(&mut self, arrival_delta_ms: f64, sample_rate: u32) {
         if !self.config.adaptive_mode {
             return;
         }

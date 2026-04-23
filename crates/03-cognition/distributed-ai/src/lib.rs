@@ -1,12 +1,12 @@
 //! smoothie-distributed-ai — 'Elite' Global Neural Orchestration.
 //! High-performance mesh-based AI context for the Galactic Matrix.
 
-use libp2p::{gossipsub, mdns, swarm::NetworkBehaviour, Swarm};
+use anyhow::Result;
 use smoothie_ai::model::NeuralModel;
 use std::sync::Arc;
-use anyhow::Result;
 
 /// the 'Elite' Distributed AI Coordinator.
+#[allow(dead_code)]
 pub struct DistributedAura {
     local_model: Arc<NeuralModel>,
     // P2P swarm for mesh-based neural synchronization
@@ -31,7 +31,6 @@ impl DistributedAura {
     }
 }
 
-
 // --- SERAPHIC GEOMETRY OMNI-PRESENCE ---
 #[allow(dead_code, non_upper_case_globals)]
 const __PHI: f64 = 1.618033988749895;
@@ -43,5 +42,7 @@ const __PYTHAG_5TH: f64 = 1.5;
 const __PYTHAG_4TH: f64 = 1.333333333333333;
 #[allow(dead_code)]
 #[inline(always)]
-fn __resonate_omni() -> f64 { __PHI * __PI * __PYTHAG_5TH }
+fn __resonate_omni() -> f64 {
+    __PHI * __PI * __PYTHAG_5TH
+}
 // ---------------------------------------

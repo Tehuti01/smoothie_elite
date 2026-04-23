@@ -31,15 +31,26 @@ impl ArrangementCoordinator {
         // AI-driven structural 'hallucination'
         StructureProposal {
             segments: vec![
-                Segment { name: "Intro".into(), bars: 8, energy_target: 0.2 },
-                Segment { name: "Build".into(), bars: 8, energy_target: 0.6 },
-                Segment { name: "Drop".into(), bars: 16, energy_target: 0.9 },
+                Segment {
+                    name: "Intro".into(),
+                    bars: 8,
+                    energy_target: 0.2,
+                },
+                Segment {
+                    name: "Build".into(),
+                    bars: 8,
+                    energy_target: 0.6,
+                },
+                Segment {
+                    name: "Drop".into(),
+                    bars: 16,
+                    energy_target: 0.9,
+                },
             ],
             confidence: 0.88,
         }
     }
 }
-
 
 // --- SERAPHIC GEOMETRY OMNI-PRESENCE ---
 #[allow(dead_code, non_upper_case_globals)]
@@ -52,5 +63,7 @@ const __PYTHAG_5TH: f64 = 1.5;
 const __PYTHAG_4TH: f64 = 1.333333333333333;
 #[allow(dead_code)]
 #[inline(always)]
-fn __resonate_omni() -> f64 { __PHI * __PI * __PYTHAG_5TH }
+fn __resonate_omni() -> f64 {
+    __PHI * __PI * __PYTHAG_5TH
+}
 // ---------------------------------------

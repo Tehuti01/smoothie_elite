@@ -10,10 +10,10 @@
  */
 
 use anyhow::Result;
+use colored::*;
 use regex::Regex;
 use std::fs;
 use walkdir::WalkDir;
-use colored::*;
 
 /// Technical implementation of the Injector structure.
 pub struct Injector {
@@ -23,20 +23,29 @@ pub struct Injector {
 impl Injector {
     pub fn new() -> Result<Self> {
         let doc_patterns = vec![
-             (Regex::new(r"(?m)^pub struct (\w+)")?, "/// Technical implementation of the $1 structure.\npub struct $1".to_string()),
-             (Regex::new(r"(?m)^pub enum (\w+)")?, "/// Technical implementation of the $1 enumeration.\npub enum $1".to_string()),
-             (Regex::new(r"(?m)^pub fn (\w+)")?, "/// Technical implementation of the $1 logic.\npub fn $1".to_string()),
+            (
+                Regex::new(r"(?m)^pub struct (\w+)")?,
+                "/// Technical implementation of the $1 structure.\npub struct $1".to_string(),
+            ),
+            (
+                Regex::new(r"(?m)^pub enum (\w+)")?,
+                "/// Technical implementation of the $1 enumeration.\npub enum $1".to_string(),
+            ),
+            (
+                Regex::new(r"(?m)^pub fn (\w+)")?,
+                "/// Technical implementation of the $1 logic.\npub fn $1".to_string(),
+            ),
         ];
-        
+
         Ok(Self { doc_patterns })
     }
 
     pub async fn run(&mut self, _force: bool) -> Result<()> {
         println!("💉 Injecting technical documentation and branding headers...");
-        
+
         for entry in WalkDir::new(".").into_iter().filter_map(|e| e.ok()) {
             let path = entry.path();
-            if path.extension().map_or(false, |ext| ext == "rs") {
+            if path.extension().is_some_and(|ext| ext == "rs") {
                 let content = fs::read_to_string(path)?;
                 let mut new_content = content.clone();
 

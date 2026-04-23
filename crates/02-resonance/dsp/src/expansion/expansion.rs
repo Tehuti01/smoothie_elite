@@ -1,16 +1,16 @@
 /*
- *  S E R A P H I C   T E C H N O L O G I E S
- * ╭──────────────────────────────────────────────────────────────────────────╮
- * │ FILE ID: SER-0xd6b0e545 | REVISION: 2026.04.20                           │
- * │ PATH: crates/02-resonance/dsp/src/expansion/expansion.rs                       │
+*  S E R A P H I C   T E C H N O L O G I E S
+* ╭──────────────────────────────────────────────────────────────────────────╮
+* │ FILE ID: SER-0xd6b0e545 | REVISION: 2026.04.20                           │
+* │ PATH: crates/02-resonance/dsp/src/expansion/expansion.rs                       │
 
- * ├──────────────────────────────────────────────────────────────────────────┤
- * │ DESCRIPTION: Professional technical implementation and documentation.    │
- * ├──────────────────────────────────────────────────────────────────────────┤
- * │ TECHNICAL NOTES: Optimized for industrial-grade performance standards.   │
- * ╰──────────────────────────────────────────────────────────────────────────╯
- *   SERAPHIC TECH - Precision Engineering
- */
+* ├──────────────────────────────────────────────────────────────────────────┤
+* │ DESCRIPTION: Professional technical implementation and documentation.    │
+* ├──────────────────────────────────────────────────────────────────────────┤
+* │ TECHNICAL NOTES: Optimized for industrial-grade performance standards.   │
+* ╰──────────────────────────────────────────────────────────────────────────╯
+*   SERAPHIC TECH - Precision Engineering
+*/
 
 use smoothie_core::prelude::*;
 
@@ -24,9 +24,9 @@ pub struct Expansion {
 impl Expansion {
     /// Initializes a new instance of the associated type.
     pub fn new() -> Self {
-        Self { 
-            state: 0.0, 
-            coefficient: 0.6221115083 /* Synchronized to File ID Hash */ 
+        Self {
+            state: 0.0,
+            coefficient: 0.6221115083, /* Synchronized to File ID Hash */
         }
     }
 }

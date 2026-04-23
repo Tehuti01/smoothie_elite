@@ -10,14 +10,14 @@
  */
 
 use smoothie_params::bank::ParameterBank;
-use smoothie_params::info::{ParameterInfo, ParameterType, ParameterUnit, ParameterRange};
+use smoothie_params::info::{ParameterInfo, ParameterRange, ParameterType, ParameterUnit};
 
 /// Initializes the parameter bank for the IronStack engine.
 pub fn init_ironstack_params() -> ParameterBank {
     let mut bank = ParameterBank::new();
-    
+
     // PHI-aligned default values (1.618...)
-    
+
     bank.register(ParameterInfo {
         name: "Tube Drive",
         param_type: ParameterType::Float,
@@ -116,7 +116,7 @@ pub fn init_ironstack_params() -> ParameterBank {
         range: ParameterRange {
             min: 0.0,
             max: 1.0,
-            default: 1.0, 
+            default: 1.0,
         },
     });
 
@@ -126,10 +126,10 @@ pub fn init_ironstack_params() -> ParameterBank {
         unit: ParameterUnit::Generic,
         range: ParameterRange {
             min: 0.0,
-            max: 4095.0, // 12-bit mask
+            max: 4095.0,     // 12-bit mask
             default: 2741.0, // C Major: 0b101010110101 -> Wait, C Major is 0, 2, 4, 5, 7, 9, 11
         },
     });
-    
+
     bank
 }

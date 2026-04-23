@@ -13,7 +13,7 @@
 
 /// Technical implementation of the Mp3Reader structure.
 pub struct Mp3Reader {
-    pos: usize,
+    _pos: usize,
     sample_rate: u32,
     channels: u16,
     bitrate: u32,
@@ -30,7 +30,7 @@ impl Mp3Reader {
             return None;
         }
         Some(Self {
-            pos: 0,
+            _pos: 0,
             sample_rate: 44100,
             channels: 2,
             bitrate: 128000,

@@ -12,10 +12,11 @@
  */
 
 use core::f32::consts::PI;
-use rustfft::FftPlanner;
 use num_complex::Complex;
+use rustfft::FftPlanner;
 
 /// Technical implementation of the AdaptiveFft structure.
+#[allow(dead_code)]
 pub struct AdaptiveFft {
     planner: FftPlanner<f32>,
     fft_sizes: Vec<usize>,
@@ -58,24 +59,15 @@ impl AdaptiveFft {
 
     /// Compute energy in low and high frequency bands
     fn compute_spectral_balance(&self, signal: &[f32]) -> (f32, f32) {
-        let low_energy: f32 = signal[..signal.len() / 2]
-            .iter()
-            .map(|s| s * s)
-            .sum();
-        let high_energy: f32 = signal[signal.len() / 2..]
-            .iter()
-            .map(|s| s * s)
-            .sum();
+        let low_energy: f32 = signal[..signal.len() / 2].iter().map(|s| s * s).sum();
+        let high_energy: f32 = signal[signal.len() / 2..].iter().map(|s| s * s).sum();
         (low_energy, high_energy)
     }
 
     /// Perform FFT with current size
     pub fn forward_fft(&mut self, signal: &[f32]) -> Vec<Complex<f32>> {
         let fft = self.planner.plan_fft_forward(self.current_size);
-        let mut buffer: Vec<Complex<f32>> = signal
-            .iter()
-            .map(|&s| Complex::new(s, 0.0))
-            .collect();
+        let mut buffer: Vec<Complex<f32>> = signal.iter().map(|&s| Complex::new(s, 0.0)).collect();
 
         // Pad to FFT size if needed
         while buffer.len() < self.current_size {
@@ -100,10 +92,7 @@ impl AdaptiveFft {
 
         // Normalize and convert back to real
         let scale = 1.0 / self.current_size as f32;
-        buffer
-            .iter()
-            .map(|c| c.re * scale)
-            .collect()
+        buffer.iter().map(|c| c.re * scale).collect()
     }
 }
 
@@ -135,8 +124,8 @@ impl PhaseVocoder {
             let phase = bin.arg();
 
             // Compute phase advance
-            let phase_delta = (k as f32 / self.fft_size as f32 * 2.0 * PI * self.hop_size as f32)
-                * stretch_ratio;
+            let phase_delta =
+                (k as f32 / self.fft_size as f32 * 2.0 * PI * self.hop_size as f32) * stretch_ratio;
 
             self.bin_phases[k] = (phase + phase_delta) % (2.0 * PI);
             self.prev_magnitude[k] = mag;
@@ -181,13 +170,7 @@ impl ParametricEq {
     }
 
     /// Add EQ band
-    pub fn add_band(
-        &mut self,
-        frequency: f32,
-        gain: f32,
-        q: f32,
-        filter_type: EqType,
-    ) {
+    pub fn add_band(&mut self, frequency: f32, gain: f32, q: f32, filter_type: EqType) {
         self.bands.push(EqBand {
             frequency,
             gain,
@@ -197,11 +180,7 @@ impl ParametricEq {
     }
 
     /// Compute biquad coefficients for a band
-    pub fn compute_coefficients(
-        &self,
-        sample_rate: f32,
-        band_idx: usize,
-    ) -> Option<BiquadCoeffs> {
+    pub fn compute_coefficients(&self, sample_rate: f32, band_idx: usize) -> Option<BiquadCoeffs> {
         let band = self.bands.get(band_idx)?;
 
         let w0 = 2.0 * PI * band.frequency / sample_rate;
@@ -220,7 +199,14 @@ impl ParametricEq {
                 let a1 = -2.0 * cos_w0;
                 let a2 = 1.0 - alpha / a_gain;
 
-                Some(BiquadCoeffs { b0, b1, b2, a0, a1, a2 })
+                Some(BiquadCoeffs {
+                    b0,
+                    b1,
+                    b2,
+                    a0,
+                    a1,
+                    a2,
+                })
             }
             _ => None, // Implement other types similarly
         }
@@ -259,10 +245,7 @@ impl TransientDetector {
         let mut transients = vec![false; signal.len()];
 
         for i in self.window_size..signal.len() {
-            let prev_energy: f32 = signal[i - self.window_size..i]
-                .iter()
-                .map(|s| s * s)
-                .sum();
+            let prev_energy: f32 = signal[i - self.window_size..i].iter().map(|s| s * s).sum();
             let curr_energy: f32 = signal[i..core::cmp::min(i + self.window_size, signal.len())]
                 .iter()
                 .map(|s| s * s)

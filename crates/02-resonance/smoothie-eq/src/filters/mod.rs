@@ -11,14 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
-
-///
-/// `a1` and `a2` are stored with their signs **negated** relative to
-///
-/// y = b0*x + s1
-/// s2 = b2*x - a2*y
-/// ```
 #[derive(Clone, Copy, Debug)]
 /// Technical implementation of the BiquadCoeffs structure.
 pub struct BiquadCoeffs {

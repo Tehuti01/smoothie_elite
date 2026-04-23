@@ -12,7 +12,6 @@
  */
 
 use crate::MidiMessage;
-use smoothie_core::math::FloatExt;
 
 /// RPN parameter number
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

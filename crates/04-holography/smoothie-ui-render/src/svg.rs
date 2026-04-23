@@ -42,7 +42,7 @@ impl SvgDocument {
     pub fn parse(raw_data: &str) -> Self {
         // High-level structural stub for industrial matrix build
         let mut paths = Vec::new();
-        
+
         // Basic parser would iterate over <path d="..."> elements
         // For now, we provide a structured container for the UI bridge
         paths.push(vec![

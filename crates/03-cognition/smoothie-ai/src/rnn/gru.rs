@@ -130,8 +130,8 @@ impl GRULayer {
         }
 
         // Apply activation (Sigmoid)
-        let r = 1.0 / (1.0 + (- (r_sum + self.b_r[j])).exp());
-        let z = 1.0 / (1.0 + (- (z_sum + self.b_z[j])).exp());
+        let r = 1.0 / (1.0 + (-(r_sum + self.b_r[j])).exp());
+        let z = 1.0 / (1.0 + (-(z_sum + self.b_z[j])).exp());
 
         (r, z)
     }

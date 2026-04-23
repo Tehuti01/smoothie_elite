@@ -11,7 +11,7 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use crate::{print_seraphic_header, print_success, print_step};
+use crate::{print_seraphic_header, print_step, print_success};
 use colored::Colorize;
 use indicatif::{ProgressBar, ProgressStyle};
 use std::time::Duration;
@@ -20,7 +20,11 @@ use std::time::Duration;
 pub fn perform_build(release: bool, format: Option<&str>) {
     print_seraphic_header("Autonomous Build Engine");
 
-    let mode = if release { "Release".bright_yellow() } else { "Debug".bright_blue() };
+    let mode = if release {
+        "Release".bright_yellow()
+    } else {
+        "Debug".bright_blue()
+    };
     let target = format.unwrap_or("All Systems");
 
     print_step(&format!("Operating Mode: {}", mode));
@@ -46,5 +50,8 @@ pub fn perform_build(release: bool, format: Option<&str>) {
 
     pb.finish_and_clear();
 
-    print_success(&format!("{} build for {} completed with PHI-level precision.", mode, target));
+    print_success(&format!(
+        "{} build for {} completed with PHI-level precision.",
+        mode, target
+    ));
 }

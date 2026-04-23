@@ -9,7 +9,7 @@
 
 [package]
 name = "cargo-smoothie"
-version = "1.0.0-LTS"
+version = "1.0.0"
 edition = "2021"
 authors = ["Smoothie Audio <smoothie@smoothieaudio.dev>"]
 license = "MIT OR Apache-2.0"
@@ -21,7 +21,7 @@ name = "cargo-smoothie"
 path = "src/main.rs"
 
 [dependencies]
-smoothie-core = { workspace = true }
+smoothie-core = {workspace = true}
 clap = { version = "4.5", features = ["derive"] }
 colored = "2.1"
 indicatif = "0.17"

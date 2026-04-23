@@ -11,17 +11,16 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_vst3::{Vst3PluginEntry, Vst3Category, Vst3ComponentFlags, Vst3ProcessorInfo};
 use crate::IronStackPlugin;
+use smoothie_vst3::{Vst3Category, Vst3ComponentFlags, Vst3PluginEntry, Vst3ProcessorInfo};
 
 /// Initializes the VST3 entry point for the IRONSTACK-100 instrument.
 pub fn init_vst3_entry() -> Vst3PluginEntry {
     let mut entry = Vst3PluginEntry::new("IRONSTACK-100", "Smoothie Audio");
-    
+
     // Industrial-grade metadata
-    entry = entry.with_version(1, 0, 0)
-        .with_sdk_version(3, 7, 9);
-        
+    entry = entry.with_version(1, 0, 0).with_sdk_version(3, 7, 9);
+
     entry
 }
 

@@ -13,7 +13,6 @@
 
 use smoothie_core::constants::{F_256, PI, TAU};
 use smoothie_core::math::{cosine_approx, sine_approx};
-use smoothie_core::primitives::Sample;
 
 /// Complex number for FFT
 #[derive(Clone, Copy, Debug)]

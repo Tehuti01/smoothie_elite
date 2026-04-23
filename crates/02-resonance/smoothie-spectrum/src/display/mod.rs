@@ -12,7 +12,6 @@
  */
 
 use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
 
 #[derive(Clone, Copy, Default, Debug)]
 /// Technical implementation of the DisplayBin structure.

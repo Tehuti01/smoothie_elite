@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// Zero-allocation grain creation with configurable envelope shaping.
 
@@ -169,8 +168,8 @@ impl Default for GrainGenerator {
 pub struct GrainScheduler {
     generator: GrainGenerator,
     current_position: f32,
-    buffer_size: usize,
-    hop_size: usize,
+    _buffersize: usize,
+    _hopsize: usize,
     grain_buffer: [Grain; 16],
     grain_count: usize,
 }
@@ -184,8 +183,8 @@ impl GrainScheduler {
         Self {
             generator: GrainGenerator::new(),
             current_position: 0.0,
-            buffer_size,
-            hop_size,
+            _buffersize: buffer_size,
+            _hopsize: hop_size,
             grain_buffer: [Grain::new(); 16],
             grain_count: 0,
         }

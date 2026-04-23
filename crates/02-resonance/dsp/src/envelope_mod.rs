@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 /// Envelope generators for amplitude and modulation shaping.
 use smoothie_core::primitives::Sample;
 
@@ -170,7 +169,7 @@ impl ArEnvelope {
             release_rate: AdsrEnvelope::ms_to_rate(release_ms, sample_rate),
             current: 0.0,
             stage: EnvelopeStage::Idle,
-            sample_rate,
+            sample_rate: sample_rate,
         }
     }
 
@@ -638,7 +637,7 @@ impl AsdEnvelope {
             decay_rate: Self::ms_to_rate(decay_ms, sample_rate),
             current: 0.0,
             stage: EnvelopeStage::Idle,
-            sample_rate,
+            sample_rate: sample_rate,
         }
     }
 
@@ -819,7 +818,7 @@ impl DadsrEnvelope {
             release_rate: Self::ms_to_rate(release_ms, sample_rate),
             current: 0.0,
             stage: EnvelopeStage::Idle,
-            sample_rate,
+            sample_rate: sample_rate,
             delay_samples: (delay_ms * sample_rate / 1000.0) as usize,
             delay_counter: 0,
         }

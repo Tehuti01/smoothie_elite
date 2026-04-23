@@ -11,6 +11,7 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
+#[allow(non_camel_case_types)]
 pub type AAX_Result = i32;
 
 pub const AAX_SUCCESS: AAX_Result = 0;

@@ -17,7 +17,6 @@ use super::filters::{BiquadCoeffs, BiquadFilter};
 /// Coefficient recomputation is triggered by a dirty flag from the parameter
 /// guaranteeing zero allocation and zero locking on the hot path.
 use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
 
 /// Maximum number of EQ bands in a single `ParametricEq`.
 pub const MAX_BANDS: usize = 32;
@@ -78,14 +77,6 @@ impl EqBand {
     }
 }
 
-///
-///
-/// let mut eq = ParametricEq::new(44100.0);
-/// // Configure a 6 dB boost at 1 kHz with Q=2.0
-///     band_type: BandType::Peaking { freq_hz: 1000.0, gain_db: 6.0, q: 2.0 },
-/// });
-/// // Process a stereo block
-/// ```
 /// Technical implementation of the ParametricEq structure.
 pub struct ParametricEq {
     bands: Vec<EqBand>,

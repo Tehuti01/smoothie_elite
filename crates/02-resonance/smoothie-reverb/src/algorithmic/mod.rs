@@ -346,6 +346,7 @@ struct PitchShift {
     write_pos: usize,
     read_pos: usize,
     pitch_ratio: f32,
+    overlap: usize,
 }
 
 impl PitchShift {

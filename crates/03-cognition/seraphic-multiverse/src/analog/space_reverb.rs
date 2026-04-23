@@ -36,7 +36,7 @@ impl SpaceReverb {
     }
 
     /// 🚀 Initialize PHI-aligned feedback
-    pub fn set_params(&mut self, _size: f32, feedback: f32) {
+    pub fn set_params(&mut self, size: f32, feedback: f32) {
         self.feedback = feedback.clamp(0.0, 0.99);
     }
 

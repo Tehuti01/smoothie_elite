@@ -15,7 +15,7 @@ license.workspace = true
 description = "Type-safe parameter system for Smoothie Elite audio plugins"
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
+smoothie-core = { workspace = true }
 
 [lib]
 path = "src/lib.rs"

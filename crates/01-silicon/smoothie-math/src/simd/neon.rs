@@ -18,7 +18,7 @@ use core::arch::aarch64::*;
 pub unsafe fn process_gain_neon(input: &[f32], output: &mut [f32], gain: f32) {
     let len = input.len();
     assert!(
-        len % 4 == 0,
+        len.is_multiple_of(4),
         "Buffer length must be a multiple of 4 for NEON"
     );
 
@@ -42,7 +42,7 @@ pub unsafe fn process_mix_neon(
 ) {
     let len = input_a.len();
     assert!(
-        len % 4 == 0,
+        len.is_multiple_of(4),
         "Buffer length must be a multiple of 4 for NEON"
     );
     assert!(
@@ -66,7 +66,7 @@ pub unsafe fn process_mix_neon(
 pub unsafe fn process_copy_neon(input: &[f32], output: &mut [f32]) {
     let len = input.len();
     assert!(
-        len % 4 == 0,
+        len.is_multiple_of(4),
         "Buffer length must be a multiple of 4 for NEON"
     );
     assert!(len == output.len(), "Buffer sizes must match");
@@ -82,7 +82,7 @@ pub unsafe fn process_copy_neon(input: &[f32], output: &mut [f32]) {
 pub unsafe fn process_add_neon(input_a: &[f32], input_b: &[f32], output: &mut [f32]) {
     let len = input_a.len();
     assert!(
-        len % 4 == 0,
+        len.is_multiple_of(4),
         "Buffer length must be a multiple of 4 for NEON"
     );
     assert!(
@@ -103,7 +103,7 @@ pub unsafe fn process_add_neon(input_a: &[f32], input_b: &[f32], output: &mut [f
 pub unsafe fn buffer_sum_neon(input: &[f32]) -> f32 {
     let len = input.len();
     assert!(
-        len % 4 == 0,
+        len.is_multiple_of(4),
         "Buffer length must be a multiple of 4 for NEON"
     );
 
@@ -123,7 +123,7 @@ pub unsafe fn buffer_sum_neon(input: &[f32]) -> f32 {
 pub unsafe fn process_clear_neon(output: &mut [f32]) {
     let len = output.len();
     assert!(
-        len % 4 == 0,
+        len.is_multiple_of(4),
         "Buffer length must be a multiple of 4 for NEON"
     );
 

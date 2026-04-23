@@ -21,7 +21,7 @@
 //! STATUS: 12X INDUSTRIAL QUALITY VERIFIED
 //!
 //! 🏛️ THE MATHEMATICAL FINALITY
-//! This file is part of the Enterprise Sound Engine. It has been autonomously 
+//! This file is part of the Enterprise Sound Engine. It has been autonomously
 //! architected for High-Performance performance and mathematical beauty.
 //!
 //! 🔗 INTEGRITY HASH: SOV-00000001

@@ -1,0 +1,19 @@
+[package]
+name = "smoothie-test-suite"
+version = "1.0.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+smoothie-core = { workspace = true }
+smoothie-math = { workspace = true }
+smoothie-dsp = { workspace = true }
+smoothie-effects = { workspace = true }
+smoothie-ui-core = { workspace = true }
+smoothie-ui-render = { workspace = true }
+smoothie-vst3 = { workspace = true }
+smoothie-clap = { workspace = true }
+smoothie-au = { workspace = true }
+smoothie-aax = { workspace = true }
+smoothie-cli-frontend = { workspace = true }
+# Add others as needed

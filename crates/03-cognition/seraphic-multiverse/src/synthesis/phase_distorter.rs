@@ -65,7 +65,7 @@ impl PhaseDistorter {
             }
             DistortionMode::Quantize => {
                 // Step-quantization of the phase ramp
-                let steps = (1.0 + (1.0 - self.amount) * 32.0) as f32;
+                let steps = 1.0 + (1.0 - self.amount) * 32.0;
                 (phase * steps).floor() / steps
             }
         }

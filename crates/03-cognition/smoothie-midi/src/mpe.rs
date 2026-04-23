@@ -12,7 +12,6 @@
  */
 
 use crate::{MidiMessage, NoteTracker, NUM_NOTES};
-use smoothie_core::math::FloatExt;
 
 /// MPE configuration
 #[derive(Debug, Clone, Copy)]
@@ -140,14 +139,13 @@ impl MpeZone {
                     }
                 }
             }
-            MidiMessage::PitchBend { channel, value } => {
-                if *channel == self.config.master_channel {
+            MidiMessage::PitchBend { channel, value }
+                if *channel == self.config.master_channel => {
                     // Global pitch bend - apply to all notes
                     for note_state in self.note_states.iter_mut() {
                         note_state.pitch_bend = *value;
                     }
                 }
-            }
             MidiMessage::Aftertouch {
                 channel,
                 note,
@@ -162,16 +160,15 @@ impl MpeZone {
                 channel,
                 controller,
                 value,
-            } => {
+            }
                 // CC1 (modulation) = timbre, CC74 = volume-like
-                if *controller == 1 && *channel != self.config.master_channel {
+                if *controller == 1 && *channel != self.config.master_channel => {
                     // Need to track note-channel mapping; for now use last_note
                     let n = self.note_tracker.last_note() as usize;
                     if n < NUM_NOTES {
                         self.note_states[n].timbre = *value;
                     }
                 }
-            }
             _ => {}
         }
     }

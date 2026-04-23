@@ -11,10 +11,11 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use core::sync::atomic::{AtomicU32, Ordering};
 use core::f32::consts::PI;
+use core::sync::atomic::{AtomicU32, Ordering};
 
 /// Cache line size
+#[allow(dead_code)]
 const CACHE_LINE: usize = 64;
 
 /// Source position in spherical coordinates
@@ -153,8 +154,7 @@ impl SpatialAudioProcessor {
         let distance_clipped = self.position.distance.max(0.5).min(20.0);
         let ref_distance = 1.0;
         let gain = (ref_distance / distance_clipped).powf(2.0);
-        self.distance_gain
-            .store(gain.to_bits(), Ordering::Release);
+        self.distance_gain.store(gain.to_bits(), Ordering::Release);
 
         // Compute ITD (Interaural Time Difference)
         let itd_samples = self.compute_itd();

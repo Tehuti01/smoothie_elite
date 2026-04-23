@@ -11,12 +11,11 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// Audio-rate wave folding for aggressive harmonic distortion.
 extern crate alloc;
 
-use smoothie_core::constants::{TAU, STANDARD_PITCH};
+use smoothie_core::constants::{STANDARD_PITCH, TAU};
 use smoothie_core::math::{floor_approx, sine_approx};
 use smoothie_core::primitives::Sample;
 
@@ -68,6 +67,7 @@ impl WavefoldOsc {
 
     #[inline(always)]
     /// Technical implementation of the fold_single logic.
+    #[allow(dead_code)]
     fn fold_single(&self, x: f32) -> f32 {
         let folded = (x * self.config.folds + self.config.asymmetry).abs();
         folded - floor_approx(folded) - 0.5

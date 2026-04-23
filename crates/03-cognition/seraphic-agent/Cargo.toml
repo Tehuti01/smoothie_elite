@@ -21,4 +21,4 @@ categories.workspace = true
 rust-version.workspace = true
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
+smoothie-core = { workspace = true }

@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::constants::PI_F64;
 use smoothie_core::prelude::*;
 
 /// [Engineering Phase 20]: Physical Diode Parameters (1N4148)

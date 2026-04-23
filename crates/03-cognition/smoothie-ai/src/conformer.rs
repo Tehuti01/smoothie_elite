@@ -12,8 +12,7 @@
  */
 
 use alloc::vec;
-use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 
 /// Technical implementation of the ConformerBlock structure.
 pub struct ConformerBlock {
@@ -23,7 +22,7 @@ pub struct ConformerBlock {
 impl ConformerBlock {
     /// Technical implementation of the forward logic.
     pub fn forward(&self, input: &[f32], output: &mut [f32]) {
-        let mut x = input.to_vec();
+        let x = input.to_vec();
         let mut tmp = vec![0.0; x.len()];
         self.norm1.forward(&x, &mut tmp);
         output.copy_from_slice(&tmp);

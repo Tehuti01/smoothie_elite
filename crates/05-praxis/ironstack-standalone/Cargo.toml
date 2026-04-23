@@ -16,15 +16,15 @@ license.workspace = true
 description = "Standalone reference implementation for the IRONSTACK-100 DSP engine"
 
 [dependencies]
-smoothie-core = { workspace = true }
-smoothie-ironstack = { path = "../../02-resonance/ironstack" }
-smoothie-synth = { workspace = true }
-smoothie-midi = { workspace = true }
-smoothie-ui = { workspace = true }
-smoothie-preset = { workspace = true }
-smoothie-logging = { workspace = true }
-anyhow = { workspace = true }
-clap = { workspace = true }
+smoothie-core = {workspace = true}
+smoothie-ironstack = { workspace = true }
+smoothie-synth = {workspace = true}
+smoothie-midi = {workspace = true}
+smoothie-ui = {workspace = true}
+smoothie-preset = {workspace = true}
+smoothie-logging = {workspace = true}
+anyhow = {workspace = true}
+clap = {workspace = true}
 
 [[bin]]
 name = "ironstack-100"

@@ -11,12 +11,12 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use crate::wdf::ports::WdfNode;
 use smoothie_core::math::exp_approx;
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 
 /// Technical implementation of the TubeComponent structure.
 pub struct TubeComponent {
+    #[allow(dead_code)]
     tube_type: TubeType,
     mu: f32,
     ex: f32,
@@ -88,7 +88,7 @@ impl TubeComponent {
         r_k: f32,
     ) {
         let mu = self.mu;
-        let ex = self.ex;
+        let _ex = self.ex;
         let kg1 = self.kg1;
         let kp = self.kp;
         let kvb = self.kvb;
@@ -144,7 +144,7 @@ fn fast_sqrt(x: f32) -> f32 {
     }
     let mut i = x.to_bits();
     i = 0x5f3759df - (i >> 1);
-    let mut y = f32::from_bits(i);
+    let y = f32::from_bits(i);
     y * (1.5 - 0.5 * x * y * y)
 }
 

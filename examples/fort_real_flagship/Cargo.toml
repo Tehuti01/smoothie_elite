@@ -1,0 +1,20 @@
+#
+#   S E R A P H I C   T E C H N O L O G I E S
+#  ────────────────────────────────────────────────────────────────────────────
+#   FILE ID: SER-0x0b61a1ff | REVISION: 2026.04.20
+#   PATH: smoothie_elite/examples/fort_real_flagship/Cargo.toml
+#  ────────────────────────────────────────────────────────────────────────────
+#   SERAPHIC TECH - Precision Engineering
+#
+
+[package]
+name = "fort-real-flagship"
+version = "1.0.0"
+edition = "2021"
+publish = false
+
+
+[dependencies]
+smoothie-core = { workspace = true }
+smoothie-effects = { workspace = true }
+smoothie-dynamics = { workspace = true }

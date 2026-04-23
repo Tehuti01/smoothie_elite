@@ -82,5 +82,5 @@ impl GainComputer {
 /// Technical implementation of the db_to_linear logic.
 fn db_to_linear(db: f32) -> f32 {
     // 10^(dB/20) via exp approximation
-    smoothie_core::math::exp_approx(db * 0.1151292546_f32) // ln(10)/20
+    smoothie_core::math::exp_approx(db * 0.115_129_255_f32) // ln(10)/20
 }

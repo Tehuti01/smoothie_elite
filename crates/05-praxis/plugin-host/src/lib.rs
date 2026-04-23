@@ -12,9 +12,10 @@
  */
 
 use core::sync::atomic::{AtomicBool, AtomicU32, Ordering};
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 /// Cache-line alignment constant
+#[allow(dead_code)]
 const CACHE_LINE: usize = 64;
 
 ///
@@ -229,7 +230,7 @@ pub struct PluginHost {
     is_active: AtomicBool,
 
     /// CPU load tracking
-    cpu_load: AtomicU32,  // Bit-cast f32
+    cpu_load: AtomicU32, // Bit-cast f32
 
     /// Presets
     presets: Vec<Preset>,
@@ -243,7 +244,7 @@ impl PluginHost {
     ///
     /// Pre-allocates all buffers for zero-allocation audio processing
     pub fn new(block_size: usize, max_blocks: usize) -> Self {
-        let mut audio_buffers = Vec::with_capacity(max_blocks * 2);  // stereo
+        let mut audio_buffers = Vec::with_capacity(max_blocks * 2); // stereo
         for _ in 0..(max_blocks * 2) {
             audio_buffers.push(vec![0.0; block_size]);
         }
@@ -299,9 +300,7 @@ impl PluginHost {
             // Get pre-allocated input/output buffers (non-overlapping via split_at_mut)
             let (input_buf, output_buf) = self.audio_buffers.split_at_mut(1);
             let inputs: Vec<&[f32]> = vec![&input_buf[0][..self.block_size]];
-            let mut outputs: Vec<&mut [f32]> = vec![
-                &mut output_buf[0][..self.block_size]
-            ];
+            let mut outputs: Vec<&mut [f32]> = vec![&mut output_buf[0][..self.block_size]];
 
             // Process (zero-allocation)
             plugin.process(&inputs, &mut outputs, self.block_size, midi_events)?;
@@ -443,7 +442,7 @@ mod tests {
             Self {
                 sample_rate: 44100.0,
                 bypassed: false,
-                parameters: vec![0.5, 0.0, 1.0],  // gain, attack, release
+                parameters: vec![0.5, 0.0, 1.0], // gain, attack, release
             }
         }
     }
@@ -521,7 +520,7 @@ mod tests {
 
         /// Technical implementation of the cpu_load logic.
         fn cpu_load(&self) -> f32 {
-            5.0  // 5% CPU load
+            5.0 // 5% CPU load
         }
     }
 

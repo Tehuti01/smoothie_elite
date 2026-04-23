@@ -23,7 +23,6 @@ use alloc::vec;
 /// which has unit magnitude response (`|H(e^jω)| = 1`) at all frequencies,
 /// but non-uniform group delay — introducing the desired phase-scattering.
 use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
 
 /// A single all-pass filter element using a circular delay buffer.
 struct AllPassElement {

@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// Zero-allocation FLAC stream decoder.
 

@@ -25,12 +25,12 @@ pub struct FormantAnalyzer {
     bandwidths: [f32; 5],
     sample_rate: f32,
     frame_buffer: Vec<f32>,
-    frame_size: usize,
+    framesize: usize,
 }
 
 impl FormantAnalyzer {
     /// Initializes a new instance of the associated type.
-    pub fn new(frame_size: usize, sample_rate: f32) -> Self {
+    pub fn new(framesize: usize, sample_rate: f32) -> Self {
         Self {
             lpc_order: 10,
             lpc_coeffs: Vec::with_capacity(10),
@@ -130,7 +130,7 @@ pub struct FormantTracker {
 
 impl FormantTracker {
     /// Initializes a new instance of the associated type.
-    pub fn new(history_size: usize) -> Self {
+    pub fn new(historysize: usize) -> Self {
         Self {
             history: alloc::vec::Vec::with_capacity(history_size),
             smooth_factor: 0.8,

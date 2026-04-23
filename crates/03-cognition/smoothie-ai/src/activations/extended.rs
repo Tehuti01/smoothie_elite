@@ -11,7 +11,7 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 ///
 /// GELU variants, SwiGLU, FReLU, and more specialized activations.
 use smoothie_core::math::{exp_approx, fast_log2, sqrt_approx, tanh_approx};
@@ -25,11 +25,11 @@ pub fn gelu_erf(x: f32) -> f32 {
 #[inline(always)]
 /// Technical implementation of the erf_approx logic.
 fn erf_approx(x: f32) -> f32 {
-    let a1 = 0.254829592;
-    let a2 = -0.284496736;
-    let a3 = 1.421413741;
-    let a4 = -1.453152027;
-    let a5 = 1.061405429;
+    let a1 = 0.254_829_6;
+    let a2 = -0.284_496_72;
+    let a3 = 1.421_413_8;
+    let a4 = -1.453_152_1;
+    let a5 = 1.061_405_4;
     let p = 0.3275911;
 
     let sign = if x < 0.0 { -1.0 } else { 1.0 };
@@ -42,7 +42,7 @@ fn erf_approx(x: f32) -> f32 {
 #[inline(always)]
 /// Technical implementation of the gelu_tanh logic.
 pub fn gelu_tanh(x: f32) -> f32 {
-    let k = 0.7978845608;
+    let k = 0.797_884_6;
     let v = 1.0 + exp_approx(k * x);
     0.5 * x * (v - 1.0) / v
 }

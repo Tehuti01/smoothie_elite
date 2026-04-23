@@ -61,7 +61,7 @@ pub fn log_softmax(x: &[f32], output: &mut [f32]) {
     for i in 0..len {
         sum += exp_approx(x[i] - max_val);
     }
-    let log_sum = fast_log2(sum) * 0.6931471805599453 + max_val;
+    let log_sum = fast_log2(sum) * 0.693_147_2 + max_val;
 
     for i in 0..len {
         output[i] = x[i] - log_sum;

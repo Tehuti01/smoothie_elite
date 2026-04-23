@@ -17,12 +17,19 @@ use colored::Colorize;
 /// Technical implementation of the start_dev_server logic.
 pub fn start_dev_server(port: u16) {
     print_seraphic_header("Holographic Dev Server");
-    
-    print_step(&format!("Listening on port: {}", port.to_string().bright_white()));
+
+    print_step(&format!(
+        "Listening on port: {}",
+        port.to_string().bright_white()
+    ));
     print_step("Bridge Mode: 2.5D Layered UI");
     print_step("Status: Watching for file changes...");
     println!();
-    
-    println!("  {} Server active. Navigate to localhost:{} to begin designing.", "⚡".bright_yellow(), port);
+
+    println!(
+        "  {} Server active. Navigate to localhost:{} to begin designing.",
+        "⚡".bright_yellow(),
+        port
+    );
     println!("  Press Ctrl+C to terminate the resonance loop.");
 }

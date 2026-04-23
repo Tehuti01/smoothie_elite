@@ -15,7 +15,7 @@
 /// Technical implementation of the FormantShifter structure.
 pub struct FormantShifter {
     _order: usize,
-    _history: [f32; 32],
+    history: [f32; 32],
     _coeffs: [f32; 32],
 }
 
@@ -24,7 +24,7 @@ impl FormantShifter {
     pub const fn new() -> Self {
         Self {
             _order: 16,
-            _history: [0.0; 32],
+            history: [0.0; 32],
             _coeffs: [0.0; 32],
         }
     }

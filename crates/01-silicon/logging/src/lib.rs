@@ -11,14 +11,15 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-extern crate std;
 extern crate smoothie_core;
+extern crate std;
 ///
 ///
 /// the audio thread is never blocked by logging operations. Messages
 /// dropped — this is intentional for real-time safety.
 /// ## Usage
 /// ```rust
+/// use smoothie_logging::{warn, debug};
 ///
 /// warn("Buffer underrun detected");
 /// debug("Processing block of 512 samples");

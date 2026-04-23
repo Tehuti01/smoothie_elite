@@ -19,13 +19,13 @@ description = "Industrial-grade VST3/CLAP wrapper for the IRONSTACK-100 instrume
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-smoothie-core = { workspace = true }
-smoothie-ironstack = { path = "../../02-resonance/ironstack" }
-smoothie-synth = { workspace = true }
-smoothie-ui = { workspace = true }
-smoothie-preset = { workspace = true }
-smoothie-params = { workspace = true }
-smoothie-vst3 = { workspace = true }
-smoothie-clap = { workspace = true }
-smoothie-logging = { workspace = true }
-anyhow = { workspace = true }
+smoothie-core = {workspace = true}
+smoothie-ironstack = { workspace = true }
+smoothie-synth = {workspace = true}
+smoothie-ui = {workspace = true}
+smoothie-preset = {workspace = true}
+smoothie-params = {workspace = true}
+smoothie-vst3 = {workspace = true}
+smoothie-clap = {workspace = true}
+smoothie-logging = {workspace = true}
+anyhow = {workspace = true}

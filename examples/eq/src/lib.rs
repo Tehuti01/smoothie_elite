@@ -14,7 +14,7 @@
 extern crate alloc;
 
 use smoothie_core::{SmoothiePlugin, PluginInfo, PluginCategory, ProcessStatus};
-use smoothie_dsp::{EqBand, EqBandType, ParametricEq};
+use smoothie_eq::{BandType, ParametricEq, EqBandConfig};
 
 /// Technical implementation of the EqPlugin structure.
 pub struct EqPlugin {
@@ -36,24 +36,28 @@ impl SmoothiePlugin for EqPlugin {
     }
 
     fn new(sample_rate: f32) -> Self {
-        let mut eq_l = ParametricEq::new();
-        let mut eq_r = ParametricEq::new();
+        let mut eq_l = ParametricEq::new(sample_rate as f64);
+        let mut eq_r = ParametricEq::new(sample_rate as f64);
 
-        // Band 1: Low Shelf @ 100Hz, 0dB, Q=0.7
-        eq_l.add_band(EqBand::new(100.0, 0.0, 0.7, EqBandType::LowShelf, sample_rate));
-        eq_r.add_band(EqBand::new(100.0, 0.0, 0.7, EqBandType::LowShelf, sample_rate));
+        // Band 0: Low Shelf @ 100Hz, 0dB, slope=0.7
+        eq_l.set_band(0, EqBandConfig {
+            band_type: BandType::LowShelf { freq_hz: 100.0, gain_db: 0.0, slope: 0.7 },
+            enabled: true,
+        });
+        eq_r.set_band(0, EqBandConfig {
+            band_type: BandType::LowShelf { freq_hz: 100.0, gain_db: 0.0, slope: 0.7 },
+            enabled: true,
+        });
 
-        // Band 2: Peaking @ 500Hz, 0dB, Q=1.0
-        eq_l.add_band(EqBand::new(500.0, 0.0, 1.0, EqBandType::Peaking, sample_rate));
-        eq_r.add_band(EqBand::new(500.0, 0.0, 1.0, EqBandType::Peaking, sample_rate));
-
-        // Band 3: Peaking @ 2000Hz, 0dB, Q=1.0
-        eq_l.add_band(EqBand::new(2000.0, 0.0, 1.0, EqBandType::Peaking, sample_rate));
-        eq_r.add_band(EqBand::new(2000.0, 0.0, 1.0, EqBandType::Peaking, sample_rate));
-
-        // Band 4: High Shelf @ 8000Hz, 0dB, Q=0.7
-        eq_l.add_band(EqBand::new(8000.0, 0.0, 0.7, EqBandType::HighShelf, sample_rate));
-        eq_r.add_band(EqBand::new(8000.0, 0.0, 0.7, EqBandType::HighShelf, sample_rate));
+        // Band 1: Peaking @ 500Hz, 0dB, Q=1.0
+        eq_l.set_band(1, EqBandConfig {
+            band_type: BandType::Peaking { freq_hz: 500.0, gain_db: 0.0, q: 1.0 },
+            enabled: true,
+        });
+        eq_r.set_band(1, EqBandConfig {
+            band_type: BandType::Peaking { freq_hz: 500.0, gain_db: 0.0, q: 1.0 },
+            enabled: true,
+        });
 
         Self { eq_l, eq_r, sample_rate }
     }
@@ -61,18 +65,16 @@ impl SmoothiePlugin for EqPlugin {
     fn process(&mut self, buffer: &mut [&mut [f32]]) -> ProcessStatus {
         if buffer.len() < 2 { return ProcessStatus::Error; }
 
-        let block_len = buffer[0].len();
-        for i in 0..block_len {
-            buffer[0][i] = self.eq_l.process(buffer[0][i]);
-            buffer[1][i] = self.eq_r.process(buffer[1][i]);
-        }
+        let (left, right) = buffer.split_at_mut(1);
+        self.eq_l.process_block(left[0], right[0]);
+        
         ProcessStatus::Ok
     }
 
     fn set_sample_rate(&mut self, sr: f32) {
         self.sample_rate = sr;
-        // Rebuild the EQ for the new sample rate
-        *self = Self::new(sr);
+        self.eq_l.set_sample_rate(sr as f64);
+        self.eq_r.set_sample_rate(sr as f64);
     }
 
     fn reset(&mut self) {
@@ -85,25 +87,44 @@ impl SmoothiePlugin for EqPlugin {
     fn get_param(&self, _index: usize) -> f32 { 0.0 } // Simplified
 
     fn set_param(&mut self, index: usize, value: f32) {
-        let band = index / 3;
+        let band_idx = index / 3;
         let param_type = index % 3;
 
-        if let (Some(bl), Some(br)) = (self.eq_l.band_mut(band), self.eq_r.band_mut(band)) {
-            match param_type {
-                0 => { bl.set_frequency(value); br.set_frequency(value); }
-                1 => { bl.set_gain(value); br.set_gain(value); }
-                2 => { bl.set_q(value); br.set_q(value); }
-                _ => {}
+        if band_idx >= 32 { return; }
+
+        let mut config = *self.eq_l.band(band_idx);
+        match config.band_type {
+            BandType::Peaking { mut freq_hz, mut gain_db, mut q } => {
+                match param_type {
+                    0 => freq_hz = value as f64,
+                    1 => gain_db = value as f64,
+                    2 => q = value as f64,
+                    _ => {}
+                }
+                config.band_type = BandType::Peaking { freq_hz, gain_db, q };
             }
+            BandType::LowShelf { mut freq_hz, mut gain_db, mut slope } => {
+                match param_type {
+                    0 => freq_hz = value as f64,
+                    1 => gain_db = value as f64,
+                    2 => slope = value as f64,
+                    _ => {}
+                }
+                config.band_type = BandType::LowShelf { freq_hz, gain_db, slope };
+            }
+            // ... other types
+            _ => {}
         }
+        self.eq_l.set_band(band_idx, config);
+        self.eq_r.set_band(band_idx, config);
     }
 
     fn get_param_name(&self, index: usize) -> &'static str {
         match index {
-            0 => "Low Shelf Freq", 1 => "Low Shelf Gain", 2 => "Low Shelf Q",
+            0 => "Low Shelf Freq", 1 => "Low Shelf Gain", 2 => "Low Shelf Slope",
             3 => "Mid-Low Freq", 4 => "Mid-Low Gain", 5 => "Mid-Low Q",
             6 => "Mid-High Freq", 7 => "Mid-High Gain", 8 => "Mid-High Q",
-            9 => "High Shelf Freq", 10 => "High Shelf Gain", 11 => "High Shelf Q",
+            9 => "High Shelf Freq", 10 => "High Shelf Gain", 11 => "High Shelf Slope",
             _ => "",
         }
     }

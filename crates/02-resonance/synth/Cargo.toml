@@ -11,13 +11,16 @@
 name = "smoothie-synth"
 version = "1.0.0"
 edition = "2021"
+license = "MIT"
+description = "A Seraphic Technologies Elite audio plugin framework crate."
+repository = "https://github.com/seraphic/smoothie-elite"
 
 [dependencies]
-smoothie-midi = { path = "../../03-cognition/smoothie-midi" }
-smoothie-core = { path = "../../01-silicon/core" }
-smoothie-dsp = { path = "../dsp" }
-smoothie-ironstack = { path = "../ironstack" }
-seraphic-multiverse = { path = "../../03-cognition/seraphic-multiverse" }
+smoothie-midi = { workspace = true }
+smoothie-core = { workspace = true }
+smoothie-dsp = { workspace = true }
+smoothie-ironstack = { workspace = true }
+seraphic-multiverse = { path = "../../03-cognition/seraphic-multiverse" , version = "1.0.0"}
 
 [lib]
 path = "src/lib.rs"

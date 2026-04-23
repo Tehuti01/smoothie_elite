@@ -16,6 +16,7 @@ use smoothie_core::math::exp_approx;
 
 /// Technical implementation of the TransistorComponent structure.
 pub struct TransistorComponent {
+    #[allow(dead_code)]
     transistor_type: TransistorType,
     saturation_current: f32,
     thermal_voltage: f32,

@@ -12,7 +12,6 @@
  */
 
 use smoothie_core::math::db_to_amplitude;
-use smoothie_core::prelude::*;
 use smoothie_core::primitives::Sample;
 
 ///

@@ -160,9 +160,10 @@ impl<T> Arc<T> {
         }
         Self { inner: self.inner }
     }
+}
 
-    /// Get reference to data
-    pub fn as_ref(&self) -> &T {
+impl<T> core::convert::AsRef<T> for Arc<T> {
+    fn as_ref(&self) -> &T {
         unsafe { &(*self.inner).data }
     }
 }
@@ -221,8 +222,8 @@ impl<T> RwLock<T> {
     pub fn read(&self) -> ReadGuard<'_, T> {
         loop {
             let s = self.state.load(core::sync::atomic::Ordering::Acquire);
-            if s >= 0 {
-                if self
+            if s >= 0
+                && self
                     .state
                     .compare_exchange_weak(
                         s,
@@ -231,9 +232,8 @@ impl<T> RwLock<T> {
                         core::sync::atomic::Ordering::Relaxed,
                     )
                     .is_ok()
-                {
-                    return ReadGuard { lock: self };
-                }
+            {
+                return ReadGuard { lock: self };
             }
             core::hint::spin_loop();
         }
@@ -544,8 +544,8 @@ impl Semaphore {
     pub fn acquire(&self) -> bool {
         loop {
             let p = self.permits.load(core::sync::atomic::Ordering::Acquire);
-            if p > 0 {
-                if self
+            if p > 0
+                && self
                     .permits
                     .compare_exchange_weak(
                         p,
@@ -554,9 +554,8 @@ impl Semaphore {
                         core::sync::atomic::Ordering::Relaxed,
                     )
                     .is_ok()
-                {
-                    return true;
-                }
+            {
+                return true;
             }
             core::hint::spin_loop();
         }

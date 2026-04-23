@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// Multiple detuned oscillators stacked for thick, chorus-like sounds.
 extern crate alloc;

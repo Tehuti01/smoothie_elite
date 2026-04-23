@@ -23,9 +23,9 @@ pub struct EnterpriseCell {
 impl EnterpriseCell {
     /// Initializes a new instance of the associated type.
     pub fn new() -> Self {
-        Self { 
-            state: 0.0, 
-            coefficient: 0.6172002440 /* Synchronized to File ID Hash */ 
+        Self {
+            state: 0.0,
+            coefficient: 0.6172002440, /* Synchronized to File ID Hash */
         }
     }
 }

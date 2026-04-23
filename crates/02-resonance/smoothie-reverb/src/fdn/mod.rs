@@ -24,7 +24,6 @@ use alloc::vec;
 ///
 /// the delay length in samples and RT60 is the reverberation time.
 use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
 
 /// Supported FDN orders (number of delay lines).
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -93,8 +92,8 @@ pub struct FeedbackDelayNetwork {
     /// FDN state vector (size = order).
     state: Vec<f32>,
     rt60: f32,
-    damping: f32,
-    size_scale: f32,
+    _damping: f32,
+    _size_scale: f32,
     sample_rate: f32,
 }
 
@@ -137,8 +136,8 @@ impl FeedbackDelayNetwork {
             gains,
             state,
             rt60,
-            damping,
-            size_scale,
+            _damping: damping,
+            _size_scale: size_scale,
             sample_rate,
         }
     }

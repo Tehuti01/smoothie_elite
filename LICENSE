@@ -1,0 +1,183 @@
+=========================================================================================
+                          S E R A P H I C   T E C H N O L O G I E S
+=========================================================================================
+
+             SERAPHIC ELITE PROPRIETARY ENGINE LICENSE AGREEMENT (SEPELA)
+                                    VERSION 1.0.0
+                                 EFFECTIVE: 2026.04
+
+=========================================================================================
+PREAMBLE & EXECUTIVE DIRECTIVE
+=========================================================================================
+
+This Seraphic Elite Proprietary Engine License Agreement ("SEPELA" or "Agreement") is a 
+legally binding contract between You (either an individual developer, an operational 
+entity, or a corporate collective, hereinafter referred to as "Licensee") and Seraphic 
+Technologies ("Licensor").
+
+By cloning, downloading, compiling, accessing, or otherwise executing the SeFi-Sam / 
+Smoothie Elite architecture, including but not limited to the IRONSTACK-100 DSP engine, 
+the Seraphic Multiverse cognitive intelligence tier, and the Holographic VFX Visualizer 
+(collectively, the "Software" or "Manifold Architecture"), You expressly acknowledge 
+that You have read, understood, and agreed to be bound by the exhaustive terms and 
+conditions stipulated within this Agreement.
+
+The Software is an industrial-grade, zero-allocation, SIMD-accelerated neural-audio 
+synthesis framework. It is not consumer-grade open-source software. It is a precision-
+engineered audiovisual asset. Strict adherence to the Seraphic Industrial Standard is 
+mandatory. 
+
+Failure to comply with the Zero-Allocation Mandate, the Holographic Integrity Clause, 
+or any subsequent directive herein shall result in immediate termination of all granted 
+licenses and activation of internal access-revocation protocols.
+
+=========================================================================================
+ARTICLE I: DEFINITIONS OF THE 12D MANIFOLD
+=========================================================================================
+
+1.1. "Software" refers to the entire Smoothie Elite repository, including the DSP core
+     (`smoothie-ironstack`), the Cognitive AI layer (`smoothie-ai`), the Holographic
+     UI (`smoothie-ui-vfx`), and the Executive Management layer (`07-The-Devo`).
+
+1.2. "Zero-Allocation Constraint" (L0) refers to the absolute prohibition of dynamic 
+     heap memory allocations (e.g., `Vec`, `Box`, `Arc`, `String`) occurring within 
+     any thread designated as "real-time" (i.e., the primary Audio Thread and the 
+     Lock-Free Visual Bridge).
+
+1.3. "Holographic Design System (HDS)" refers to the proprietary visual aesthetic 
+     standards enforced by Seraphic Technologies, including the mandated use of the 
+     Abyssal Background (#050508) and Seraphic Blue (#00A1FF) palettes.
+
+1.4. "Neural Gating Math" refers to the `wide::f32x4` SIMD vectorization implementations 
+     used within the LSTM and Dense blocks of the `smoothie-ai` framework.
+
+=========================================================================================
+ARTICLE II: GRANT OF LICENSE & ARCHITECTURAL COMPLIANCE
+=========================================================================================
+
+2.1. Grant of Use. Subject to the strict conditions herein, Licensor grants Licensee a 
+     revocable, non-exclusive, non-transferable, worldwide license to compile, modify, 
+     and utilize the Software for internal research, development, and personal 
+     audiovisual production.
+
+2.2. Architectural Compliance. The Software must remain a 5-Tier Unified Hierarchy. 
+     Licensee may not decouple, reverse-engineer to bypass, or architecturally flatten 
+     the 12D Manifold Lock-Free Bridge. The separation of Cognitive logic, Synthesizer 
+     generation, and Holographic rendering must be preserved.
+
+=========================================================================================
+ARTICLE III: THE ZERO-ALLOCATION MANDATE (L0 CLAUSE)
+=========================================================================================
+
+3.1. Strict Liability for Underruns. The Audio Thread is a sacred execution context. 
+     Licensee is strictly prohibited from introducing garbage-collected, reference-
+     counted, or dynamically allocated data structures into the `process()` blocks of 
+     any DSP or Cognitive algorithm.
+
+3.2. Audit Enforcement. All modifications made by the Licensee must pass the internal 
+     `cargo seraphic-heal` and `seraphic_audit` toolchains. Bypassing the audit to 
+     force compilation of a non-compliant heap allocation automatically revokes this 
+     License.
+
+3.3. SIMD Parity. Modifications to the DSP math must maintain `wide::f32x4` SIMD 
+     parallelism. Degrading the performance to scalar processing is a violation of 
+     the Seraphic standard and is prohibited under this License.
+
+=========================================================================================
+ARTICLE IV: COGNITIVE AI & NEURAL GATING REGULATIONS
+=========================================================================================
+
+4.1. The `AutoPitchQuantizer` and underlying LSTM Gating matrices contain proprietary 
+     mathematical approximations of Sigmoid and Tanh functions optimized for SIMD. 
+     Licensee may not extract, isolate, or distribute these exact mathematical models 
+     independently of the Smoothie Elite framework.
+
+4.2. Cognitive Output Mapping. Neural activation outputs must only be mapped to the 
+     Seraphic DSP parameters or the authorized Holographic Visualizer. Routing neural 
+     output telemetry to external, unauthorized telemetry collectors is forbidden.
+
+=========================================================================================
+ARTICLE V: HOLOGRAPHIC DESIGN SYSTEM (HDS) INTEGRITY
+=========================================================================================
+
+5.1. Visual Degradation Ban. If the Licensee utilizes the `smoothie-ui-vfx` crate or 
+     the `SeraphicUi` declarative builder to generate a graphical interface, the 
+     Licensee MUST maintain the "Premium Frontend Aesthetic." 
+
+5.2. Prohibited Elements. The use of standard OS default UI controls, unstyled HTML-
+     equivalent sliders, or emoji-based iconography within the compiled plugin 
+     interface is strictly forbidden. All interfaces must utilize the WGPU compute-
+     shader particle systems and multi-layered radial glow generators to maintain 
+     the hyper-realistic Seraphic standard.
+
+=========================================================================================
+ARTICLE VI: COMMERCIAL DISTRIBUTION & ROYALTIES
+=========================================================================================
+
+6.1. Non-Commercial Status. This License permits FREE use for non-commercial entities, 
+     independent researchers, and open-source contributors adhering to the Seraphic 
+     Standard.
+
+6.2. Commercial Deployment. If the Licensee intends to distribute a compiled plugin 
+     (VST3, AU, CLAP, AAX) containing the Software for monetary gain, a separate 
+     Seraphic Commercial Enterprise License (SCEL) must be negotiated. 
+
+6.3. Forking and Rebranding. You may fork the codebase, but the name "Seraphic 
+     Technologies", "Smoothie Elite", "IronStack", and "SeFi-Sam" remain the exclusive 
+     trademarks of the Licensor. A commercial fork must completely strip all Seraphic 
+     branding while still maintaining the architectural compliance mandated in Article II.
+
+=========================================================================================
+ARTICLE VII: SELF-HEALING & THE DEVO (TIER 07)
+=========================================================================================
+
+7.1. Executive Override. The `07-The-Devo` executive management matrix contains self-
+     healing scripts. Licensee agrees that executing these scripts (`purge_filler.py`, 
+     `seraphic_audit`) may actively delete, modify, or rewrite Licensee's code if it 
+     is found to be sub-standard or violates the Zero-Allocation Mandate.
+
+7.2. No Liability for Purged Code. Seraphic Technologies assumes no liability for 
+     data loss resulting from the execution of the Elite Skill Matrix purging 
+     placeholder or non-compliant artifacts.
+
+=========================================================================================
+ARTICLE VIII: DISCLAIMER OF WARRANTIES (AUDIO SAFETY)
+=========================================================================================
+
+8.1. EXTREME LIMITATION. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+     EXPRESS OR IMPLIED. DUE TO THE NATURE OF REAL-TIME KERNEL-LEVEL AUDIO PROCESSING, 
+     UNTESTED MODIFICATIONS BY THE LICENSEE MAY RESULT IN SEVERE AUDIO FEEDBACK, 
+     SPEAKER DAMAGE, OR HEARING LOSS.
+
+8.2. SERAPHIC TECHNOLOGIES DISCLAIMS ALL IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS 
+     FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE 
+     LIABLE FOR BLOWN STUDIO MONITORS, RUPTURED EARDRUMS, SYSTEM KERNEL PANICS, OR ANY 
+     CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM THE USE OF THE IRONSTACK-100 DSP.
+
+=========================================================================================
+ARTICLE IX: INDEMNIFICATION
+=========================================================================================
+
+9.1. Licensee agrees to indemnify, defend, and hold harmless Seraphic Technologies, 
+     its lead architects, and its affiliates from any claims, lawsuits, or damages 
+     arising out of Licensee's unauthorized modification of the SIMD DSP pathways, 
+     failure to uphold the Zero-Allocation constraints resulting in DAW crashes, or 
+     deployment of the Software in mission-critical broadcast environments without 
+     a Commercial Enterprise License.
+
+=========================================================================================
+ARTICLE X: TERMINATION
+=========================================================================================
+
+10.1. Immediate Revocation. This License will terminate automatically and instantaneously 
+      if Licensee fails to comply with any provision, specifically Article III (L0 
+      Clause) and Article V (HDS Integrity).
+
+10.2. Survival. Articles I, VI, VIII, IX, and X shall survive any termination of 
+      this Agreement.
+
+=========================================================================================
+END OF LICENSE
+=========================================================================================
+"Precision Engineering for the Audiovisual Singularity."
+- Seraphic Technologies Executive Board, 2026.

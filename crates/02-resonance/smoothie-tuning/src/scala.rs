@@ -14,7 +14,7 @@
 use super::table::TuningTable;
 use alloc::string::String;
 use alloc::string::ToString;
-use alloc::vec;
+
 ///
 /// arbitrary musical scale definitions. Scala files are human-readable text
 ///
@@ -25,7 +25,7 @@ use alloc::vec;
 /// 25/24
 /// 5/4
 /// 25/16
-/// ```
+///
 /// Lines beginning with `!` are comments. The first non-comment line is a
 /// pitches — either in cents (plain decimal) or as rational ratios (P/Q).
 use alloc::vec::Vec;

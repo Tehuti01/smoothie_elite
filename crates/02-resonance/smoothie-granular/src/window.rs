@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// Pre-computed window tables for zero-allocation grain envelope shaping.
 
@@ -128,6 +127,7 @@ pub struct PitchShifter {
     pub window_size: usize,
     pub hop_size: usize,
     pub pitch_ratio: f32,
+    overlap: usize,
     pub phase: f32,
     pub input_buffer: [f32; 8192],
     pub output_buffer: [f32; 8192],
@@ -142,6 +142,7 @@ impl PitchShifter {
             window_size: 2048,
             hop_size: 512,
             pitch_ratio: 1.0,
+            overlap: 4,
             phase: 0.0,
             input_buffer: [0.0; 8192],
             output_buffer: [0.0; 8192],

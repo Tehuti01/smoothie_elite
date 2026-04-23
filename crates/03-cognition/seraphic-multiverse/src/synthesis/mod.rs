@@ -18,8 +18,8 @@ pub mod spectral_filter;
 pub mod unison_engine;
 pub mod wavetable_osc;
 
-pub use multiverse_env::{EnvState, DistributedEnvironmentEnv};
-pub use multiverse_lfo::{LfoMode, DistributedEnvironmentLfo};
+pub use multiverse_env::{DistributedEnvironmentEnv, EnvState};
+pub use multiverse_lfo::{DistributedEnvironmentLfo, LfoMode};
 pub use phase_distorter::{DistortionMode, PhaseDistorter};
 pub use spectral_filter::SpectralFilter;
 pub use unison_engine::UnisonEngine;

@@ -30,11 +30,11 @@ impl CabinetStage {
     pub fn process(&mut self, input: f32) -> f32 {
         let in_buffer = [input];
         let mut out_buffer = [0.0];
-        
+
         // Single sample processing for simplicity in this stage
         // In production, block-based processing is used inside the engine
         self.engine.process(&in_buffer, &mut out_buffer);
-        
+
         out_buffer[0]
     }
 }

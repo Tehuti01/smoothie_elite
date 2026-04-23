@@ -11,24 +11,33 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use crate::{print_seraphic_header, print_success, print_step};
+use crate::{print_seraphic_header, print_step, print_success};
 use colored::Colorize;
 
 /// Technical implementation of the show_scaffold_start logic.
 pub fn show_scaffold_start(project_name: &str, template: &str) {
     print_seraphic_header("Autonomous Scaffold Engine");
-    
-    print_step(&format!("Project Identity: {}", project_name.bright_green()));
+
+    print_step(&format!(
+        "Project Identity: {}",
+        project_name.bright_green()
+    ));
     print_step(&format!("Strophe Template: {}", template.bright_cyan()));
     println!();
-    
-    println!("  {} Initiating structural resonance...", "🚀".bright_yellow());
+
+    println!(
+        "  {} Initiating structural resonance...",
+        "🚀".bright_yellow()
+    );
 }
 
 /// Technical implementation of the show_scaffold_complete logic.
 pub fn show_scaffold_complete(project_name: &str, path: &str) {
     println!();
-    print_success(&format!("Project '{}' successfully manifested at: {}", project_name, path));
+    print_success(&format!(
+        "Project '{}' successfully manifested at: {}",
+        project_name, path
+    ));
     println!();
     println!("  {} Next steps:", "🔗".bright_blue());
     println!("    cd {}", path.bright_white());

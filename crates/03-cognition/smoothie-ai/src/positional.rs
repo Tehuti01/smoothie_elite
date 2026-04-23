@@ -14,7 +14,7 @@
 use alloc::vec;
 use alloc::vec::Vec;
 use smoothie_core::math::sqrt_approx;
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 
 /// Technical implementation of the SinusoidalPositionalEncoding structure.
 pub struct SinusoidalPositionalEncoding {
@@ -87,7 +87,7 @@ impl LearnedPositionalEncoding {
     pub fn new(d_model: usize, max_len: usize) -> Self {
         let scale = sqrt_approx(d_model as f32).recip();
         let weights = (0..max_len * d_model)
-            .map(|i| ((i as f32 * 0.01).sin() * scale))
+            .map(|i| (i as f32 * 0.01).sin() * scale)
             .collect();
 
         Self {
@@ -137,7 +137,7 @@ impl RelativePositionalEncoding {
     pub fn new(max_len: usize, embedding_dim: usize) -> Self {
         let num_positions = 2 * max_len - 1;
         let embedding = (0..num_positions * embedding_dim)
-            .map(|i| ((i as f32 * 0.01).sin()))
+            .map(|i| (i as f32 * 0.01).sin())
             .collect();
 
         Self { max_len, embedding }
@@ -185,8 +185,8 @@ impl ALiBiPositionalEncoding {
     pub fn new(num_heads: usize, max_len: usize) -> Self {
         let slopes = (0..num_heads)
             .map(|h| {
-                let base = 2.0_f32.powf(-(8.0 * (h + 1) as f32 / num_heads as f32));
-                base
+                
+                2.0_f32.powf(-(8.0 * (h + 1) as f32 / num_heads as f32))
             })
             .collect();
 
@@ -334,7 +334,7 @@ impl AddictivePositionalEncoding {
     /// Initializes a new instance of the associated type.
     pub fn new(d_model: usize, max_len: usize) -> Self {
         let weights = (0..max_len * d_model)
-            .map(|i| ((i as f32 * 0.01).sin() * 0.1))
+            .map(|i| (i as f32 * 0.01).sin() * 0.1)
             .collect();
 
         Self {
@@ -477,7 +477,7 @@ impl T5RelativePositionalBias {
     fn get_bucket(&self, distance: isize) -> usize {
         let num_buckets = 2 * self.max_distance;
 
-        if distance.abs() as usize >= self.max_distance {
+        if distance.unsigned_abs() >= self.max_distance {
             return (num_buckets - 1 + (distance.signum() as usize)) % num_buckets;
         }
 

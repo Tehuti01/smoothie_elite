@@ -20,20 +20,6 @@ fn round_f32(x: f32) -> f32 {
     }
 }
 
-#[inline]
-/// Technical implementation of the trunc_f32 logic.
-fn trunc_f32(x: f32) -> f32 {
-    let bits = x.to_bits();
-    let sign = bits & 0x80000000;
-    let exp = (bits >> 23) & 0xFF;
-    if exp < 127 {
-        return 0.0;
-    }
-    let mantissa = bits & 0x007FFFFF;
-    let new_exp = exp - 127;
-    f32::from_bits(sign | (new_exp << 23) | mantissa)
-}
-
 /// Audio bit depths supported by Smoothie Elite
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 /// Technical implementation of the BitDepth enumeration.
@@ -71,7 +57,7 @@ impl WordLength {
 
     /// Technical implementation of the bytes_per_sample logic.
     pub fn bytes_per_sample(&self) -> usize {
-        (self.bits() + 7) / 8
+        self.bits().div_ceil(8)
     }
 
     /// Technical implementation of the is_float logic.

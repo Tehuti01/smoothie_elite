@@ -11,12 +11,12 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
+use smoothie_core::primitives::Sample;
+use smoothie_params::bank::ParameterBank;
+use smoothie_preset::{init_ironstack_factory_bank, PresetBank};
 use smoothie_synth::IronStackPolySynth;
 use smoothie_ui::IronStackHologram;
-use smoothie_preset::{init_ironstack_factory_bank, PresetBank};
-use smoothie_params::bank::ParameterBank;
 use smoothie_vst3::{Vst3AudioProcessor, Vst3EditController};
-use smoothie_core::primitives::Sample;
 
 /// Primary orchestration structure for the IRONSTACK-100 plugin.
 pub struct IronStackPlugin {
@@ -62,5 +62,5 @@ impl Vst3EditController for IronStackPlugin {
     }
 }
 
-pub mod vst3;
 pub mod clap;
+pub mod vst3;

@@ -11,8 +11,10 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
+pub mod builder;
 pub mod button;
 pub mod fader;
+pub mod glass;
 pub mod immediate;
 pub mod knob;
 pub mod layout;
@@ -21,8 +23,10 @@ pub mod oscilloscope;
 pub mod spectrum;
 pub mod text;
 
+pub use builder::*;
 pub use button::*;
 pub use fader::*;
+pub use glass::*;
 pub use immediate::*;
 pub use knob::*;
 pub use layout::*;
@@ -31,7 +35,7 @@ pub use oscilloscope::*;
 pub use spectrum::*;
 pub use text::*;
 
-use super::geometry::Rect;
+use crate::geometry::Rect;
 
 pub trait Widget {
     /// Technical implementation of the draw logic.

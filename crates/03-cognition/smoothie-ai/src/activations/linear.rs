@@ -57,8 +57,8 @@ pub fn elu(x: f32, alpha: f32) -> f32 {
 #[inline(always)]
 /// Technical implementation of the selu logic.
 pub fn selu(x: f32) -> f32 {
-    const ALPHA: f32 = 1.6732632423543772;
-    const SCALE: f32 = 1.0507009873554804;
+    const ALPHA: f32 = 1.673_263_2;
+    const SCALE: f32 = 1.050_701;
 
     if x > 0.0 {
         SCALE * x

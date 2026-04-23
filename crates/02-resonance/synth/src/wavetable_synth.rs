@@ -34,7 +34,7 @@ impl WavetableSynth {
         }
         Self {
             allocator,
-            sample_rate,
+            sample_rate: 44100.0,
         }
     }
 

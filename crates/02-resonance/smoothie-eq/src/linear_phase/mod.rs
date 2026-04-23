@@ -24,7 +24,6 @@ use alloc::vec;
 /// declared to the host via the `clap.latency` extension.
 use alloc::vec::Vec;
 use smoothie_core::math::sine_approx;
-use smoothie_core::math::FloatExt;
 
 /// A linear-phase FIR EQ band specification.
 #[derive(Clone, Copy, Debug)]
@@ -186,5 +185,5 @@ fn interp_gain(points: &[LinearPhasePoint], freq: f32) -> f32 {
 
 /// Technical implementation of the db_to_linear_f32 logic.
 fn db_to_linear_f32(db: f32) -> f32 {
-    smoothie_core::math::exp_approx(db * 0.1151292546_f32)
+    smoothie_core::math::exp_approx(db * 0.115_129_255_f32)
 }

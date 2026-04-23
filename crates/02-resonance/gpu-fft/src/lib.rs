@@ -15,6 +15,7 @@ use core::sync::atomic::{AtomicU32, Ordering};
 use num_complex::Complex;
 
 /// Cache line size for optimal GPU buffer alignment
+#[allow(dead_code)]
 const CACHE_LINE: usize = 64;
 
 /// Maximum FFT size (65536-point = 2^16)
@@ -49,6 +50,7 @@ pub enum FftDirection {
 /// Manages GPU buffers, staging buffers, and FFT execution
 #[repr(align(64))]
 /// Technical implementation of the GpuFft structure.
+#[allow(dead_code)]
 pub struct GpuFft {
     /// FFT size (power of 2, 64..65536)
     fft_size: usize,
@@ -94,7 +96,7 @@ impl GpuFft {
     pub fn new(fft_size: usize, radix: FftRadix) -> Self {
         assert!(fft_size.is_power_of_two(), "FFT size must be power of 2");
         assert!(
-            fft_size >= MIN_FFT_SIZE && fft_size <= MAX_FFT_SIZE,
+            (MIN_FFT_SIZE..=MAX_FFT_SIZE).contains(&fft_size),
             "FFT size must be between {} and {}",
             MIN_FFT_SIZE,
             MAX_FFT_SIZE
@@ -102,7 +104,7 @@ impl GpuFft {
 
         let stages = match radix {
             FftRadix::Radix2 => fft_size.trailing_zeros(),
-            FftRadix::Radix4 => (fft_size.trailing_zeros() + 1) / 2,
+            FftRadix::Radix4 => fft_size.trailing_zeros().div_ceil(2),
         };
 
         let input_buffer = vec![Complex::new(0.0, 0.0); fft_size];
@@ -142,7 +144,7 @@ impl GpuFft {
                 n >>= 1;
             }
 
-            table[i] = rev as u32;
+            table[i] = rev;
         }
 
         table
@@ -334,10 +336,7 @@ impl GpuFft {
 
     /// Get magnitude spectrum (linear scale)
     pub fn magnitude_spectrum(&self) -> Vec<f32> {
-        self.get_output()
-            .iter()
-            .map(|c| c.norm())
-            .collect()
+        self.get_output().iter().map(|c| c.norm()).collect()
     }
 
     /// Get power spectrum (dB scale)

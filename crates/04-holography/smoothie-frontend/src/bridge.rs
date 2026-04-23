@@ -12,8 +12,6 @@
  */
 
 use alloc::string::String;
-use alloc::vec;
-use alloc::vec::Vec;
 
 /// The type of payload sent across the bridge. (Zero allocation wrapper)
 #[derive(Debug, Clone, Copy)]

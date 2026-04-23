@@ -12,7 +12,7 @@
  */
 
 use super::table::TuningTable;
-use alloc::vec;
+
 ///
 /// real-time — compatible with Surge XT, Dexed, OB-Xd, and any MTS-capable
 ///

@@ -13,7 +13,6 @@
 
 use alloc::vec;
 use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
 
 #[derive(Clone)]
 /// Technical implementation of the ResidualBlock structure.
@@ -51,7 +50,7 @@ pub struct DenoisingDiffusion {
 impl DenoisingDiffusion {
     /// Technical implementation of the denoise logic.
     pub fn denoise(&self, noisy: &[f32], _steps: usize, output: &mut [f32]) {
-        let mut x_t = noisy.to_vec();
+        let x_t = noisy.to_vec();
         let mut noise_pred = vec![0.0; noisy.len()];
         self.noise_predictor.forward(&x_t, 0, &mut noise_pred);
         output.copy_from_slice(&x_t);

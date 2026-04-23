@@ -13,7 +13,7 @@
 
 extern crate alloc;
 
-use smoothie_core::constants::{TAU, STANDARD_PITCH};
+use smoothie_core::constants::{STANDARD_PITCH, TAU};
 use smoothie_core::math::{sine_approx, PowiApprox};
 use smoothie_core::primitives::Sample;
 

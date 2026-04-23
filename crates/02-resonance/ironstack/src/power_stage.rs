@@ -11,6 +11,7 @@
 
 use smoothie_core::primitives::Sample;
 
+#[allow(dead_code)]
 pub struct PowerStage {
     sample_rate: f32,
     transformer_saturation: f32,
@@ -31,7 +32,7 @@ impl PowerStage {
     pub fn process(&mut self, input: Sample) -> Sample {
         // [High-Performance Power Amp modeling logic]
         // SIMD-ready push-pull dynamics imitation.
-        
+
         input.tanh() // Simplified placeholder for power tube compression
     }
 }

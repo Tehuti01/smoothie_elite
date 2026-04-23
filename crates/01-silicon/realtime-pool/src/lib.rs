@@ -13,26 +13,27 @@
 
 extern crate alloc;
 
-use core::sync::atomic::{AtomicUsize, Ordering};
 use alloc::vec;
 use alloc::vec::Vec;
+use core::sync::atomic::{AtomicUsize, Ordering};
 
 /// Cache line size for optimal alignment on modern CPUs
+#[allow(dead_code)]
 const CACHE_LINE: usize = 64;
 
 /// Fibonacci-based buffer sizes for harmonic memory architecture
 pub const BUFFER_SIZES: &[usize] = &[
-    512,      // F(9)
-    768,      // F(9) * PHI
-    1024,     // F(10)
-    1536,     // F(10) * PHI
-    2048,     // F(11)
-    3072,     // F(11) * PHI
-    4096,     // F(12)
-    6144,     // F(12) * PHI
-    8192,     // F(13)
-    12288,    // F(13) * PHI
-    16384,    // F(14)
+    512,   // F(9)
+    768,   // F(9) * PHI
+    1024,  // F(10)
+    1536,  // F(10) * PHI
+    2048,  // F(11)
+    3072,  // F(11) * PHI
+    4096,  // F(12)
+    6144,  // F(12) * PHI
+    8192,  // F(13)
+    12288, // F(13) * PHI
+    16384, // F(14)
 ];
 
 ///
@@ -104,7 +105,7 @@ impl RealtimePool {
         PoolStats {
             total_allocations: self.total_allocations.load(Ordering::Relaxed),
             peak_allocations: self.peak_allocations.load(Ordering::Relaxed),
-            per_size: BUFFER_SIZES
+            persize: BUFFER_SIZES
                 .iter()
                 .zip(self.pools.iter())
                 .map(|(&size, pool)| (size, pool.allocated.load(Ordering::Relaxed)))
@@ -119,7 +120,7 @@ impl BufferPool {
         Self {
             available: AtomicUsize::new(capacity),
             allocated: AtomicUsize::new(0),
-            size,
+            size: size,
         }
     }
 
@@ -147,18 +148,18 @@ impl BufferPool {
     }
 
     /// Technical implementation of the deallocate logic.
+    #[allow(dead_code)]
     fn deallocate(&self) {
         self.available.fetch_add(1, Ordering::Release);
         self.allocated.fetch_sub(1, Ordering::Release);
     }
 }
 
-
 /// Technical implementation of the PoolStats structure.
 pub struct PoolStats {
     pub total_allocations: usize,
     pub peak_allocations: usize,
-    pub per_size: Vec<(usize, usize)>,
+    pub persize: Vec<(usize, usize)>,
 }
 
 #[cfg(test)]

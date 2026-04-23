@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// Modal resonator for physical modeling synthesis.
 
@@ -89,7 +88,7 @@ impl Resonator {
 
             output += sample;
 
-            mode.envelope *= (1.0 - self.decay * 0.001);
+            mode.envelope *= 1.0 - self.decay * 0.001;
             mode.phase += 0.0001;
         }
 

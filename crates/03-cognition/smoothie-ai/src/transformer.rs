@@ -12,8 +12,6 @@
  */
 
 use alloc::vec;
-use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
 
 #[derive(Clone)]
 /// Technical implementation of the TransformerEncoderLayer structure.

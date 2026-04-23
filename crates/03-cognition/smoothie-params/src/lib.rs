@@ -26,4 +26,4 @@ pub mod smoothing;
 pub use atomic::AtomicParameter;
 pub use bank::ParameterBank;
 pub use info::{ParameterInfo, ParameterRange, ParameterType, ParameterUnit};
-pub use smoothing::{LinearSmoother, OnePoleSmoother};
+pub use smoothing::{LinearSmoother, OnePoleSmoother, ParameterSmoother};

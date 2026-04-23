@@ -11,8 +11,8 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use core::sync::atomic::{AtomicU32, Ordering};
 use core::f32::consts::PI;
+use core::sync::atomic::{AtomicU32, Ordering};
 
 /// Parameter automation envelope
 #[derive(Clone, Copy)]
@@ -32,15 +32,16 @@ pub enum AutomationCurve {
 #[derive(Clone, Copy)]
 /// Technical implementation of the AutomationPoint structure.
 pub struct AutomationPoint {
-    pub sample_offset: u32,  // Sample number (from frame start)
-    pub value: f32,          // 0.0..1.0 normalized
+    pub sample_offset: u32, // Sample number (from frame start)
+    pub value: f32,         // 0.0..1.0 normalized
     pub curve: AutomationCurve,
 }
 
 /// Technical implementation of the ParameterTrack structure.
 pub struct ParameterTrack {
+    #[allow(dead_code)]
     name: &'static str,
-    value: AtomicU32,        // Bit-cast f32 for atomic access
+    value: AtomicU32, // Bit-cast f32 for atomic access
     min: f32,
     max: f32,
     lookahead_buffer: Vec<AutomationPoint>,
@@ -49,7 +50,8 @@ pub struct ParameterTrack {
 
 impl ParameterTrack {
     /// Create new parameter track with min/max bounds
-    pub fn new(name: &'static str, min: f32, max: f32, initial: f32) -> Self {
+    pub fn new(#[allow(dead_code)]
+    name: &'static str, min: f32, max: f32, initial: f32) -> Self {
         Self {
             name,
             value: AtomicU32::new(initial.to_bits()),
@@ -124,13 +126,14 @@ impl ParameterRamp {
             return self.target_value;
         }
 
-        let progress = 1.0 - (self.samples_remaining as f32 / (self.samples_remaining as f32 + 1.0));
+        let progress =
+            1.0 - (self.samples_remaining as f32 / (self.samples_remaining as f32 + 1.0));
 
         let value = match self.curve {
             AutomationCurve::Linear => {
                 self.current_value + (self.target_value - self.current_value) * progress
             }
-            AutomationCurve::Exponential { base } => {
+            AutomationCurve::Exponential { base: _ } => {
                 // Exponential interpolation
                 let ratio = self.target_value / (self.current_value + 1e-9);
                 self.current_value * ratio.powf(progress)
@@ -162,6 +165,7 @@ impl ParameterRamp {
 
 /// Technical implementation of the PolyphonicModulation structure.
 pub struct PolyphonicModulation {
+    #[allow(dead_code)]
     voice_id: u8,
     lfo_frequency: f32,
     lfo_depth: f32,
@@ -172,12 +176,8 @@ pub struct PolyphonicModulation {
 
 impl PolyphonicModulation {
     /// Initializes a new instance of the associated type.
-    pub fn new(
-        voice_id: u8,
-        lfo_freq: f32,
-        lfo_depth: f32,
-        envelope_depth: f32,
-    ) -> Self {
+    pub fn new(#[allow(dead_code)]
+    voice_id: u8, lfo_freq: f32, lfo_depth: f32, envelope_depth: f32) -> Self {
         Self {
             voice_id,
             lfo_frequency: lfo_freq,
@@ -226,6 +226,7 @@ impl PolyphonicModulation {
 pub struct LookaheadAutomation {
     lookahead_samples: u32,
     prediction_buffer: Vec<f32>,
+    #[allow(dead_code)]
     history: Vec<(u32, f32)>, // (sample_offset, value) pairs
 }
 

@@ -12,11 +12,11 @@
  */
 
 use crate::voice::{VoiceAllocationMode, VoiceAllocator};
+use seraphic_multiverse::pitch::auto_pitch_quantizer::PitchQuantizer;
 use smoothie_core::primitives::Sample;
 use smoothie_dsp::oscillators::{Oscillator, OscillatorMode};
 use smoothie_ironstack::IronStackEngine;
 use smoothie_midi::MidiMessage;
-use seraphic_multiverse::pitch::auto_pitch_quantizer::PitchQuantizer;
 
 /// Optimized polyphonic synthesizer leveraging the IRONSTACK-100 modeling hub.
 /// uses a Hybrid Voice/Global architecture where oscillators are polyphonic
@@ -37,7 +37,7 @@ impl IronStackPolySynth {
     pub fn new(sample_rate: f32) -> Self {
         let mut allocator: VoiceAllocator<Oscillator, 16> = VoiceAllocator::new();
         allocator.set_mode(VoiceAllocationMode::Oldest);
-        
+
         // Synchronize component sample rates
         for voice in allocator.voices_mut() {
             voice.envelope.set_sample_rate(sample_rate);
@@ -88,7 +88,7 @@ impl IronStackPolySynth {
     pub fn next(&mut self) -> Sample {
         // 1. Silicon-summing of all active polyphonic voices
         let mixed = self.allocator.process_mix(|voice| voice.oscillator.next());
-        
+
         // 2. High-fidelity global processing via IRONSTACK-100 stages
         self.engine.process(mixed)
     }

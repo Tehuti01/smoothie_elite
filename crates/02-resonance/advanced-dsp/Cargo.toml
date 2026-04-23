@@ -21,11 +21,11 @@ keywords.workspace = true
 categories.workspace = true
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
-smoothie-math = { path = "../../01-silicon/smoothie-math" }
-smoothie-realtime-pool = { path = "../../01-silicon/realtime-pool" }
-smoothie-lock-free-queue = { path = "../../01-silicon/lock-free-queue" }
-smoothie-dsp = { path = "../dsp" }
+smoothie-core = { workspace = true }
+smoothie-math = { workspace = true }
+smoothie-realtime-pool = { workspace = true }
+smoothie-lock-free-queue = { workspace = true }
+smoothie-dsp = { workspace = true }
 rustfft = "6"
 realfft = "3"
 num-complex = "0.4"

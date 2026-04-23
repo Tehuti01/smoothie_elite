@@ -12,7 +12,6 @@
  */
 
 use alloc::{vec, vec::Vec};
-use smoothie_core::prelude::*;
 /// Stereo width control and mid-side processing (Silicon Stable)
 use smoothie_core::primitives::Sample;
 
@@ -25,6 +24,7 @@ pub struct StereoImager {
     side_gain: f32,
     high_freq: f32,
     state: [f32; 4],
+    #[allow(dead_code)]
     sample_rate: f32,
 }
 
@@ -108,6 +108,7 @@ pub struct HaasEffect {
     pan: f32,
     delay_buf: Vec<Sample>,
     write_pos: usize,
+    #[allow(dead_code)]
     sample_rate: f32,
 }
 
@@ -157,6 +158,7 @@ impl HaasEffect {
 /// Technical implementation of the MonoCompat structure.
 pub struct MonoCompat {
     correlation: f32,
+    #[allow(dead_code)]
     sample_rate: f32,
 }
 

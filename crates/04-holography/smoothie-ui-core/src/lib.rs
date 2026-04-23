@@ -11,8 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::prelude::*;
-
 ///
 /// for SDF-generated UI components.
 #[derive(Debug, Clone, Copy, PartialEq)]

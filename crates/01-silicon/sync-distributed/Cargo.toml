@@ -2,6 +2,9 @@
 name = "smoothie-sync-distributed"
 version = "1.0.0"
 edition = "2021"
+license = "MIT"
+description = "A Seraphic Technologies Elite audio plugin framework crate."
+repository = "https://github.com/seraphic/smoothie-elite"
 
 [dependencies]
 loro = "0.16"

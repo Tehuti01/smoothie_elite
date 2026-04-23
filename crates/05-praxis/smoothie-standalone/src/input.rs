@@ -11,8 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::prelude::*;
-
 /// Technical implementation of the AutonomousInput structure.
 pub struct AutonomousInput {
     // Input state

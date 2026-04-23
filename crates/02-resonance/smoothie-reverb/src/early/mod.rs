@@ -22,7 +22,6 @@ use alloc::vec;
 /// Room dimensions 8m × 12m × 3m (small studio) at c = 343 m/s.
 /// Delays are scaled by `size` to simulate different room dimensions.
 use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
 
 /// A single early-reflection tap.
 #[derive(Clone, Copy, Debug)]

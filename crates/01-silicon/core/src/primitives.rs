@@ -223,7 +223,7 @@ impl<T: Default + Copy, const N: usize> Array<T, N> {
             OptionalValue::None
         } else {
             self.len -= 1;
-            OptionalValue::Some(self.data[self.len].clone())
+            OptionalValue::Some(self.data[self.len])
         }
     }
 
@@ -301,22 +301,27 @@ impl<const N: usize> FixedString<N> {
             len: 0,
         }
     }
+}
 
-    /// Create from str
-    pub fn from_str(s: &str) -> ResultValue<Self, &'static str> {
+impl<const N: usize> core::str::FromStr for FixedString<N> {
+    type Err = &'static str;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
         let bytes = s.as_bytes();
         if bytes.len() > N {
-            ResultValue::Err("String too long for buffer")
+            Err("String too long for buffer")
         } else {
             let mut result = Self::new();
             for &b in bytes {
                 result.buffer[result.len] = b;
                 result.len += 1;
             }
-            ResultValue::Ok(result)
+            Ok(result)
         }
     }
+}
 
+impl<const N: usize> FixedString<N> {
     /// Push character
     pub fn push_char(&mut self, c: char) -> ResultValue<(), &'static str> {
         let bytes = c.encode_utf8(&mut self.buffer[self.len..]);

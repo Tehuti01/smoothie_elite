@@ -37,7 +37,7 @@ pub struct AudioComponentInstance {
 
 #[no_mangle]
 pub unsafe extern "C" fn AudioComponentFactoryFunction(
-    desc: *const AudioComponentDescription,
+    _desc: *const AudioComponentDescription,
 ) -> *mut AudioComponentInstance {
     // Zero-allocation instantiation path:
     // Create the C-API dispatcher and point `component` to our pre-allocated DSP state.

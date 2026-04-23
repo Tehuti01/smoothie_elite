@@ -58,22 +58,40 @@ async fn main() -> Result<()> {
 
     match cli.command {
         Commands::Audit { fix } => {
-            println!("{}", "🚀 INITIATING WORKSPACE AUDIT...".bright_cyan().bold());
+            println!(
+                "{}",
+                "🚀 INITIATING WORKSPACE AUDIT...".bright_cyan().bold()
+            );
             let mut auditor = auditor::Auditor::new()?;
             auditor.run(fix).await?;
         }
         Commands::Heal { pattern } => {
-            println!("{}", "⚙️ INITIATING SELF-HEALING SEQUENCE...".bright_yellow().bold());
+            println!(
+                "{}",
+                "⚙️ INITIATING SELF-HEALING SEQUENCE..."
+                    .bright_yellow()
+                    .bold()
+            );
             let mut healer = healer::Healer::new()?;
             healer.run(pattern).await?;
         }
         Commands::Inject { force } => {
-            println!("{}", "💉 INITIATING DOCUMENTATION INJECTION...".bright_blue().bold());
+            println!(
+                "{}",
+                "💉 INITIATING DOCUMENTATION INJECTION..."
+                    .bright_blue()
+                    .bold()
+            );
             let mut injector = injector::Injector::new()?;
             injector.run(force).await?;
         }
         Commands::Loop { interval } => {
-            println!("{}", "🌀 STARTING AUTONOMOUS MAINTENANCE LOOP...".bright_magenta().bold());
+            println!(
+                "{}",
+                "🌀 STARTING AUTONOMOUS MAINTENANCE LOOP..."
+                    .bright_magenta()
+                    .bold()
+            );
             loop {
                 // Execute standard cycle: Audit -> Heal if needed -> Inject if needed
                 let mut auditor = auditor::Auditor::new()?;
@@ -83,7 +101,7 @@ async fn main() -> Result<()> {
                     let mut healer = healer::Healer::new()?;
                     healer.run(None).await?;
                 }
-                
+
                 tokio::time::sleep(Duration::from_secs(interval)).await;
             }
         }

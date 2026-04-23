@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// Enables pure signal tracking and massive FFT derivations organically
 /// without heap allocations or libm reliance.

@@ -59,7 +59,7 @@ pub struct SyncedOscillator {
 
 impl SyncedOscillator {
     /// Initializes a new instance of the associated type.
-    pub fn new(config: SyncConfig, _sample_rate: f32) -> Self {
+    pub fn new(config: SyncConfig, sample_rate: f32) -> Self {
         Self {
             master_phase: 0.0,
             slave_phase: 0.0,

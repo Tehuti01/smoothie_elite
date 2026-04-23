@@ -11,18 +11,22 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
+#[allow(dead_code)]
 const MAX_LOG_LINE: usize = 512;
 
 /// Technical implementation of the FileDestination structure.
 pub struct FileDestination {
     fd: i32,
-    path: &'static str,
+    _path: &'static str,
 }
 
 impl FileDestination {
     /// Initializes a new instance of the associated type.
     pub fn new(path: &'static str) -> Self {
-        Self { fd: -1, path }
+        Self {
+            fd: -1,
+            _path: path,
+        }
     }
 
     /// Technical implementation of the open logic.

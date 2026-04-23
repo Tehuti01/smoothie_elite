@@ -12,6 +12,7 @@
  */
 
 extern crate smoothie_core;
+pub mod fractal;
 pub mod glow;
 pub mod particles;
 pub mod reactive;

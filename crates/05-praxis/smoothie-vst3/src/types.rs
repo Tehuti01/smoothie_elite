@@ -14,7 +14,7 @@
 /// Technical implementation of the ProcessSetup structure.
 pub struct ProcessSetup {
     pub process_mode: i32,
-    pub symbolic_sample_size: i32,
+    pub symbolic_samplesize: i32,
     pub max_samples_per_block: i32,
     pub sample_rate: f64,
 }
@@ -33,7 +33,7 @@ pub struct AudioBusBuffers {
 /// Technical implementation of the ProcessData structure.
 pub struct ProcessData {
     pub process_mode: i32,
-    pub symbolic_sample_size: i32,
+    pub symbolic_samplesize: i32,
     pub num_samples: i32,
     pub num_inputs: i32,
     pub num_outputs: i32,

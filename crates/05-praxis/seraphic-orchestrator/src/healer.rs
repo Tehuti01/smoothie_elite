@@ -10,10 +10,10 @@
  */
 
 use anyhow::Result;
+use colored::*;
 use regex::Regex;
 use std::fs;
 use walkdir::WalkDir;
-use colored::*;
 
 /// Technical implementation of the Healer structure.
 pub struct Healer {
@@ -25,23 +25,29 @@ impl Healer {
         // Ported patterns from legacy regression_fixer.py and syntax_repair_tool.py
         let patterns = vec![
             (Regex::new(r"Start")?, "Start".to_string()),
-            (Regex::new(r"pub\s+#\[inline\(always\)\]\s+fn")?, "#[inline(always)]\n    pub fn".to_string()),
+            (
+                Regex::new(r"pub\s+#\[inline\(always\)\]\s+fn")?,
+                "#[inline(always)]\n    pub fn".to_string(),
+            ),
             (Regex::new(r"AutonomousTask")?, "AutonomousTask".to_string()),
-            (Regex::new(r"AutonomousState")?, "AutonomousState".to_string()),
+            (
+                Regex::new(r"AutonomousState")?,
+                "AutonomousState".to_string(),
+            ),
         ];
-        
+
         Ok(Self { patterns })
     }
 
     pub async fn run(&mut self, _specific_pattern: Option<String>) -> Result<()> {
         println!("🩹 Healing workspace regressions...");
-        
+
         for entry in WalkDir::new(".").into_iter().filter_map(|e| e.ok()) {
             let path = entry.path();
-            if path.extension().map_or(false, |ext| ext == "rs") {
+            if path.extension().is_some_and(|ext| ext == "rs") {
                 let content = fs::read_to_string(path)?;
                 let mut new_content = content.clone();
-                
+
                 for (regex, replacement) in &self.patterns {
                     new_content = regex.replace_all(&new_content, replacement).to_string();
                 }

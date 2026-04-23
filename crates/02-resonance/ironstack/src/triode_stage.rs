@@ -14,11 +14,12 @@ use smoothie_core::primitives::Sample;
 // Note: We need a specialized WDF solver for IronStack.
 // We'll implement a standalone optimized stage that uses the triode logic.
 
+#[allow(dead_code)]
 pub struct TriodeStage {
     sample_rate: f32,
     drive: f32,
     bias: f32,
-    
+
     // Internal state for WDF nodes
     v_gk: f32,
     v_pk: f32,
@@ -45,9 +46,9 @@ impl TriodeStage {
     pub fn process(&mut self, input: Sample) -> Sample {
         // High-IQ non-linear saturation curve (Koren's model representation)
         // [Optimized for zero-allocation performance]
-        
+
         let x = input * self.drive;
-        
+
         // Simple asymmetrical tube saturation approximation for stabilization
         if x > 0.0 {
             x / (1.0 + x.abs())

@@ -12,7 +12,6 @@
  */
 
 use smoothie_core::constants::TAU;
-use smoothie_core::math::FloatExt;
 use smoothie_core::math::{cosine_approx, sine_approx, tan_approx};
 use smoothie_core::primitives::Sample;
 
@@ -227,9 +226,9 @@ impl StateVariableFilter {
     /// Primary real-time signal processing execution block.
     pub fn process(&mut self, input: Sample) -> (f32, f32, f32) {
         let q_inv = 1.0 / self.resonance;
-        self.lowpass = self.lowpass + self.f_coeff * self.bandpass;
+        self.lowpass += self.f_coeff * self.bandpass;
         self.highpass = input - self.lowpass - q_inv * self.bandpass;
-        self.bandpass = self.f_coeff * self.highpass + self.bandpass;
+        self.bandpass += self.f_coeff * self.highpass;
         (self.lowpass, self.bandpass, self.highpass)
     }
 

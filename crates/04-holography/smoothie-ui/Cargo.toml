@@ -11,12 +11,15 @@
 name = "smoothie-ui"
 version = "1.0.0"
 edition = "2021"
-publish = false
-description = "Native Zero-Allocation Flexbox GUI for VST3/CLAP Audio Plugins"
+license = "MIT"
+description = "A Seraphic Technologies Elite audio plugin framework crate."
+repository = "https://github.com/seraphic/smoothie-elite"
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
-smoothie-params = { path = "../../03-cognition/smoothie-params" }
+smoothie-core = { workspace = true }
+smoothie-params = { workspace = true }
+smoothie-ui-vfx = { workspace = true }
+egui = "0.26"
 
 [lib]
 path = "src/lib.rs"

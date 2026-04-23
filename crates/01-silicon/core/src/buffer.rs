@@ -113,7 +113,7 @@ impl FeedbackDelayNetwork {
     /// Create new FDN with orthogonal feedback matrix
     pub fn new() -> Self {
         // Hadamard-like matrix scaled by PHI
-        let phi_inv = 0.618_033_988_749_894_848f32;
+        let phi_inv = 0.618_034_f32;
         Self {
             delays: [
                 DelayLine::new(),

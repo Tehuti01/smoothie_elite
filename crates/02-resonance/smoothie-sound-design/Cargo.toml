@@ -11,8 +11,11 @@
 name = "smoothie-sound-design"
 version = "1.0.0"
 edition = "2021"
+license = "MIT"
+description = "A Seraphic Technologies Elite audio plugin framework crate."
+repository = "https://github.com/seraphic/smoothie-elite"
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
-smoothie-dsp = { path = "../dsp" }
-smoothie-math = { path = "../../01-silicon/smoothie-math" }
+smoothie-core = { workspace = true }
+smoothie-dsp = { workspace = true }
+smoothie-math = { workspace = true }

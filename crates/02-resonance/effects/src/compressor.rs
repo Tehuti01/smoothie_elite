@@ -12,7 +12,6 @@
  */
 
 use smoothie_core::math::{amplitude_to_db, db_to_amplitude, exp_approx};
-use smoothie_core::prelude::*;
 use smoothie_core::primitives::Sample;
 
 /// Technical implementation of the Compressor structure.

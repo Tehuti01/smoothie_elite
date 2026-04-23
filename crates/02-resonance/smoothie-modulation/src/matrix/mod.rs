@@ -12,7 +12,6 @@
  */
 
 use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
 
 /// A modulation source identifier.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]

@@ -12,7 +12,6 @@
  */
 
 use smoothie_core::math::hermite_interpolate;
-use smoothie_core::prelude::*;
 use smoothie_core::primitives::Sample;
 
 /// Technical implementation of the DelayEffect structure.

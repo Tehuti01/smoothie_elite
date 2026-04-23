@@ -13,7 +13,7 @@
 
 /// Technical implementation of the OggReader structure.
 pub struct OggReader {
-    pos: usize,
+    _pos: usize,
     sample_rate: u32,
     channels: u8,
 }
@@ -25,7 +25,7 @@ impl OggReader {
             return None;
         }
         Some(Self {
-            pos: 0,
+            _pos: 0,
             sample_rate: 48000,
             channels: 2,
         })

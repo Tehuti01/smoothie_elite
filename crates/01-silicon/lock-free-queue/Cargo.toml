@@ -21,5 +21,5 @@ keywords.workspace = true
 categories.workspace = true
 
 [dependencies]
-smoothie-core = { path = "../core" }
-smoothie-sync = { path = "../sync" }
+smoothie-core = { workspace = true }
+smoothie-sync = { workspace = true }

@@ -11,7 +11,7 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 
 /// Maximum number of parameters supported in a single preset snapshot.
 pub const MAX_PARAMS: usize = 1024;

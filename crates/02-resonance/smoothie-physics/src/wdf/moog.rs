@@ -12,9 +12,6 @@
  */
 
 use super::components::*;
-///
-/// A physically modeled representation of the classic Moog 24dB lowpass filter.
-use super::ports::*;
 use smoothie_core::primitives::Sample;
 
 /// Technical implementation of the MoogLadderWdf structure.
@@ -44,7 +41,7 @@ impl MoogLadderWdf {
         // Map cutoff frequency to capacitor Equivalent Series Resistance
         // F = 1 / (2 * pi * R * C)  => R = 1 / (2 * pi * F * C)
         let capacitance = 1e-9;
-        let r_val = 1.0 / (2.0 * core::f32::consts::PI * self.cutoff * capacitance);
+        let _r_val = 1.0 / (2.0 * core::f32::consts::PI * self.cutoff * capacitance);
 
         for cap in self.capacitors.iter_mut() {
             // Internally WDF Capacitor sets its Resistance port based on Sample Rate

@@ -24,7 +24,7 @@ pub mod plugin;
 pub mod process;
 
 pub use category::ClapPluginClassification;
-pub use descriptor::{ClapDescriptor, features};
+pub use descriptor::{features, ClapDescriptor};
 pub use events::{ClapEventHeader, ClapEventNote, ClapEventParamValue};
 pub use plugin::SmoothieClapPlugin;
 pub use process::{ClapAudioBuffer, ClapProcessContext};

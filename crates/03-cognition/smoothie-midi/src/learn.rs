@@ -12,7 +12,6 @@
  */
 
 use crate::{cc, MidiMessage};
-use smoothie_core::math::FloatExt;
 
 /// Learn state for a single parameter
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -120,65 +119,62 @@ impl MidiLearn {
             return None;
         }
 
-        match msg {
-            MidiMessage::ControlChange {
+        if let MidiMessage::ControlChange {
                 channel,
                 controller,
                 value,
-            } => {
-                // Check if we're learning for this CC
-                if let Some(param_idx) = self.learning_param {
-                    let entry = &mut self.entries[param_idx];
+            } = msg {
+            // Check if we're learning for this CC
+            if let Some(param_idx) = self.learning_param {
+                let entry = &mut self.entries[param_idx];
 
-                    match entry.state {
-                        LearnState::Waiting => {
-                            // First CC received
-                            entry.state = LearnState::Armed;
-                            entry.cc_number = *controller;
-                            entry.channel = *channel;
-                            entry.min_value = *value;
-                            entry.max_value = *value;
-                            return Some(LearnEvent::FirstValue {
-                                param: param_idx,
-                                cc: *controller,
-                                value: *value,
-                            });
-                        }
-                        LearnState::Armed => {
-                            // Update min/max
-                            entry.min_value = entry.min_value.min(*value);
-                            entry.max_value = entry.max_value.max(*value);
-                            return Some(LearnEvent::ValueUpdate {
-                                param: param_idx,
-                                value: *value,
-                            });
-                        }
-                        _ => {}
-                    }
-                }
-
-                // Check for existing assignments
-                for (idx, entry) in self.entries.iter().enumerate() {
-                    if entry.state == LearnState::Assigned
-                        && entry.cc_number == *controller
-                        && entry.channel == *channel
-                    {
-                        // Normalize value to 0.0-1.0 range
-                        let normalized = if entry.max_value > entry.min_value {
-                            (*value as f32 - entry.min_value as f32)
-                                / (entry.max_value - entry.min_value) as f32
-                        } else {
-                            *value as f32 / 127.0
-                        };
-                        return Some(LearnEvent::MappedValue {
-                            param: idx,
-                            value: normalized,
-                            raw: *value,
+                match entry.state {
+                    LearnState::Waiting => {
+                        // First CC received
+                        entry.state = LearnState::Armed;
+                        entry.cc_number = *controller;
+                        entry.channel = *channel;
+                        entry.min_value = *value;
+                        entry.max_value = *value;
+                        return Some(LearnEvent::FirstValue {
+                            param: param_idx,
+                            cc: *controller,
+                            value: *value,
                         });
                     }
+                    LearnState::Armed => {
+                        // Update min/max
+                        entry.min_value = entry.min_value.min(*value);
+                        entry.max_value = entry.max_value.max(*value);
+                        return Some(LearnEvent::ValueUpdate {
+                            param: param_idx,
+                            value: *value,
+                        });
+                    }
+                    _ => {}
                 }
             }
-            _ => {}
+
+            // Check for existing assignments
+            for (idx, entry) in self.entries.iter().enumerate() {
+                if entry.state == LearnState::Assigned
+                    && entry.cc_number == *controller
+                    && entry.channel == *channel
+                {
+                    // Normalize value to 0.0-1.0 range
+                    let normalized = if entry.max_value > entry.min_value {
+                        (*value as f32 - entry.min_value as f32)
+                            / (entry.max_value - entry.min_value) as f32
+                    } else {
+                        *value as f32 / 127.0
+                    };
+                    return Some(LearnEvent::MappedValue {
+                        param: idx,
+                        value: normalized,
+                        raw: *value,
+                    });
+                }
+            }
         }
 
         None

@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// Provides text rendering and label functionality for UI.
 extern crate alloc;
@@ -74,8 +73,8 @@ pub struct Label {
     style: TextStyle,
     weight: FontWeight,
     color: u32,
-    max_width: f32,
-    truncated: bool,
+    _max_width: f32,
+    _truncated: bool,
 }
 
 impl Label {
@@ -91,8 +90,8 @@ impl Label {
             style: TextStyle::Label,
             weight: FontWeight::Normal,
             color: 0xFFFFFFFF,
-            max_width: 0.0,
-            truncated: false,
+            _max_width: 0.0,
+            _truncated: false,
         }
     }
 

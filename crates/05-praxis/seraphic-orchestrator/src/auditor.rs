@@ -9,11 +9,12 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use anyhow::{Result, anyhow};
-use std::process::Command;
+use anyhow::{anyhow, Result};
 use colored::*;
+use std::process::Command;
 
 /// Technical implementation of the Auditor structure.
+#[allow(dead_code)]
 pub struct Auditor {
     project_root: String,
 }
@@ -27,18 +28,26 @@ impl Auditor {
 
     pub async fn run(&mut self, fix: bool) -> Result<()> {
         println!("🔍 Verifying technical stabilization...");
-        
+
         let status = Command::new("cargo")
             .arg("check")
             .arg("--workspace")
             .status()?;
 
         if status.success() {
-            println!("{}", "✅ SYSTEM STABILIZATION CERTIFIED.".bright_green().bold());
+            println!(
+                "{}",
+                "✅ SYSTEM STABILIZATION CERTIFIED.".bright_green().bold()
+            );
             Ok(())
         } else {
             if fix {
-                println!("{}", "🩹 INTEGRITY FAILURE DETECTED. ATTEMPTING SELF-HEALING...".bright_red().bold());
+                println!(
+                    "{}",
+                    "🩹 INTEGRITY FAILURE DETECTED. ATTEMPTING SELF-HEALING..."
+                        .bright_red()
+                        .bold()
+                );
                 // In a real scenario, we'd trigger the healer here
             }
             Err(anyhow!("WORKSPACE INTEGRITY BREACH: Compilation failed."))

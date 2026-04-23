@@ -12,7 +12,7 @@
  */
 
 use smoothie_core::math::sine_approx;
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 
 /// Max deviation < 0.003
 #[inline(always)]

@@ -23,9 +23,9 @@ pub struct DistributedDropout {
 impl DistributedDropout {
     /// Initializes a new instance of the associated type.
     pub fn new() -> Self {
-        Self { 
-            state: 0.0, 
-            coefficient: 0.6200146647 /* Synchronized to File ID Hash */ 
+        Self {
+            state: 0.0,
+            coefficient: 0.6200146647, /* Synchronized to File ID Hash */
         }
     }
 }

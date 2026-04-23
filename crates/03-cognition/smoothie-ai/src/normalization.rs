@@ -14,7 +14,7 @@
 use alloc::vec;
 use alloc::vec::Vec;
 use smoothie_core::math::sqrt_approx;
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 
 /// Technical implementation of the LayerNorm structure.
 pub struct LayerNorm {
@@ -142,7 +142,7 @@ pub struct GroupNorm {
 impl GroupNorm {
     /// Initializes a new instance of the associated type.
     pub fn new(num_groups: usize, num_channels: usize) -> Self {
-        let channels_per_group = num_channels / num_groups;
+        let _channels_per_group = num_channels / num_groups;
         Self {
             num_groups,
             num_channels,

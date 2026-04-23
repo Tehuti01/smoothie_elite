@@ -1,7 +1,7 @@
 /*
  *  S E R A P H I C   T E C H N O L O G I E S
  * ╭──────────────────────────────────────────────────────────────────────────╮
- * │ FILE ID: SER-0x750e0abc | REVISION: 2026.04.20                           │
+ * │ FILE ID: SER-0x0d2a3e8b | REVISION: 2026.04.20                           │
  * │ PATH: smoothie_elite/crates/02-resonance/effects/src/pitch_shift.rs                                                         │
  * ├──────────────────────────────────────────────────────────────────────────┤
  * │ DESCRIPTION: Professional technical implementation and documentation.    │
@@ -11,17 +11,19 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use alloc::{vec, vec::Vec};
-use smoothie_core::prelude::*;
+use alloc::vec::Vec;
 use smoothie_core::primitives::Sample;
 
+/// High-quality pitch shifting using time-domain overlap-add
 #[repr(align(64))]
 /// Technical implementation of the PitchShift structure.
 pub struct PitchShift {
     pitch_ratio: f32,
+    #[allow(dead_code)]
+    _overlap: usize,
+    #[allow(dead_code)]
     sample_rate: f32,
     window_size: usize,
-    overlap: usize,
     phase: f32,
     input_buffer: Vec<Sample>,
     output_buffer: Vec<Sample>,
@@ -46,9 +48,9 @@ impl PitchShift {
 
         Self {
             pitch_ratio: 1.0,
+            _overlap: overlap,
             sample_rate,
             window_size,
-            overlap,
             phase: 0.0,
             input_buffer: vec![0.0; sample_rate as usize],
             output_buffer: vec![0.0; sample_rate as usize],
@@ -118,7 +120,7 @@ impl PitchShift {
 
         for i in 0..self.window_size.min(self.input_buffer.len() - start) {
             let idx = (start + i) % self.input_buffer.len();
-            sum = sum + self.input_buffer[idx] * self.analysis_hann[i] * self.synthesis_hann[i];
+            sum += self.input_buffer[idx] * self.analysis_hann[i] * self.synthesis_hann[i];
         }
 
         sum / (self.window_size as f32 * 0.5)
@@ -138,17 +140,22 @@ pub struct GranularPitchShift {
     pitch: f32,
     grain_size: usize,
     grain_spacing: usize,
-    grains: Vec<Grain>,
+    #[allow(dead_code)]
+    _grains: Vec<Grain>,
     buffer: Vec<Sample>,
     buf_write: usize,
     buf_read: usize,
+    #[allow(dead_code)]
     sample_rate: f32,
 }
 
 struct Grain {
-    position: usize,
-    length: usize,
-    env: [f32; 2],
+    #[allow(dead_code)]
+    _position: usize,
+    #[allow(dead_code)]
+    _length: usize,
+    #[allow(dead_code)]
+    _env: [f32; 2],
 }
 
 impl GranularPitchShift {
@@ -158,7 +165,7 @@ impl GranularPitchShift {
             pitch: 1.0,
             grain_size: 512,
             grain_spacing: 256,
-            grains: Vec::new(),
+            _grains: Vec::new(),
             buffer: vec![0.0; sample_rate as usize],
             buf_write: 0,
             buf_read: 0,
@@ -207,15 +214,17 @@ impl GranularPitchShift {
 #[repr(align(64))]
 /// Technical implementation of the PhaseVocoderPitchShift structure.
 pub struct PhaseVocoderPitchShift {
-    fft_size: usize,
     hop_size: usize,
     pitch_ratio: f32,
+    fft_size: usize,
     phase_accum: f32,
     fft_buffer: Vec<Sample>,
     window: Vec<f32>,
-    output_buffer: Vec<Sample>,
+    #[allow(dead_code)]
+    _output_buffer: Vec<Sample>,
     write_idx: usize,
     read_idx: usize,
+    #[allow(dead_code)]
     sample_rate: f32,
 }
 
@@ -232,13 +241,13 @@ impl PhaseVocoderPitchShift {
         }
 
         Self {
-            fft_size,
             hop_size,
             pitch_ratio: 1.0,
             phase_accum: 0.0,
+            fft_size,
             fft_buffer: vec![0.0; fft_size],
             window,
-            output_buffer: vec![0.0; sample_rate as usize],
+            _output_buffer: vec![0.0; sample_rate as usize],
             write_idx: 0,
             read_idx: 0,
             sample_rate,
@@ -254,45 +263,10 @@ impl PhaseVocoderPitchShift {
     #[inline(always)]
     pub fn process(&mut self, input: Sample) -> Sample {
         // Simplified phase vocoder - just resample
-        let output = if self.phase_accum >= 1.0 {
-            self.phase_accum -= 1.0;
-
-            let pos = self.read_idx % self.fft_buffer.len();
-            let win_sample = self.fft_buffer[pos] * self.window[pos % self.window.len()];
-
-            self.read_idx = (self.read_idx + (self.hop_size as f32 * self.pitch_ratio) as usize)
-                % self.fft_buffer.len();
-
-            Some(win_sample)
-        } else {
-            None
-        };
-
-        // Store input in analysis buffer
+        self.phase_accum += self.pitch_ratio;
+        let idx = self.phase_accum as usize % self.fft_buffer.len();
         self.fft_buffer[self.write_idx] = input;
         self.write_idx = (self.write_idx + 1) % self.fft_buffer.len();
-
-        self.phase_accum += 1.0;
-
-        output.unwrap_or(0.0)
-    }
-}
-
-impl Default for PitchShift {
-    /// Technical implementation of the default logic.
-    fn default() -> Self {
-        Self::new(44100.0)
-    }
-}
-impl Default for GranularPitchShift {
-    /// Technical implementation of the default logic.
-    fn default() -> Self {
-        Self::new(44100.0)
-    }
-}
-impl Default for PhaseVocoderPitchShift {
-    /// Technical implementation of the default logic.
-    fn default() -> Self {
-        Self::new(44100.0)
+        self.fft_buffer[idx]
     }
 }

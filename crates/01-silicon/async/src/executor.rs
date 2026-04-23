@@ -15,7 +15,7 @@ use crate::task::{Task, TaskId, TaskQueue};
 use crate::waker::TaskWaker;
 use alloc::boxed::Box;
 use alloc::sync::Arc;
-use core::pin::Pin;
+
 use core::sync::atomic::{AtomicUsize, Ordering};
 use core::task::{Context, Poll};
 
@@ -87,7 +87,7 @@ impl Executor {
                 }
                 Poll::Pending => {
                     // Task still pending, push back
-                    if let Err(_) = self.task_queue.push(task) {
+                    if self.task_queue.push(task).is_err() {
                         // Queue full, this is fatal to the task
                         self.wakers[id % 233] = None;
                     }

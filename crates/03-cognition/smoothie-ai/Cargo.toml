@@ -11,11 +11,12 @@
 name = "smoothie-ai"
 version = "1.0.0"
 edition = "2021"
-publish = false
-description = "Artificial Intelligence DSP Engine for Real-Time Neural Inference"
+license = "MIT"
+description = "A Seraphic Technologies Elite audio plugin framework crate."
+repository = "https://github.com/seraphic/smoothie-elite"
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
+smoothie-core = { workspace = true }
 wide = "0.7"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"

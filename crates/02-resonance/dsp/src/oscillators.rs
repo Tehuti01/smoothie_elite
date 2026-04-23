@@ -11,7 +11,7 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::constants::{F_233, TAU, STANDARD_PITCH};
+use smoothie_core::constants::{F_233, STANDARD_PITCH, TAU};
 use smoothie_core::math::sine_approx;
 use smoothie_core::primitives::Sample;
 

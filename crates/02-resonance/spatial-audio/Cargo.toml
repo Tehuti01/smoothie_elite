@@ -21,7 +21,7 @@ keywords.workspace = true
 categories.workspace = true
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
-smoothie-convolution = { path = "../convolution" }
-smoothie-realtime-pool = { path = "../../01-silicon/realtime-pool" }
+smoothie-core = { workspace = true }
+smoothie-convolution = { workspace = true }
+smoothie-realtime-pool = { workspace = true }
 num-complex = "0.4"

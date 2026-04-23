@@ -58,7 +58,7 @@ impl VinylResonator {
 
         // 🧬 Procedural Dust (Low-frequency rumble)
         let dust_noise = (rand * 2.0 - 1.0) * self.dust_amount;
-        output += dust_noise * (PHI as f32).recip();
+        output += dust_noise * PHI.recip();
 
         output
     }

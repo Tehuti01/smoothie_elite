@@ -11,8 +11,10 @@
 name = "smoothie-vst3"
 version = "1.0.0"
 edition = "2021"
-description = "VST3 Steinberg COM API bridge for Smoothie Elite"
+license = "MIT"
+description = "A Seraphic Technologies Elite audio plugin framework crate."
+repository = "https://github.com/seraphic/smoothie-elite"
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
-smoothie-params = { path = "../../03-cognition/smoothie-params" }
+smoothie-core = { workspace = true }
+smoothie-params = { workspace = true }

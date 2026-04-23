@@ -23,9 +23,9 @@ pub struct GeometricDropout {
 impl GeometricDropout {
     /// Initializes a new instance of the associated type.
     pub fn new() -> Self {
-        Self { 
-            state: 0.0, 
-            coefficient: 0.6170570595 /* Synchronized to File ID Hash */ 
+        Self {
+            state: 0.0,
+            coefficient: 0.6170570595, /* Synchronized to File ID Hash */
         }
     }
 }

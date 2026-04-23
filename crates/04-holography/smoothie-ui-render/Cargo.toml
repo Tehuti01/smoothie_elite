@@ -9,19 +9,19 @@
 
 [package]
 name = "smoothie-ui-render"
-version = "1.0.0-LTS"
+version = "1.0.0"
 edition = "2021"
 authors = ["Smoothie Audio <smoothie@smoothieaudio.dev>"]
 license = "MIT OR Apache-2.0"
 description = "Industrial-grade rendering engine for the Smoothie UI framework"
 
 [dependencies]
-smoothie-core = { workspace = true }
-smoothie-ui-core = { workspace = true }
-smoothie-math = { workspace = true }
-anyhow = { workspace = true }
-log = { workspace = true }
-bytemuck = { workspace = true }
+smoothie-core = {workspace = true}
+smoothie-ui-core = {workspace = true}
+smoothie-math = {workspace = true}
+anyhow = {workspace = true}
+log = {workspace = true}
+bytemuck = {workspace = true}
 
 [dev-dependencies]
-tokio = { workspace = true }
+tokio = {workspace = true}

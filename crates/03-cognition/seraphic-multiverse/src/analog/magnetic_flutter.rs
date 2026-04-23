@@ -47,7 +47,7 @@ impl MagneticFlutter {
         self.buffer[self.write_pos] = input;
 
         // 2. Calculate modulated read position
-        let lfo_val = (self.lfo_phase * 2.0 * 3.14159265).sin();
+        let lfo_val = (self.lfo_phase * 2.0 * 3.141_592_7).sin();
         let delay_samples = 100.0 + lfo_val * self.amount;
 
         let mut read_pos = (self.write_pos as f32) - delay_samples;

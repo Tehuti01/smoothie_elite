@@ -24,5 +24,5 @@ pub mod types;
 pub use category::Vst3Category;
 pub use com::{FUnknownImpl, FUnknownVTable, IID, TUID};
 pub use component::{AudioProcessor, EditController, Vst3AudioProcessor, Vst3EditController};
-pub use plugin_entry::{Vst3PluginEntry, Vst3ComponentFlags, Vst3ProcessorInfo};
+pub use plugin_entry::{Vst3ComponentFlags, Vst3PluginEntry, Vst3ProcessorInfo};
 pub use types::*;

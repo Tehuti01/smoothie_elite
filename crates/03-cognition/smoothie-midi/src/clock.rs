@@ -12,7 +12,6 @@
  */
 
 use crate::MidiMessage;
-use smoothie_core::math::FloatExt;
 
 /// MIDI clock state
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -97,7 +96,7 @@ impl MidiClock {
     pub fn is_running(&self) -> bool {
         matches!(
             self.state,
-            ClockState::Running | ClockState::Running | ClockState::Continuing
+            ClockState::Running | ClockState::Continuing
         )
     }
 
@@ -154,13 +153,12 @@ impl Transport {
     pub fn process(&mut self, msg: &MidiMessage) {
         self.clock.process(msg);
 
-        if matches!(msg, MidiMessage::Start | MidiMessage::Continue) {
-            if self.clock.state == ClockState::Running {
+        if matches!(msg, MidiMessage::Start | MidiMessage::Continue)
+            && self.clock.state == ClockState::Running {
                 self.position_beats = 0.0;
                 self.position_samples = 0;
                 self.clock.state = ClockState::Running;
             }
-        }
     }
 
     /// Technical implementation of the advance logic.

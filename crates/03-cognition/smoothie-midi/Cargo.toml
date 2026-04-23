@@ -15,7 +15,7 @@ license.workspace = true
 description = "MIDI protocol and note management for Smoothie Elite"
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
+smoothie-core = { workspace = true }
 
 [lib]
 path = "src/lib.rs"

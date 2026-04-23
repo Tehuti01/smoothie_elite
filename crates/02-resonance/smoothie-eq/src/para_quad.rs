@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// Configurable multi-band EQ with quad (4-channel) support.
 extern crate alloc;

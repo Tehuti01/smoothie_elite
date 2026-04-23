@@ -35,7 +35,7 @@ pub trait SmoothieClapPlugin: Sized + Send {
     fn new() -> Self;
 
     /// Called by the host before the first `process()` call.
-    fn init(&mut self, _sample_rate: f64, _min_block_size: u32, _max_block_size: u32) {}
+    fn init(&mut self, sample_rate: f64, _min_blocksize: u32, _max_blocksize: u32) {}
 
     /// Called when the host wants the plugin to process audio and events.
     fn process(&mut self, ctx: &mut ClapProcessContext);

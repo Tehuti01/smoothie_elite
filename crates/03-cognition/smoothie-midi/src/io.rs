@@ -161,10 +161,17 @@ impl MidiInput {
         }
 
         // Running status handling
-        if byte < 0x80 && self.running_status != 0 {
+        if byte < 0x80 && self.running_status != 0 && self.buffer_len == 0 {
             self.buffer[0] = self.running_status;
             self.buffer[1] = byte;
             self.buffer_len = 2;
+
+            // For 2-byte messages (like Program Change or Channel Pressure), try parsing immediately
+            let msg = MidiMessage::parse(&self.buffer[..self.buffer_len]);
+            if msg.is_some() {
+                self.buffer_len = 0;
+                return msg;
+            }
             return None;
         }
 

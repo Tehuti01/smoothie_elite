@@ -13,7 +13,6 @@
 
 use smoothie_core::constants::TAU;
 use smoothie_core::math::sine_approx;
-use smoothie_core::prelude::*;
 use smoothie_core::primitives::Sample;
 
 ///
@@ -52,7 +51,9 @@ impl StereoWidener {
 pub struct AutoPan {
     lfo_phase: f32,
     lfo_rate: f32,
+    lfo_depth: f32,
     depth: f32,
+    #[allow(dead_code)]
     sample_rate: f32,
 }
 
@@ -62,6 +63,7 @@ impl AutoPan {
         Self {
             lfo_phase: 0.0,
             lfo_rate: rate,
+            lfo_depth: depth,
             depth: depth.clamp(0.0, 1.0),
             sample_rate,
         }
@@ -105,6 +107,7 @@ pub struct Tremolo {
     lfo_phase: f32,
     rate: f32,
     depth: f32,
+    #[allow(dead_code)]
     sample_rate: f32,
 }
 
@@ -172,7 +175,7 @@ pub struct StereoBalance {
 
 impl StereoBalance {
     /// Initializes a new instance of the associated type.
-    pub fn new(_sample_rate: f32) -> Self {
+    pub fn new(sample_rate: f32) -> Self {
         Self {
             balance: 0.0,
             left_gain: 1.0,
@@ -262,6 +265,7 @@ pub struct StereoCorrelation {
     buffer_l: [f32; 4096],
     buffer_r: [f32; 4096],
     pos: usize,
+    #[allow(dead_code)]
     sample_rate: f32,
 }
 

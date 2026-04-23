@@ -9,28 +9,30 @@
 
 [package]
 name = "smoothie-standalone"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
-description = "Sovereign standalone application framework for Smoothie Elite (Replacement for Tauri)"
+license = "MIT"
+description = "A Seraphic Technologies Elite audio plugin framework crate."
+repository = "https://github.com/seraphic/smoothie-elite"
 
 [dependencies]
-smoothie-core = { workspace = true }
-smoothie-dsp = { workspace = true }
-smoothie-ui = { workspace = true }
-smoothie-ui-render = { workspace = true }
-smoothie-graph = { workspace = true }
-smoothie-params = { workspace = true }
-wgpu = { workspace = true }
-winit = { workspace = true }
-egui = { workspace = true }
-egui-wgpu = { workspace = true }
-cpal = { workspace = true }
-midir = { workspace = true }
-tokio = { workspace = true }
-serde = { workspace = true }
-serde_json = { workspace = true }
-anyhow = { workspace = true }
-log = { workspace = true }
+smoothie-core = {workspace = true}
+smoothie-dsp = {workspace = true}
+smoothie-ui = {workspace = true}
+smoothie-ui-render = {workspace = true}
+smoothie-graph = {workspace = true}
+smoothie-params = {workspace = true}
+wgpu = {workspace = true}
+winit = {workspace = true}
+egui = {workspace = true}
+egui-wgpu = {workspace = true}
+cpal = {workspace = true}
+midir = {workspace = true}
+tokio = {workspace = true}
+serde = {workspace = true}
+serde_json = {workspace = true}
+anyhow = {workspace = true}
+log = {workspace = true}
 raw-window-handle = "0.6"
 
 [lib]

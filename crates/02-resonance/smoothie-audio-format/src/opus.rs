@@ -13,7 +13,7 @@
 
 /// Technical implementation of the OpusReader structure.
 pub struct OpusReader {
-    pos: usize,
+    _pos: usize,
     sample_rate: u32,
     channels: u8,
 }
@@ -29,7 +29,7 @@ impl OpusReader {
         }
         let channels = data[9];
         Some(Self {
-            pos: 0,
+            _pos: 0,
             sample_rate: 48000,
             channels,
         })

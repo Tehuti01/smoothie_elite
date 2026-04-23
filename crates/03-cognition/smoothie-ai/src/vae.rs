@@ -13,13 +13,14 @@
 
 use alloc::vec;
 use alloc::vec::Vec;
-use smoothie_core::math::sqrt_approx;
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 
 /// Technical implementation of the VAEConfig structure.
 pub struct VAEConfig {
+    #[allow(dead_code)]
     pub input_dim: usize,
-    pub latent_dim: usize,
+    #[allow(dead_code)]
+    pub _latent_dim: usize,
     pub hidden_dims: Vec<usize>,
     pub activation: ActivationType,
 }
@@ -36,27 +37,30 @@ pub struct VAE {
     pub config: VAEConfig,
     pub encoder: Encoder,
     pub decoder: Decoder,
-    pub latent_dim: usize,
+    #[allow(dead_code)]
+    pub _latent_dim: usize,
 }
 
 impl VAE {
     /// Initializes a new instance of the associated type.
-    pub fn new(input_dim: usize, latent_dim: usize, hidden_dims: &[usize]) -> Self {
+    pub fn new(#[allow(dead_code)]
+    input_dim: usize, #[allow(dead_code)]
+    _latent_dim: usize, hidden_dims: &[usize]) -> Self {
         let config = VAEConfig {
             input_dim,
-            latent_dim,
+            _latent_dim,
             hidden_dims: hidden_dims.to_vec(),
             activation: ActivationType::Gelu,
         };
 
-        let encoder = Encoder::new(input_dim, latent_dim, hidden_dims);
-        let decoder = Decoder::new(latent_dim, input_dim, hidden_dims);
+        let encoder = Encoder::new(input_dim, _latent_dim, hidden_dims);
+        let decoder = Decoder::new(_latent_dim, input_dim, hidden_dims);
 
         Self {
             config,
             encoder,
             decoder,
-            latent_dim,
+            _latent_dim,
         }
     }
 
@@ -64,9 +68,9 @@ impl VAE {
     pub fn encode(&self, input: &[f32], mean: &mut [f32], log_var: &mut [f32]) {
         let latent = self.encoder.forward(input);
 
-        for i in 0..self.latent_dim {
+        for i in 0..self._latent_dim {
             mean[i] = latent[i];
-            log_var[i] = latent[self.latent_dim + i];
+            log_var[i] = latent[self._latent_dim + i];
         }
     }
 
@@ -74,7 +78,7 @@ impl VAE {
     pub fn reparameterize(&self, mean: &[f32], log_var: &[f32], output: &mut [f32]) {
         let std = log_var.iter().map(|v| (0.5 * v).exp()).collect::<Vec<_>>();
 
-        for i in 0..self.latent_dim {
+        for i in 0..self._latent_dim {
             let epsilon = rand_float();
             output[i] = mean[i] + std[i] * epsilon;
         }
@@ -109,7 +113,7 @@ impl VAE {
         recon_loss /= input.len() as f32;
 
         let mut kl_loss = 0.0f32;
-        for i in 0..self.latent_dim {
+        for i in 0..self._latent_dim {
             let m = mean[i];
             let lv = log_var[i];
             kl_loss += -0.5 * (1.0 + lv - m * m - lv.exp());
@@ -122,13 +126,17 @@ impl VAE {
 /// Technical implementation of the Encoder structure.
 pub struct Encoder {
     pub layers: Vec<EncoderLayer>,
+    #[allow(dead_code)]
     input_dim: usize,
-    latent_dim: usize,
+    #[allow(dead_code)]
+    _latent_dim: usize,
 }
 
 impl Encoder {
     /// Initializes a new instance of the associated type.
-    pub fn new(input_dim: usize, latent_dim: usize, hidden_dims: &[usize]) -> Self {
+    pub fn new(#[allow(dead_code)]
+    input_dim: usize, #[allow(dead_code)]
+    _latent_dim: usize, hidden_dims: &[usize]) -> Self {
         let mut layers = Vec::new();
         let mut prev_dim = input_dim;
 
@@ -137,12 +145,12 @@ impl Encoder {
             prev_dim = hidden_dim;
         }
 
-        layers.push(EncoderLayer::new(prev_dim, latent_dim * 2));
+        layers.push(EncoderLayer::new(prev_dim, _latent_dim * 2));
 
         Self {
             layers,
             input_dim,
-            latent_dim,
+            _latent_dim,
         }
     }
 
@@ -169,13 +177,16 @@ impl Encoder {
 pub struct EncoderLayer {
     pub weights: Vec<f32>,
     pub bias: Vec<f32>,
+    #[allow(dead_code)]
     input_dim: usize,
+    #[allow(dead_code)]
     output_dim: usize,
 }
 
 impl EncoderLayer {
     /// Initializes a new instance of the associated type.
-    pub fn new(input_dim: usize, output_dim: usize) -> Self {
+    pub fn new(#[allow(dead_code)]
+    input_dim: usize, output_dim: usize) -> Self {
         Self {
             weights: vec![0.1; input_dim * output_dim],
             bias: vec![0.0; output_dim],
@@ -205,19 +216,23 @@ impl EncoderLayer {
 /// Technical implementation of the Decoder structure.
 pub struct Decoder {
     pub layers: Vec<DecoderLayer>,
-    latent_dim: usize,
+    #[allow(dead_code)]
+    _latent_dim: usize,
+    #[allow(dead_code)]
     output_dim: usize,
 }
 
 impl Decoder {
     /// Initializes a new instance of the associated type.
-    pub fn new(latent_dim: usize, output_dim: usize, hidden_dims: &[usize]) -> Self {
+    pub fn new(#[allow(dead_code)]
+    _latent_dim: usize, #[allow(dead_code)]
+    output_dim: usize, hidden_dims: &[usize]) -> Self {
         let mut dims = hidden_dims.to_vec();
         dims.reverse();
         dims.push(output_dim);
 
         let mut layers = Vec::new();
-        let mut prev_dim = latent_dim;
+        let mut prev_dim = _latent_dim;
 
         for &hidden_dim in &dims {
             layers.push(DecoderLayer::new(prev_dim, hidden_dim));
@@ -226,7 +241,7 @@ impl Decoder {
 
         Self {
             layers,
-            latent_dim,
+            _latent_dim,
             output_dim,
         }
     }
@@ -255,13 +270,16 @@ impl Decoder {
 pub struct DecoderLayer {
     pub weights: Vec<f32>,
     pub bias: Vec<f32>,
+    #[allow(dead_code)]
     input_dim: usize,
+    #[allow(dead_code)]
     output_dim: usize,
 }
 
 impl DecoderLayer {
     /// Initializes a new instance of the associated type.
-    pub fn new(input_dim: usize, output_dim: usize) -> Self {
+    pub fn new(#[allow(dead_code)]
+    input_dim: usize, output_dim: usize) -> Self {
         Self {
             weights: vec![0.1; input_dim * output_dim],
             bias: vec![0.0; output_dim],
@@ -292,20 +310,24 @@ impl DecoderLayer {
 pub struct ConditionalVAE {
     pub vae: VAE,
     pub condition_embed: Vec<f32>,
+    #[allow(dead_code)]
     condition_dim: usize,
 }
 
 impl ConditionalVAE {
     /// Initializes a new instance of the associated type.
     pub fn new(
-        input_dim: usize,
-        latent_dim: usize,
-        condition_dim: usize,
+        #[allow(dead_code)]
+    input_dim: usize,
+        #[allow(dead_code)]
+    _latent_dim: usize,
+        #[allow(dead_code)]
+    condition_dim: usize,
         hidden_dims: &[usize],
     ) -> Self {
         Self {
-            vae: VAE::new(input_dim + condition_dim, latent_dim, hidden_dims),
-            condition_embed: vec![0.1; condition_dim * latent_dim],
+            vae: VAE::new(input_dim + condition_dim, _latent_dim, hidden_dims),
+            condition_embed: vec![0.1; condition_dim * _latent_dim],
             condition_dim,
         }
     }
@@ -356,7 +378,8 @@ pub struct VQVAE {
 impl VQVAE {
     /// Initializes a new instance of the associated type.
     pub fn new(
-        input_dim: usize,
+        #[allow(dead_code)]
+    input_dim: usize,
         embedding_dim: usize,
         num_embeddings: usize,
         hidden_dims: &[usize],
@@ -456,15 +479,17 @@ pub struct ResidualVAE {
 impl ResidualVAE {
     /// Initializes a new instance of the associated type.
     pub fn new(
-        input_dim: usize,
-        latent_dim: usize,
+        #[allow(dead_code)]
+    input_dim: usize,
+        #[allow(dead_code)]
+    _latent_dim: usize,
         num_residual: usize,
         hidden_dims: &[usize],
     ) -> Self {
-        let vae = VAE::new(input_dim, latent_dim, hidden_dims);
+        let vae = VAE::new(input_dim, _latent_dim, hidden_dims);
 
         let residual_blocks = (0..num_residual)
-            .map(|_| VAE::new(latent_dim, latent_dim, hidden_dims))
+            .map(|_| VAE::new(_latent_dim, _latent_dim, hidden_dims))
             .collect();
 
         Self {
@@ -477,18 +502,18 @@ impl ResidualVAE {
     /// Technical implementation of the forward logic.
     pub fn forward(&self, input: &[f32], output: &mut [f32]) -> f32 {
         let mut reconstructed = vec![0.0; input.len()];
-        let mut mean = vec![0.0; self.vae.latent_dim];
-        let mut log_var = vec![0.0; self.vae.latent_dim];
-        let mut z = vec![0.0; self.vae.latent_dim];
+        let mut mean = vec![0.0; self.vae._latent_dim];
+        let mut log_var = vec![0.0; self.vae._latent_dim];
+        let mut z = vec![0.0; self.vae._latent_dim];
 
         self.vae
             .forward(input, &mut reconstructed, &mut mean, &mut log_var, &mut z);
 
         for block in &self.residual_blocks {
             let mut block_recon = vec![0.0; input.len()];
-            let mut block_mean = vec![0.0; block.latent_dim];
-            let mut block_log_var = vec![0.0; block.latent_dim];
-            let mut block_z = vec![0.0; block.latent_dim];
+            let mut block_mean = vec![0.0; block._latent_dim];
+            let mut block_log_var = vec![0.0; block._latent_dim];
+            let mut block_z = vec![0.0; block._latent_dim];
 
             block.forward(
                 &z,
@@ -517,7 +542,7 @@ impl ResidualVAE {
 
 /// Technical implementation of the gelu logic.
 fn gelu(x: f32) -> f32 {
-    let sqrt_2_over_pi = 0.7978845608028654;
+    let sqrt_2_over_pi = 0.797_884_6;
     let c = 0.044715;
     let x3 = x * x * x;
     let inner = sqrt_2_over_pi * (x + c * x3);

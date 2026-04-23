@@ -12,7 +12,7 @@
  */
 
 use colored::Colorize;
-use regex::Regex;
+
 use std::fs;
 ///
 /// to ensure absolute compliance with the Seraphic Specification (L0, A0, PHI).
@@ -111,7 +111,7 @@ fn audit_silicon(root: &Path) -> bool {
     for entry in WalkDir::new(root)
         .into_iter()
         .filter_map(|e| e.ok())
-        .filter(|e| e.path().extension().map_or(false, |ext| ext == "rs"))
+        .filter(|e| e.path().extension().is_some_and(|ext| ext == "rs"))
     {
         let content = fs::read_to_string(entry.path()).unwrap_or_default();
 
@@ -127,8 +127,8 @@ fn audit_silicon(root: &Path) -> bool {
         }
 
         // 1.1 Alignment Check
-        if clean_content.contains("struct ") {
-            if !clean_content.contains("#[repr(align(64))]")
+        if clean_content.contains("struct ")
+            && !clean_content.contains("#[repr(align(64))]")
                 && !clean_content.contains("#[repr(C)]")
             {
                 println!(
@@ -138,7 +138,6 @@ fn audit_silicon(root: &Path) -> bool {
                 );
                 success = false;
             }
-        }
 
         // 1.2 Hot-Path Allocation Check
         if let Some(start) = content.find("fn process") {
@@ -174,7 +173,7 @@ fn audit_atomics(root: &Path) -> bool {
     for entry in WalkDir::new(root)
         .into_iter()
         .filter_map(|e| e.ok())
-        .filter(|e| e.path().extension().map_or(false, |ext| ext == "rs"))
+        .filter(|e| e.path().extension().is_some_and(|ext| ext == "rs"))
     {
         let content = fs::read_to_string(entry.path()).unwrap_or_default();
         if content.contains("Ordering::SeqCst") {
@@ -215,11 +214,11 @@ fn audit_allocations(bin_path: &Path) -> bool {
 
 /// Technical implementation of the audit_docs logic.
 fn audit_docs(root: &Path) -> bool {
-    let mut success = true;
+    let success = true;
     for entry in WalkDir::new(root)
         .into_iter()
         .filter_map(|e| e.ok())
-        .filter(|e| e.path().extension().map_or(false, |ext| ext == "rs"))
+        .filter(|e| e.path().extension().is_some_and(|ext| ext == "rs"))
     {
         let content = fs::read_to_string(entry.path()).unwrap_or_default();
         if content.contains("pub fn") && !content.contains("Performance Proof") {

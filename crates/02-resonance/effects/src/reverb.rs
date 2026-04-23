@@ -37,7 +37,7 @@ pub struct ReverbEffect {
 
 impl ReverbEffect {
     /// Initializes a new instance of the associated type.
-    pub fn new(_sample_rate: f32) -> Self {
+    pub fn new(sample_rate: f32) -> Self {
         Self {
             comb_buffers: [
                 vec![0.0; 1116],

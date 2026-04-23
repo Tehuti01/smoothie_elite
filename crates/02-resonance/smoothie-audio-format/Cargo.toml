@@ -11,8 +11,10 @@
 name = "smoothie-audio-format"
 version = "1.0.0"
 edition = "2021"
-description = "Zero-allocation audio file format codecs for Smoothie Elite"
+license = "MIT"
+description = "A Seraphic Technologies Elite audio plugin framework crate."
+repository = "https://github.com/seraphic/smoothie-elite"
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
-smoothie-sync = { path = "../../01-silicon/sync" }
+smoothie-core = { workspace = true }
+smoothie-sync = { workspace = true }

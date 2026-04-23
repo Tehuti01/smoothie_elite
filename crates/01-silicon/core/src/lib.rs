@@ -7,6 +7,8 @@
  * │ DESCRIPTION: Professional technical implementation and documentation.    │
  * ├──────────────────────────────────────────────────────────────────────────┤
  * │ TECHNICAL NOTES: Optimized for industrial-grade performance standards.   │
+ * │ AI DIRECTIVE: See docs/AI_AGENT_GUIDE.md for "Fort Real" plugin design.  │
+ * │ Ensure all synthesized plugins use advanced DSP over basic primitives.   │
  * ╰──────────────────────────────────────────────────────────────────────────╯
  *   SERAPHIC TECH - Precision Engineering
  */
@@ -37,6 +39,8 @@ pub mod sync;
 pub mod types;
 // Word length and bit-depth orchestration.
 pub mod word_length;
+// Master plugin traits.
+pub mod plugin;
 
 pub mod prelude {
     pub use crate::audio::PeakMeter;
@@ -55,6 +59,7 @@ pub mod prelude {
 }
 
 pub use smoothie_macros::seraphic_specification;
+pub use crate::plugin::{SmoothiePlugin, PluginInfo, PluginCategory, ProcessStatus, AudioProcessor};
 
 /// The Autonomous Node Trait: Defines the contract for all real-time processing blocks.
 pub trait PluginOsNode: Send + Sync {

@@ -21,7 +21,7 @@ keywords.workspace = true
 categories.workspace = true
 
 [dependencies]
-smoothie-core = { path = "../core" }
-smoothie-sync = { path = "../sync" }
-smoothie-logging = { path = "../logging" }
+smoothie-core = { workspace = true }
+smoothie-sync = { workspace = true }
+smoothie-logging = { workspace = true }
 parking_lot = "0.12"

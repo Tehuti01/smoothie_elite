@@ -18,7 +18,9 @@ use heapless::Vec;
 #[derive(Debug, Clone)]
 /// Technical implementation of the Message structure.
 pub struct Message {
+    #[allow(dead_code)]
     role: &'static str,
+    #[allow(dead_code)]
     content: String<512>, // Fixed-size string for no_std
 }
 
@@ -37,7 +39,8 @@ impl WorkingMemory {
     }
 
     /// 🚀 Push a message into the context window
-    pub fn push(&mut self, role: &'static str, content: &str) -> Result<(), &'static str> {
+    pub fn push(&mut self, #[allow(dead_code)]
+    role: &'static str, content: &str) -> Result<(), &'static str> {
         let mut msg_content = String::new();
         let _ = msg_content.push_str(content);
 

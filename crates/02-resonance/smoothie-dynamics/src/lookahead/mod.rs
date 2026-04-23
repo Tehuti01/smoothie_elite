@@ -76,7 +76,7 @@ impl LookaheadBuffer {
 pub struct LookaheadLimiter {
     buffer: alloc::vec::Vec<f32>,
     write_pos: usize,
-    frame_size: usize,
+    framesize: usize,
     gain_reduction: f32,
 }
 

@@ -13,11 +13,11 @@
 
 use alloc::vec;
 use alloc::vec::Vec;
-use smoothie_core::math::{exp_approx, fast_pow, floor_approx, sqrt_approx};
+use smoothie_core::math::{fast_pow, floor_approx, sqrt_approx};
 
 #[inline(always)]
 /// Technical implementation of the fast_round logic.
-fn fast_round(x: f32) -> f32 {
+fn _fast_round(x: f32) -> f32 {
     if x > 0.0 {
         floor_approx(x + 0.5)
     } else {
@@ -137,6 +137,7 @@ pub struct RMSprop {
     pub epsilon: f32,
     pub momentum: f32,
     square_avg: Vec<f32>,
+    #[allow(dead_code)]
     grad_avg: Vec<f32>,
 }
 

@@ -21,6 +21,6 @@ keywords.workspace = true
 categories.workspace = true
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
-smoothie-gpu-renderer = { path = "../gpu-renderer" }
+smoothie-core = { workspace = true }
+smoothie-gpu-renderer = { workspace = true }
 bytemuck = { version = "1.14", features = ["derive"] }

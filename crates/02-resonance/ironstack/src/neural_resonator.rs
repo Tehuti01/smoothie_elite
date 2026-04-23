@@ -38,7 +38,10 @@ pub struct IronStackNeuralResonator {
 impl IronStackNeuralResonator {
     /// Initializes a new instance of the associated type.
     pub fn new(hidden_size: usize) -> Self {
-        assert!(hidden_size <= 16, "Sovereign performance cap: hidden_size exceeds 16");
+        assert!(
+            hidden_size <= 16,
+            "Sovereign performance cap: hidden_size exceeds 16"
+        );
 
         Self {
             input_dense: DenseLayer::new(1, hidden_size),
@@ -63,13 +66,20 @@ impl IronStackNeuralResonator {
 
         // 2. Input Projection (Dense)
         let mut proj_buf = [0.0; 16];
-        self.input_dense.forward(&self.input_buf, &mut proj_buf[..self.input_dense.outputs]);
+        self.input_dense
+            .forward(&self.input_buf, &mut proj_buf[..self.input_dense.outputs]);
 
         // 3. Temporal Modeling (GRU Step)
-        self.recurrent_layer.step(&proj_buf[..self.recurrent_layer.input_size], &mut self.hidden_buf[..self.recurrent_layer.hidden_size]);
+        self.recurrent_layer.step(
+            &proj_buf[..self.recurrent_layer.input_size],
+            &mut self.hidden_buf[..self.recurrent_layer.hidden_size],
+        );
 
         // 4. Output Projection (Dense)
-        self.output_dense.forward(&self.hidden_buf[..self.output_dense.inputs], &mut self.output_buf);
+        self.output_dense.forward(
+            &self.hidden_buf[..self.output_dense.inputs],
+            &mut self.output_buf,
+        );
 
         // 5. Final Dry/Wet Mix
         let neural_out = self.output_buf[0];

@@ -109,7 +109,7 @@ fn count_rs_files(dir: &Path) -> usize {
             let path = entry.path();
             if path.is_dir() {
                 count += count_rs_files(&path);
-            } else if path.extension().map_or(false, |e| e == "rs") {
+            } else if path.extension().is_some_and(|e| e == "rs") {
                 count += 1;
             }
         }

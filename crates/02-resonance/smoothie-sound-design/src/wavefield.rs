@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// Creates spatial audio from simulated wavefronts in 2D/3D space.
 
@@ -49,7 +48,7 @@ impl WavefieldSource {
 
     #[inline(always)]
     /// Technical implementation of the sample logic.
-    pub fn sample(&mut self, listener_pos: &[f32; 3], dt: f32) -> f32 {
+    pub fn sample(&mut self, listener_pos: &[f32; 3], _dt: f32) -> f32 {
         let dx = listener_pos[0] - self.position[0];
         let dy = listener_pos[1] - self.position[1];
         let dz = listener_pos[2] - self.position[2];

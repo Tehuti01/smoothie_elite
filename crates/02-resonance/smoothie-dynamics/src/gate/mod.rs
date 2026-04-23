@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// with configurable open/close thresholds (hysteresis), attack, hold,
 /// on signals hovering near the gate boundary.
@@ -67,6 +66,7 @@ impl Default for GateParams {
 }
 
 /// Technical implementation of the Gate structure.
+#[allow(dead_code)]
 pub struct Gate {
     /// Active configuration parameters.
     params: GateParams,
@@ -97,7 +97,7 @@ pub struct Gate {
 impl Gate {
     /// Initializes a new instance of the associated type.
     pub fn new(params: GateParams, sample_rate: f32) -> Self {
-        let db_lin = |db: f32| -> f32 { smoothie_core::math::exp_approx(db * 0.1151292546) };
+        let db_lin = |db: f32| -> f32 { smoothie_core::math::exp_approx(db * 0.115_129_255) };
         let ms_step = |ms: f32| -> f32 { 1.0 / ((ms / 1000.0) * sample_rate).max(1.0) };
 
         Self {

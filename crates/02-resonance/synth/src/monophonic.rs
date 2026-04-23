@@ -13,7 +13,7 @@
 
 use crate::voice::Voice;
 use smoothie_core::math::exp_approx;
-use smoothie_core::math::FloatExt;
+
 use smoothie_core::constants::STANDARD_PITCH;
 use smoothie_core::primitives::Sample;
 use smoothie_dsp::oscillators::{Oscillator, OscillatorMode};

@@ -15,10 +15,10 @@ authors.workspace = true
 license.workspace = true
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
-smoothie-params = { path = "../smoothie-params" }
-smoothie-midi = { path = "../smoothie-midi" }
-smoothie-dsp = { path = "../../02-resonance/dsp" }
+smoothie-core = { workspace = true }
+smoothie-params = { workspace = true }
+smoothie-midi = { workspace = true }
+smoothie-dsp = { workspace = true }
 
 [features]
 default = []

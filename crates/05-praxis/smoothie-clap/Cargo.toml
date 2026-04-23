@@ -15,9 +15,9 @@ authors.workspace = true
 license.workspace = true
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
-smoothie-params = { path = "../../03-cognition/smoothie-params" }
-smoothie-midi = { path = "../../03-cognition/smoothie-midi" }
+smoothie-core = { workspace = true }
+smoothie-params = { workspace = true }
+smoothie-midi = { workspace = true }
 
 [features]
 default = []

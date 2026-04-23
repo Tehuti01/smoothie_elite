@@ -21,10 +21,10 @@ keywords.workspace = true
 categories.workspace = true
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
-smoothie-math = { path = "../../01-silicon/smoothie-math" }
-smoothie-realtime-pool = { path = "../../01-silicon/realtime-pool" }
-smoothie-lock-free-queue = { path = "../../01-silicon/lock-free-queue" }
+smoothie-core = { workspace = true }
+smoothie-math = { workspace = true }
+smoothie-realtime-pool = { workspace = true }
+smoothie-lock-free-queue = { workspace = true }
 wgpu = "0.19"
 winit = "0.30"
 egui = "0.26"

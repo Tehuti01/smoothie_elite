@@ -11,10 +11,10 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 ///
 /// Includes MSE, spectral losses, cross-entropy, and perceptual losses.
-use smoothie_core::math::{exp_approx, fast_log2, floor_approx};
+use smoothie_core::math::{fast_log2, floor_approx};
 
 #[inline(always)]
 /// Technical implementation of the fast_ln logic.
@@ -22,12 +22,12 @@ fn fast_ln(x: f32) -> f32 {
     if x <= 0.0 {
         return -1e10;
     }
-    fast_log2(x) * 0.6931471805599453
+    fast_log2(x) * 0.693_147_2
 }
 
 #[inline(always)]
 /// Technical implementation of the fast_round logic.
-fn fast_round(x: f32) -> f32 {
+fn _fast_round(x: f32) -> f32 {
     if x > 0.0 {
         floor_approx(x + 0.5)
     } else {

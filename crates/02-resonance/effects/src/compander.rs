@@ -12,7 +12,6 @@
  */
 
 use smoothie_core::math::{amplitude_to_db, db_to_amplitude, exp_approx};
-use smoothie_core::prelude::*;
 use smoothie_core::primitives::Sample;
 
 /// Technical implementation of the Compander structure.
@@ -95,18 +94,15 @@ impl Compander {
         }
 
         // Gain computer - expansion below threshold, compression above
-        let mut gain_change = 0.0;
-        let below = self.envelope < self.threshold;
-
-        if below {
+        let mut gain_change = if self.envelope < self.threshold {
             // Expansion
             let excess = self.threshold - self.envelope;
-            gain_change = excess * (1.0 - 1.0 / self.ratio_expand);
+            excess * (1.0 - 1.0 / self.ratio_expand)
         } else {
             // Compression
             let excess = self.envelope - self.threshold;
-            gain_change = excess * (1.0 - 1.0 / self.ratio_comp);
-        }
+            excess * (1.0 - 1.0 / self.ratio_comp)
+        };
 
         // Apply range limit
         gain_change = gain_change.max(self.range).min(-self.range);
@@ -128,15 +124,13 @@ impl Compander {
             self.envelope += self.release_coeff * diff;
         }
 
-        let mut gain_change = 0.0;
-
-        if self.envelope < self.threshold {
+        let mut gain_change = if self.envelope < self.threshold {
             let excess = self.threshold - self.envelope;
-            gain_change = excess * (1.0 - 1.0 / self.ratio_expand);
+            excess * (1.0 - 1.0 / self.ratio_expand)
         } else {
             let excess = self.envelope - self.threshold;
-            gain_change = excess * (1.0 - 1.0 / self.ratio_comp);
-        }
+            excess * (1.0 - 1.0 / self.ratio_comp)
+        };
 
         gain_change = gain_change.max(self.range).min(-self.range);
 

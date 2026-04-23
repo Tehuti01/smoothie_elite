@@ -41,7 +41,7 @@ impl UnisonEngine {
         for i in 0..self.num_voices {
             // Detune offsets derive from PHI powers to maximize spectral diffusion
             let offset =
-                (i as f32 - (self.num_voices as f32 - 1.0) / 2.0) * (PHI as f32).powi(i as i32 % 3);
+                (i as f32 - (self.num_voices as f32 - 1.0) / 2.0) * PHI.powi(i as i32 % 3);
             self.voice_offsets[i] = offset;
         }
     }
@@ -53,7 +53,7 @@ impl UnisonEngine {
         }
         // 1.059463 is the 12th root of 2 (semitone multiplier)
         let semitones = self.voice_offsets[voice_idx] * self.detune;
-        (1.059463094f32).powf(semitones)
+        1.059_463_1_f32.powf(semitones)
     }
 
     /// 🦾 Calculate voice-specific stereo pan

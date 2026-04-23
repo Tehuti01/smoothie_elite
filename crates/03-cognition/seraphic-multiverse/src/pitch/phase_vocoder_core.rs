@@ -41,7 +41,7 @@ impl PhaseVocoder {
     pub fn awaken(&mut self) {
         for i in 0..self.fft_size {
             // Using standard PI or approximation
-            let pi = 3.14159265;
+            let pi = 3.141_592_7;
             self.window[i] =
                 0.5 * (1.0 - (2.0 * pi * i as f32 / (self.fft_size as f32 - 1.0)).cos());
         }

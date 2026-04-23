@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 
 /// Real-time lock-free generator up to 3rd Order Ambisonics (l <= 3)
 /// Technical implementation of the associated_legendre logic.
@@ -39,7 +38,7 @@ pub fn associated_legendre(l: u8, m: u8, x: f32) -> f32 {
 /// Theta: inclination angle (0 to PI)
 /// Technical implementation of the spherical_harmonic logic.
 pub fn spherical_harmonic(l: u8, m: i32, _theta: f32, phi: f32) -> f32 {
-    let m_abs = m.abs() as u8;
+    let m_abs = m.unsigned_abs() as u8;
     // Approximated normalization constants for brevity
     let n = 1.0;
     let p = associated_legendre(l, m_abs, core::f32::consts::PI); // Uses COS theta ideally

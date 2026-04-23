@@ -11,10 +11,10 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
+use smoothie_core::constants::STANDARD_PITCH;
 use smoothie_core::primitives::Sample;
 use smoothie_dsp::envelope_mod::AdsrEnvelope;
 use smoothie_midi::MidiMessage;
-use smoothie_core::constants::STANDARD_PITCH;
 
 /// State of a single synthesizer voice.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// signal's transient envelope. Uses the classic "differential envelope"
 /// transient designer plugin.
@@ -73,7 +72,7 @@ pub struct TransientShaper {
 impl TransientShaper {
     /// Initializes a new instance of the associated type.
     pub fn new(params: TransientParams, sample_rate: f32) -> Self {
-        let db_to_lin = |db: f32| smoothie_core::math::exp_approx(db * 0.1151292546);
+        let db_to_lin = |db: f32| smoothie_core::math::exp_approx(db * 0.115_129_255);
 
         // Fast envelope: ~1ms attack
         let fast_ms = 1.0 * (1.0 - params.sensitivity * 0.8);
@@ -96,8 +95,8 @@ impl TransientShaper {
     }
 
     /// Updates a framework parameter value.
-    pub fn set_params(&mut self, params: TransientParams, _sample_rate: f32) {
-        let db_to_lin = |db: f32| smoothie_core::math::exp_approx(db * 0.1151292546);
+    pub fn set_params(&mut self, params: TransientParams, sample_rate: f32) {
+        let db_to_lin = |db: f32| smoothie_core::math::exp_approx(db * 0.115_129_255);
         self.attack_gain = db_to_lin(params.attack_boost_db);
         self.sustain_gain = db_to_lin(params.sustain_boost_db);
         self.params = params;

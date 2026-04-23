@@ -12,7 +12,7 @@
  */
 
 use smoothie_core::math::exp_approx;
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 
 /// Sigmoid is bounded `[0, 1]` based on logistic bounds.
 #[inline(always)]

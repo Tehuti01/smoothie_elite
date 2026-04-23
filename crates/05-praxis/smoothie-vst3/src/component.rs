@@ -12,11 +12,11 @@
  */
 
 extern crate smoothie_params;
-use smoothie_params::bank::ParameterBank;
-use smoothie_core::primitives::Sample;
 use super::com::*;
 use super::types::*;
 use core::ffi::c_void;
+use smoothie_core::primitives::Sample;
+use smoothie_params::bank::ParameterBank;
 
 /// Technical implementation of the Vst3AudioProcessor trait.
 pub trait Vst3AudioProcessor {
@@ -47,8 +47,8 @@ pub struct AudioProcessorVTable {
         index: i32,
         num_channels: *mut i32,
     ) -> Result,
-    pub can_process_sample_size:
-        unsafe extern "system" fn(this: *mut c_void, symbolic_size: i32) -> Result,
+    pub can_process_samplesize:
+        unsafe extern "system" fn(this: *mut c_void, symbolicsize: i32) -> Result,
     pub get_latency_samples: unsafe extern "system" fn(this: *mut c_void) -> u32,
     pub setup_processing:
         unsafe extern "system" fn(this: *mut c_void, setup: *const ProcessSetup) -> Result,
@@ -57,6 +57,7 @@ pub struct AudioProcessorVTable {
     pub get_tail_samples: unsafe extern "system" fn(this: *mut c_void) -> u32,
 }
 
+#[allow(dead_code)]
 static AUDIO_PROCESSOR_VTABLE: AudioProcessorVTable = AudioProcessorVTable {
     com: FUnknownVTable {
         query_interface: query_interface_impl,
@@ -65,7 +66,7 @@ static AUDIO_PROCESSOR_VTABLE: AudioProcessorVTable = AudioProcessorVTable {
     },
     set_bus_arrangements: set_bus_arrangements_impl,
     get_bus_arrangement: get_bus_arrangement_impl,
-    can_process_sample_size: can_process_sample_size_impl,
+    can_process_samplesize: can_process_sample_size_impl,
     get_latency_samples: get_latency_samples_impl,
     setup_processing: setup_processing_impl,
     set_processing: set_processing_impl,
@@ -80,6 +81,7 @@ pub struct AudioProcessor {
     // (A pointer to the actual SmoothiePlugin trait object would be placed here)
 }
 
+#[allow(dead_code)]
 unsafe extern "system" fn query_interface_impl(
     this: *mut c_void,
     iid: IID,
@@ -96,6 +98,7 @@ unsafe extern "system" fn query_interface_impl(
 }
 
 // Memory drop handler for the wrapper struct
+#[allow(dead_code)]
 unsafe extern "system" fn release_impl(this: *mut c_void) -> u32 {
     let count = FUnknownImpl::release_impl(this);
     if count == 0 {
@@ -105,6 +108,7 @@ unsafe extern "system" fn release_impl(this: *mut c_void) -> u32 {
     count
 }
 
+#[allow(dead_code)]
 unsafe extern "system" fn set_bus_arrangements_impl(
     _: *mut c_void,
     _: *const i32,
@@ -114,6 +118,7 @@ unsafe extern "system" fn set_bus_arrangements_impl(
 ) -> Result {
     K_RESULT_TRUE
 }
+#[allow(dead_code)]
 unsafe extern "system" fn get_bus_arrangement_impl(
     _: *mut c_void,
     _: i32,
@@ -122,6 +127,7 @@ unsafe extern "system" fn get_bus_arrangement_impl(
 ) -> Result {
     K_RESULT_FALSE
 }
+#[allow(dead_code)]
 unsafe extern "system" fn can_process_sample_size_impl(_: *mut c_void, size: i32) -> Result {
     if size == 0 {
         K_RESULT_OK
@@ -129,20 +135,25 @@ unsafe extern "system" fn can_process_sample_size_impl(_: *mut c_void, size: i32
         K_RESULT_FALSE
     }
 } // 0 = 32-bit
+#[allow(dead_code)]
 unsafe extern "system" fn get_latency_samples_impl(_: *mut c_void) -> u32 {
     0
 }
+#[allow(dead_code)]
 unsafe extern "system" fn setup_processing_impl(_: *mut c_void, _: *const ProcessSetup) -> Result {
     K_RESULT_OK
 }
+#[allow(dead_code)]
 unsafe extern "system" fn set_processing_impl(_: *mut c_void, _: i8) -> Result {
     K_RESULT_OK
 }
+#[allow(dead_code)]
 unsafe extern "system" fn get_tail_samples_impl(_: *mut c_void) -> u32 {
     0
 } // Variable tail
 
 /// The ultimate VST3 DSP loop bridge.
+#[allow(dead_code)]
 unsafe extern "system" fn process_impl(_this: *mut c_void, data: *mut ProcessData) -> Result {
     let _data = &*data;
     // 1. Translate AudioBusBuffers to `&mut [&mut [f32]]`
@@ -154,6 +165,7 @@ unsafe extern "system" fn process_impl(_this: *mut c_void, data: *mut ProcessDat
 }
 
 /// Dummy definition to appease the compiler for mock implementations
+#[allow(dead_code)]
 const K_RESULT_TRUE: i32 = 0;
 
 /// Technical implementation of the EditController structure.

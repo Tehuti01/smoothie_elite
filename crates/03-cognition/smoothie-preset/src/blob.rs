@@ -15,7 +15,7 @@ use super::snapshot::{PresetSnapshot, MAX_PARAMS};
 ///
 /// suitable for CLAP state save, DAW project embedding, or file export.
 use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 
 pub const PRESET_MAGIC: [u8; 4] = *b"SMTH";
 pub const PRESET_FORMAT_VERSION: u32 = 2;
@@ -105,7 +105,7 @@ impl PresetBlob {
         }
 
         let magic = &self.data[0..4];
-        if magic != &PRESET_MAGIC {
+        if magic != PRESET_MAGIC {
             return None;
         }
 

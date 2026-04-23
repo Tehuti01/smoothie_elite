@@ -15,6 +15,6 @@ authors.workspace = true
 license.workspace = true
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
-smoothie-math = { path = "../../01-silicon/smoothie-math" }
-smoothie-params = { path = "../../03-cognition/smoothie-params" }
+smoothie-core = { workspace = true }
+smoothie-math = { workspace = true }
+smoothie-params = { workspace = true }

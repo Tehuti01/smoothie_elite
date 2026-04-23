@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::prelude::*; 
 use alloc::{vec, vec::Vec};
 ///
 /// waveshaping, bitcrushing, and ring modulation.

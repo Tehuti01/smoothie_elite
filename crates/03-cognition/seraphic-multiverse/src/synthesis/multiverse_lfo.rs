@@ -74,7 +74,7 @@ impl DistributedEnvironmentLfo {
             LfoMode::Fractal => {
                 // Chaotic synthesis using multiple prime-related sine waves
                 let s1 = (self.phase * 2.0 * PI).sin();
-                let s2 = (self.phase * 2.0 * PI * PHI as f32).sin() * 0.5;
+                let s2 = (self.phase * 2.0 * PI * PHI).sin() * 0.5;
                 let s3 = (self.phase * 2.0 * PI * 3.14159).sin() * 0.25;
                 (s1 + s2 + s3) / 1.75
             }

@@ -16,7 +16,7 @@ use super::window::{Window, WindowFunction};
 use alloc::vec;
 /// Spectral Analysis State Machine — overlap-add hop processor.
 use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
+
 use smoothie_math::complex::Complex32;
 
 /// Technical implementation of the SpectrumFrame structure.

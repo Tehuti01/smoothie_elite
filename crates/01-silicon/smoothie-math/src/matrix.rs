@@ -12,7 +12,6 @@
  */
 
 extern crate alloc;
-use smoothie_core::math::FloatExt;
 
 #[inline]
 /// Computes the floor of a 32-bit float.
@@ -64,10 +63,10 @@ fn sin_f32(x: f32) -> f32 {
     let p_adj = p - 0.5;
     let p2 = p_adj * p_adj;
     sign * (p_adj * 1.0
-        + p_adj * p2 * (-1.7697093648102520e-02)
-        + p_adj * p2 * p_adj * (-1.3133092835963626)
-        + p_adj * p2 * p2 * p_adj * (2.3316092661930180e-03)
-        + p_adj * p2 * p2 * p2 * p_adj * (1.3189779426533570e-01))
+        + p_adj * p2 * (-1.769_709_4e-2)
+        + p_adj * p2 * p_adj * (-1.313_309_3)
+        + p_adj * p2 * p2 * p_adj * 2.331_609_4e-3
+        + p_adj * p2 * p2 * p2 * p_adj * 1.318_977_9e-1)
 }
 
 #[inline]

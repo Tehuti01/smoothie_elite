@@ -139,15 +139,14 @@ impl<T: ?Sized> SmoothieRwLock<T> {
 
         loop {
             let s = self.state.load(Ordering::Acquire);
-            if s >= 0 {
-                if self
+            if s >= 0
+                && self
                     .state
                     .compare_exchange_weak(s, s + 1, Ordering::Acquire, Ordering::Relaxed)
                     .is_ok()
                 {
                     return SmoothieReadGuard { lock: self };
                 }
-            }
 
             for _ in 0..fib_curr {
                 spin_loop();

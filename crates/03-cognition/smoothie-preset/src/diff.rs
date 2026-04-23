@@ -16,7 +16,7 @@ use super::snapshot::PresetSnapshot;
 /// undo/redo stacks, "what changed?" UI feedback, and incremental state
 /// synchronization in collaborative session contexts.
 use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 
 /// A single parameter change in a preset diff.
 #[derive(Clone, Copy, Debug)]

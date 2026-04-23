@@ -11,54 +11,56 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_macros::aztec_unlock;
+use smoothie_core::prelude::*;
 
-aztec_unlock!(
-    r#"
-    ████████████████████████████████████████████████████████████████████████████████
-    ██                                                                            ██
-    ██  S A C R E D   G E O M E T R Y   |   A Z T E C   E N C R Y P T I O N       ██
-    ██                                                                            ██
-    ██▒▒ QDQgKGk9GQoHARwAUmpQXjgkaXc5PBEJ ▒▒██
-    ██▒▒ HRERUw0fCDtAMSYvaT0AFx0WAEltUVVi ▒▒██
-    ██▒▒ PCdzNkNuVEVIBkVTF1MFBWZLc21pbgdX ▒▒██
-    ██▒▒ UlUSXwMZORFqYXMqc24SU1xZfkkXFRNa ▒▒██
-    ██▒▒ cGE1e31ifhhifx0ER1kTay4nADsvbg9v ▒▒██
-    ██▒▒ SFVUSUdAUREsL3MjLDlcTEhYSklkUF9X ▒▒██
-    ██▒▒ ajpZbWluVEVIVVQ6UllVETFhIHxzbkRL ▒▒██
-    ██▒▒ WFlUGgUPEwFkcX9tLnRUVUZFWElcDxMB ▒▒██
-    ██▒▒ ZHFzMENuVEVICH5JFxUTO2phc205OxZF ▒▒██
-    ██▒▒ DhtUGlJBbEErMzIgOmZSCB0BVBpSWVUd ▒▒██
-    ██▒▒ aiImOSYoEl9IE0JdGxVBVDkuPSwnLRFf ▒▒██
-    ██▒▒ SBNCXRsVQFAnMT8oFjwVEQ1PVA8BARoR ▒▒██
-    ██▒▒ MUtzbWluVEVIVRgMQxVEVWp8c39nflRP ▒▒██
-    ██▒▒ SEZaWAMEBgh4d2Z+fHZNUlFGVEMXVkZF ▒▒██
-    ██▒▒ JSc1dkNuVEVIVVRJF1lWRWo1c3Bpf1pV ▒▒██
-    ██▒▒ SFpUGlZYQ10vHiEsPStPb0hVVEkXFRMR ▒▒██
-    ██▒▒ JiQnbT4vVFhIXUZHBxUcET5oc2dpZgMB ▒▒██
-    ██▒▒ SF9UHRcaEwNkcXpjPS8aTUFOfkkXFRMR ▒▒██
-    ██▒▒ amFzPiwiEksPVUlJQFQTG2o1c2JpfFpV ▒▒██
-    ██▒▒ U39USRcVExFqYSAoJShaDkhIVFsZBRMc ▒▒██
-    ██▒▒ anN9fWlkVBcNBhsHVltQVHFLc21pbglv ▒▒██
-    ██▒▒ FX9+AFpFXxEaLSYqICA7FiYaEAwXU1xD ▒▒██
-    ██▒▒ ahs3Kxo4EkUTf1RJFxUQaiMvPyQnK1wE ▒▒██
-    ██▒▒ BAIVEEQcbjtqYXNtLyBUFRoaFwxERhsX ▒▒██
-    ██▒▒ JzQnbTorGANEVQxTF1MFBWNhfnNpKEJR ▒▒██
-    ██▒▒ SA5+SRcVExFqYXMhLDpUAQ0bVFQXBB0B ▒▒██
-    ██▒▒ ampzPiwiEksPVV5JH0ZWXSxvNG1ibgcA ▒▒██
-    ██▒▒ BBNaAh4OORFqYXNtaW5UCQ0BVBBoXUMR ▒▒██
-    ██▒▒ d2F7NWljVBYNGRJHRAQTG2ppICglKFoC ▒▒██
-    ██▒▒ SF5UGlJZVR8haHNgaT0RCQ5bB1seFRwR ▒▒██
-    ██▒▒ LiQ9dkNuVEVIVVRJF1lWRWo3Ym10bgcA ▒▒██
-    ██▒▒ BBNaDhcfE0gVKSN2Q25URUhVVEkXWVZF ▒▒██
-    ██▒▒ ajgMLzluSUUeRFRCF0ZWXSxvIHxyRFRF ▒▒██
-    ██▒▒ SFVUSRcVQFQmJ30+eG5JRR5EVEIXTGxT ▒▒██
-    ██▒▒ OnpZbWluVEVIVVQFUkETR3hhbm06KxgD ▒▒██
-    ██▒▒ RhJUQxdMbFM6elltaW5URUhVVAVSQRNI ▒▒██
-    ██▒▒ FS0jbXRuAldIXlQaUllVHzlzaEdpblRF ▒▒██
-    ██▒▒ SFVUSURQX1dkMmFtdG4CV0heVBBoWUMK ▒▒██
-    ██▒▒ QGFzbWluVEVIDCsFRz8TEWphLkc0RA== ▒▒██
-    ██                                                                            ██
-    ████████████████████████████████████████████████████████████████████████████████
-    "#
-);
+pub struct ZdfSvf {
+    s1: f64,
+    s2: f64,
+    g: f64,
+    k: f64,
+}
+
+impl Default for ZdfSvf {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl ZdfSvf {
+    pub fn new() -> Self {
+        Self {
+            s1: 0.0,
+            s2: 0.0,
+            g: 0.0,
+            k: 0.0,
+        }
+    }
+
+    pub fn set_params(&mut self, cutoff: f64, resonance: f64, sample_rate: f64) {
+        let wd = 2.0 * 3.141592653589793 * cutoff;
+        let t = 1.0 / sample_rate;
+        let wa = (2.0 / t) * (wd * t / 2.0).tan();
+        self.g = wa * t / 2.0;
+        self.k = 2.0 - 2.0 * resonance;
+    }
+}
+
+impl PluginOsNode for ZdfSvf {
+    fn reset(&mut self) {
+        self.s1 = 0.0;
+        self.s2 = 0.0;
+    }
+
+    #[inline(always)]
+    fn process(&mut self, x: f64) -> f64 {
+        let den = 1.0 + self.g * (self.g + self.k);
+        let y_hp = (x - self.s1 * (self.g + self.k) - self.s2) / den;
+        let v1 = self.g * y_hp;
+        let y_bp = v1 + self.s1;
+        self.s1 = v1 + y_bp;
+        let v2 = self.g * y_bp;
+        let y_lp = v2 + self.s2;
+        self.s2 = v2 + y_lp;
+        y_lp
+    }
+}

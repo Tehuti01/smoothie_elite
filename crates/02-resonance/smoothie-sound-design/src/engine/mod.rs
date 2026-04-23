@@ -11,12 +11,12 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
+pub mod autonomous_piano;
 pub mod hammer;
 pub mod soundboard;
-pub mod autonomous_piano;
 pub mod stiff_string;
 
+pub use autonomous_piano::AutonomousGrand;
 pub use hammer::HammerExciter;
 pub use soundboard::Soundboard;
-pub use autonomous_piano::AutonomousGrand;
 pub use stiff_string::StiffString;

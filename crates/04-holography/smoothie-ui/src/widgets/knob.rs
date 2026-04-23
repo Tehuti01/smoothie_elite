@@ -11,211 +11,183 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use crate::geometry::Rect;
-use smoothie_core::math::FloatExt;
+use egui::{Color32, Response, Sense, Stroke, Ui, Vec2, Widget};
 
-#[derive(Debug, Clone, Copy, PartialEq)]
-/// Technical implementation of the KnobStyle enumeration.
-pub enum KnobStyle {
-    Rotary,
-    Linear,
-    Horizontal,
-    Vertical,
+pub struct HyperKnob<'a> {
+    pub value: &'a mut f32,
+    pub min_value: f32,
+    pub max_value: f32,
+    pub size: f32,
 }
 
-/// Technical implementation of the Knob structure.
+impl<'a> HyperKnob<'a> {
+    pub fn new(value: &'a mut f32) -> Self {
+        Self {
+            value,
+            min_value: 0.0,
+            max_value: 1.0,
+            size: 60.0,
+        }
+    }
+
+    pub fn with_range(mut self, min: f32, max: f32) -> Self {
+        self.min_value = min;
+        self.max_value = max;
+        self
+    }
+}
+
+impl<'a> Widget for HyperKnob<'a> {
+    fn ui(self, ui: &mut Ui) -> Response {
+        let desired_size = Vec2::splat(self.size);
+        let (rect, mut response) = ui.allocate_exact_size(desired_size, Sense::click_and_drag());
+
+        if response.dragged() {
+            let delta = -response.drag_delta().y * 0.005;
+            let range = self.max_value - self.min_value;
+            let current_norm = (*self.value - self.min_value) / range;
+            let next_norm = (current_norm + delta).clamp(0.0, 1.0);
+            *self.value = self.min_value + next_norm * range;
+            response.mark_changed();
+        }
+
+        if ui.is_rect_visible(rect) {
+            let center = rect.center();
+            let radius = self.size * 0.45;
+            let painter = ui.painter();
+
+            // 1. Draw Drop Shadow (Ambient Occlusion)
+            painter.circle_filled(
+                center + Vec2::new(0.0, 5.0),
+                radius,
+                Color32::from_black_alpha(150),
+            );
+
+            // 2. Draw Base Body (Gradient simulation using nested circles)
+            let is_hovered = response.hovered();
+            let base_col = if is_hovered { 60 } else { 40 };
+            painter.circle_filled(center, radius, Color32::from_gray(base_col));
+            painter.circle_stroke(center, radius, Stroke::new(2.0, Color32::from_gray(80)));
+
+            // 3. Draw Inner Bevel / Reflection
+            painter.circle_stroke(
+                center,
+                radius - 2.0,
+                Stroke::new(1.0, Color32::from_white_alpha(30)),
+            );
+
+            // 4. Draw Indicator Line (3D indent)
+            let range = self.max_value - self.min_value;
+            let norm = (*self.value - self.min_value) / range;
+            let start_angle = 225.0_f32.to_radians();
+            let end_angle = -45.0_f32.to_radians();
+            let angle = start_angle + norm * (end_angle - start_angle);
+
+            let indicator_len = radius * 0.6;
+            let indicator_start = center + Vec2::new(angle.cos(), angle.sin()) * (radius * 0.2);
+            let indicator_end = center + Vec2::new(angle.cos(), angle.sin()) * indicator_len;
+
+            // Indent shadow
+            painter.line_segment(
+                [
+                    indicator_start + Vec2::new(0.0, 1.0),
+                    indicator_end + Vec2::new(0.0, 1.0),
+                ],
+                Stroke::new(3.0, Color32::BLACK),
+            );
+            // Indent highlight (LED/Metal)
+            let accent = if is_hovered {
+                Color32::from_rgb(0, 255, 200)
+            } else {
+                Color32::from_rgb(0, 150, 100)
+            };
+
+            // Neon Glow effect for the indicator
+            if is_hovered {
+                painter.line_segment(
+                    [indicator_start, indicator_end],
+                    Stroke::new(6.0, Color32::from_rgba_premultiplied(0, 255, 200, 50)),
+                );
+            }
+
+            painter.line_segment([indicator_start, indicator_end], Stroke::new(2.0, accent));
+
+            // Outer Reactive Glow Ring
+            let ring_radius = radius + 6.0;
+            let mut points = vec![];
+            for i in 0..=30 {
+                let t = i as f32 / 30.0;
+                let a = start_angle + t * (end_angle - start_angle);
+                points.push(center + Vec2::new(a.cos(), a.sin()) * ring_radius);
+
+                if t <= norm {
+                    painter.circle_filled(
+                        center + Vec2::new(a.cos(), a.sin()) * ring_radius,
+                        2.0,
+                        if is_hovered {
+                            Color32::from_rgb(0, 255, 200)
+                        } else {
+                            Color32::from_rgb(0, 150, 100)
+                        },
+                    );
+                } else {
+                    painter.circle_filled(
+                        center + Vec2::new(a.cos(), a.sin()) * ring_radius,
+                        1.5,
+                        Color32::from_white_alpha(20),
+                    );
+                }
+            }
+        }
+
+        response
+    }
+}
+
 pub struct Knob {
-    value: f32,
-    style: KnobStyle,
-    size: f32,
-    min_value: f32,
-    max_value: f32,
-    sensitivity: f32,
+    pub value: f32,
+    pub min_value: f32,
+    pub max_value: f32,
 }
 
 impl Knob {
-    /// Initializes a new instance of the associated type.
-    pub const fn new() -> Self {
+    pub fn rotary() -> Self {
         Self {
-            value: 0.5,
-            style: KnobStyle::Rotary,
-            size: 50.0,
+            value: 0.0,
             min_value: 0.0,
             max_value: 1.0,
-            sensitivity: 0.005,
         }
     }
 
-    /// Technical implementation of the rotary logic.
-    pub const fn rotary() -> Self {
-        Self {
-            style: KnobStyle::Rotary,
-            ..Self::new()
-        }
-    }
-
-    /// Technical implementation of the linear logic.
-    pub const fn linear() -> Self {
-        Self {
-            style: KnobStyle::Linear,
-            ..Self::new()
-        }
-    }
-
-    /// Technical implementation of the horizontal logic.
-    pub const fn horizontal() -> Self {
-        Self {
-            style: KnobStyle::Horizontal,
-            ..Self::new()
-        }
-    }
-
-    /// Technical implementation of the vertical logic.
-    pub const fn vertical() -> Self {
-        Self {
-            style: KnobStyle::Vertical,
-            ..Self::new()
-        }
-    }
-
-    /// Technical implementation of the with_size logic.
-    pub fn with_size(mut self, size: f32) -> Self {
-        self.size = size;
-        self
-    }
-
-    /// Technical implementation of the with_range logic.
     pub fn with_range(mut self, min: f32, max: f32) -> Self {
         self.min_value = min;
         self.max_value = max;
         self
     }
 
-    /// Technical implementation of the with_sensitivity logic.
-    pub fn with_sensitivity(mut self, sensitivity: f32) -> Self {
-        self.sensitivity = sensitivity;
-        self
+    pub fn set_value(&mut self, value: f32) {
+        self.value = value;
     }
 
-    #[inline]
-    /// Technical implementation of the value logic.
     pub fn value(&self) -> f32 {
         self.value
     }
 
-    #[inline]
-    /// Returns a unit-length version of the vector.
-    pub fn normalized_value(&self) -> f32 {
-        (self.value - self.min_value) / (self.max_value - self.min_value)
-    }
-
-    /// Technical implementation of the set_value logic.
-    pub fn set_value(&mut self, value: f32) {
-        self.value = value.clamp(self.min_value, self.max_value);
-    }
-
-    /// Technical implementation of the set_normalized logic.
-    pub fn set_normalized(&mut self, normalized: f32) {
-        self.value =
-            self.min_value + normalized.clamp(0.0, 1.0) * (self.max_value - self.min_value);
-    }
-
-    /// Technical implementation of the on_mouse_drag logic.
-    pub fn on_mouse_drag(&mut self, dx: f32, dy: f32) {
-        match self.style {
-            KnobStyle::Rotary | KnobStyle::Vertical => {
-                let delta = -dy * self.sensitivity;
-                self.set_normalized(self.normalized_value() + delta);
-            }
-            KnobStyle::Linear | KnobStyle::Horizontal => {
-                let delta = dx * self.sensitivity;
-                self.set_normalized(self.normalized_value() + delta);
-            }
-        }
-    }
-
-    /// Technical implementation of the on_mouse_wheel logic.
-    pub fn on_mouse_wheel(&mut self, delta: f32) {
-        let step = delta.signum() * 0.01;
-        self.set_normalized(self.normalized_value() + step);
-    }
-
-    /// Technical implementation of the on_double_click logic.
-    pub fn on_double_click(&mut self) {
-        self.set_value((self.min_value + self.max_value) * 0.5);
-    }
-
-    /// Technical implementation of the draw logic.
-    pub fn draw(&self, rect: Rect) {
-        match self.style {
-            KnobStyle::Rotary => self.draw_rotary(rect),
-            KnobStyle::Linear => self.draw_linear(rect),
-            KnobStyle::Horizontal => self.draw_horizontal(rect),
-            KnobStyle::Vertical => self.draw_vertical(rect),
-        }
-    }
-
-    /// Technical implementation of the draw_rotary logic.
-    fn draw_rotary(&self, rect: Rect) {
-        let cx = rect.x + rect.width * 0.5;
-        let cy = rect.y + rect.height * 0.5;
-        let radius = rect.width.min(rect.height) * 0.4;
-        let value = self.normalized_value();
-        let start_angle = 225.0_f32.to_radians();
-        let end_angle = -45.0_f32.to_radians();
-        let angle = start_angle + value * (end_angle - start_angle);
-        let _ = (cx, cy, radius, angle);
-    }
-
-    /// Technical implementation of the draw_linear logic.
-    fn draw_linear(&self, rect: Rect) {
-        let value = self.normalized_value();
-        let track_h = 4.0;
-        let track_y = rect.y + (rect.height - track_h) * 0.5;
-        let thumb_x = rect.x + value * rect.width;
-        let _ = (track_y, thumb_x);
-    }
-
-    /// Technical implementation of the draw_horizontal logic.
-    fn draw_horizontal(&self, rect: Rect) {
-        self.draw_linear(rect);
-    }
-
-    /// Technical implementation of the draw_vertical logic.
-    fn draw_vertical(&self, rect: Rect) {
-        let value = self.normalized_value();
-        let track_w = 4.0;
-        let track_x = rect.x + (rect.width - track_w) * 0.5;
-        let thumb_y = rect.y + (1.0 - value) * rect.height;
-        let _ = (track_x, thumb_y);
+    pub fn draw(&self, _rect: crate::geometry::Rect) {
+        // Non-egui draw
     }
 }
 
-impl Default for Knob {
-    /// Technical implementation of the default logic.
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    /// Technical implementation of the test_knob_creation logic.
-    fn test_knob_creation() {
-        let _knob = Knob::new();
-        let _rotary = Knob::rotary();
-        let _linear = Knob::linear();
+impl crate::widgets::Widget for Knob {
+    fn draw(&self, rect: crate::geometry::Rect) {
+        self.draw(rect);
     }
 
-    #[test]
-    /// Technical implementation of the test_knob_drag logic.
-    fn test_knob_drag() {
-        let mut knob = Knob::new();
-        knob.set_normalized(0.5);
-        knob.on_mouse_drag(0.0, 100.0);
-        assert!(knob.normalized_value() < 0.5);
+    fn on_mouse_drag(&mut self, _dx: f32, dy: f32) {
+        let delta = -dy * 0.01;
+        let range = self.max_value - self.min_value;
+        let current_norm = (self.value - self.min_value) / range;
+        let next_norm = (current_norm + delta).clamp(0.0, 1.0);
+        self.value = self.min_value + next_norm * range;
     }
 }

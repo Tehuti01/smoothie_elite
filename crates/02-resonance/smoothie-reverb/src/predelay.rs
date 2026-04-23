@@ -16,7 +16,6 @@ use alloc::vec;
 /// dry input and the reverb algorithm input. Pre-delay creates the
 /// sounds without obscuring the attack transient.
 use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
 
 /// Technical implementation of the PreDelay structure.
 pub struct PreDelay {

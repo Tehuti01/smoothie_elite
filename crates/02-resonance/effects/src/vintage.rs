@@ -12,7 +12,6 @@
  */
 
 use smoothie_core::math::exp_approx;
-use smoothie_core::prelude::*;
 use smoothie_core::primitives::Sample;
 
 /// Technical implementation of the VintageEq structure.
@@ -92,7 +91,7 @@ impl VintageEq {
     }
 
     /// Technical implementation of the sample_rate logic.
-    fn sample_rate(&self) -> f32 {
+    fn _sample_rate(&self) -> f32 {
         self.sample_rate
     }
 }
@@ -232,7 +231,7 @@ impl TapeEmulator {
         }
 
         let hiss_noise =
-            ((self.state[2] * 12.9898 + self.state[3] * 78.233).sin() * 43758.5453).fract() * 2.0
+            ((self.state[2] * 12.9898 + self.state[3] * 78.233).sin() * 43_758.547).fract() * 2.0
                 - 1.0;
         self.state[2] = self.state[3];
         self.state[3] = hiss_noise;
@@ -252,6 +251,7 @@ pub struct MicPreamp {
     impedance: f32,
     color: f32,
     input_stage: f32,
+    #[allow(dead_code)]
     output_stage: f32,
     high_pass: f32,
     sample_rate: f32,

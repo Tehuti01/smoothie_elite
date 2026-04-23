@@ -128,7 +128,7 @@ impl FloatExt for f32 {
     #[inline(always)]
     /// Technical implementation of the ln logic.
     fn ln(self) -> f32 {
-        fast_log2(self) * 0.693147
+        fast_log2(self) * core::f32::consts::LN_2
     }
     #[inline(always)]
     /// Technical implementation of the log2 logic.
@@ -138,7 +138,7 @@ impl FloatExt for f32 {
     #[inline(always)]
     /// Technical implementation of the log10 logic.
     fn log10(self) -> f32 {
-        fast_log2(self) * 0.30103
+        fast_log2(self) * core::f32::consts::LOG10_2
     }
     #[inline(always)]
     /// Technical implementation of the abs logic.
@@ -393,6 +393,32 @@ impl InternalMath64 for f64 {
     }
 }
 
+/// High-precision phase accumulator for oscillators.
+pub struct PhaseAccumulator {
+    phase: f32,
+    phase_inc: f32,
+}
+
+impl PhaseAccumulator {
+    pub fn new(freq_hz: f32, sample_rate: f32) -> Self {
+        Self { phase: 0.0, phase_inc: freq_hz / sample_rate }
+    }
+
+    pub fn set_frequency(&mut self, freq_hz: f32, sample_rate: f32) {
+        self.phase_inc = freq_hz / sample_rate;
+    }
+
+    pub fn next(&mut self) -> f32 {
+        let current = self.phase;
+        self.phase = (self.phase + self.phase_inc).fract();
+        current
+    }
+
+    pub fn reset(&mut self) {
+        self.phase = 0.0;
+    }
+}
+
 ///
 /// Simple recursive filter for high-end damping and smoothing.
 #[derive(Debug, Clone, Copy, Default)]
@@ -404,10 +430,10 @@ pub struct OnePoleFilter {
 
 impl OnePoleFilter {
     /// Initializes a new instance of the associated type.
-    pub fn new() -> Self {
+    pub fn new(coeff: f32) -> Self {
         Self {
             state: 0.0,
-            coeff: 0.5,
+            coeff,
         }
     }
 
@@ -465,12 +491,12 @@ pub fn tan_approx(x: f32) -> f32 {
 /// Technical implementation of the sine_approx logic.
 pub fn sine_approx(mut x: f32) -> f32 {
     // Wrap x to [-PI, PI]
-    x = x * (1.0 / TAU);
+    x *= 1.0 / TAU;
     x = x - floor_approx(x + 0.5);
-    x = x * TAU;
+    x *= TAU;
 
     let mut y = (4.0 / PI) * x - (4.0 / (PI * PI)) * x * x.abs();
-    
+
     // Extra precision refinement
     y = 0.225 * (y * y.abs() - y) + y;
     y
@@ -528,7 +554,7 @@ pub fn fast_pow(x: f32, y: f32) -> f32 {
     if x <= 0.0 {
         return 0.0;
     }
-    exp_approx(y * fast_log2(x) * 0.693147)
+    exp_approx(y * fast_log2(x) * core::f32::consts::LN_2)
 }
 
 #[inline(always)]
@@ -578,11 +604,11 @@ impl PowiApprox for f32 {
     }
 }
 
-pub const PHI: f32 = 1.6180339887;
+pub const PHI: f32 = 1.618_034;
 
 /// Technical implementation of the amplitude_to_db logic.
 pub fn amplitude_to_db(amp: f32) -> f32 {
-    20.0 * fast_log2(amp.abs() + 1e-9) * 0.30103
+    20.0 * fast_log2(amp.abs() + 1e-9) * core::f32::consts::LOG10_2
 }
 
 /// Technical implementation of the db_to_amplitude logic.

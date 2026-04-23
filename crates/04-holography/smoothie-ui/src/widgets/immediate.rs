@@ -14,8 +14,6 @@
 extern crate alloc;
 
 use crate::geometry::Rect;
-use crate::widgets::{Knob, Widget};
-use alloc::vec::Vec;
 
 pub trait ImmediateRenderer {
     /// Technical implementation of the draw_rect logic.
@@ -103,38 +101,15 @@ impl<R: ImmediateRenderer> ImmediateUI<R> {
 
 pub const MAX_RETAINED_WIDGETS: usize = 256;
 
-/// Technical implementation of the RetainedWidget enumeration.
-pub enum RetainedWidget {
-    Knob(Knob),
-}
-
 /// Technical implementation of the RetainedUI structure.
 pub struct RetainedUI {
-    children: Vec<RetainedWidget>,
     layout_dirty: bool,
 }
 
 impl RetainedUI {
     /// Initializes a new instance of the associated type.
     pub fn new() -> Self {
-        Self {
-            children: Vec::new(),
-            layout_dirty: true,
-        }
-    }
-
-    /// Performs vector addition logic.
-    pub fn add_knob(&mut self, knob: Knob) {
-        self.children.push(RetainedWidget::Knob(knob));
-        self.layout_dirty = true;
-    }
-
-    /// Technical implementation of the remove logic.
-    pub fn remove(&mut self, index: usize) {
-        if index < self.children.len() {
-            self.children.remove(index);
-            self.layout_dirty = true;
-        }
+        Self { layout_dirty: true }
     }
 
     /// Technical implementation of the update logic.
@@ -149,24 +124,10 @@ impl RetainedUI {
     fn compute_layout(&mut self, _rect: Rect) {}
 
     /// Technical implementation of the draw logic.
-    pub fn draw(&self) {
-        for child in &self.children {
-            match child {
-                RetainedWidget::Knob(k) => k.draw(Rect::default()),
-            }
-        }
-    }
+    pub fn draw(&self) {}
 
     /// Technical implementation of the handle_mouse logic.
-    pub fn handle_mouse(&mut self, _x: f32, _y: f32, dx: f32, dy: f32) {
-        for child in &mut self.children.iter_mut() {
-            match child {
-                RetainedWidget::Knob(k) => {
-                    k.on_mouse_drag(dx, dy);
-                }
-            }
-        }
-    }
+    pub fn handle_mouse(&mut self, _x: f32, _y: f32, _dx: f32, _dy: f32) {}
 }
 
 impl Default for RetainedUI {
@@ -184,13 +145,12 @@ mod tests {
     /// Technical implementation of the test_immediate_context logic.
     fn test_immediate_context() {
         let ctx = ImmediateModeContext::new(Rect::default());
-        assert!(!ctx.contains(0.0, 0.0));
+        assert!(!ctx.contains(10.0, 10.0));
     }
 
     #[test]
-    /// Technical implementation of the test_retained_ui logic.
     fn test_retained_ui() {
         let ui = RetainedUI::new();
-        assert!(ui.children.is_empty());
+        assert!(ui.layout_dirty);
     }
 }

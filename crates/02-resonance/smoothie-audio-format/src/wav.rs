@@ -11,8 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
-
 pub trait WavReaderTrait {
     /// Technical implementation of the sample_rate logic.
     fn sample_rate(&self) -> u32;
@@ -63,7 +61,7 @@ pub struct WavHeader {
     pub file_size: u32,
     pub wave: [u8; 4],
     pub fmt: [u8; 4],
-    pub fmt_size: u32,
+    pub fmtsize: u32,
     pub audio_format: u16,
     pub num_channels: u16,
     pub sample_rate: u32,
@@ -90,7 +88,7 @@ impl WavHeader {
             file_size,
             wave: *b"WAVE",
             fmt: *b"fmt ",
-            fmt_size: 16,
+            fmtsize: 16,
             audio_format: if bits_per_sample == 32 { 3 } else { 1 },
             num_channels: channels,
             sample_rate,
@@ -196,8 +194,8 @@ impl WavReaderTrait for WavReader<'_> {
 pub struct WavWriter {
     pub header: WavHeader,
     sample_rate: u32,
-    channels: u16,
-    bits: u16,
+    _channels: u16,
+    _bits: u16,
     frames_written: u32,
 }
 
@@ -206,9 +204,9 @@ impl WavWriter {
     pub fn new(sample_rate: u32, channels: u16, bits_per_sample: u16) -> Self {
         Self {
             header: WavHeader::new(channels, sample_rate, bits_per_sample, 0),
-            sample_rate,
-            channels,
-            bits: bits_per_sample,
+            sample_rate: sample_rate,
+            _channels: channels,
+            _bits: bits_per_sample,
             frames_written: 0,
         }
     }

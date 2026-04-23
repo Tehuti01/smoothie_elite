@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// Zero-allocation AIFF/AIFC file reader and writer.
 
@@ -180,8 +179,8 @@ impl<'a> AiffReader<'a> {
 pub struct AiffWriter {
     pub header: AiffHeader,
     sample_rate: u32,
-    channels: u16,
-    bits: u16,
+    _channels: u16,
+    _bits: u16,
     frames_written: u32,
 }
 
@@ -190,9 +189,9 @@ impl AiffWriter {
     pub fn new(sample_rate: u32, channels: u16, bits_per_sample: u16) -> Self {
         Self {
             header: AiffHeader::new(channels, 0, bits_per_sample, sample_rate),
-            sample_rate,
-            channels,
-            bits: bits_per_sample,
+            sample_rate: sample_rate,
+            _channels: channels,
+            _bits: bits_per_sample,
             frames_written: 0,
         }
     }

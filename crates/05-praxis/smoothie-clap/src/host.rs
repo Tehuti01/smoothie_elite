@@ -14,7 +14,7 @@
 /// Technical implementation of the HostHandle structure.
 pub struct HostHandle {
     /// Version string reported by the host (e.g. `"Bitwig Studio 5.2"`).
-    pub host_name: &'static str,
+    pub hostname: &'static str,
     /// CLAP version implemented by the host (major, minor, revision).
     pub host_version: (u32, u32, u32),
 }

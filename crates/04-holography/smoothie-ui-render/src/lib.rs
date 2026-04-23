@@ -76,14 +76,13 @@ impl SdfGenerator {
                     intensity, falloff, color[0], color[1], color[2]
                 )
             }
-            Material::Substrate => {
-                r#"
+            Material::Substrate => r#"
                     // [Engineering Phase 29]: Abyssal Substrate
                     fn material_f(p: vec2<f32>, d: f32) -> vec4<f32> {{
                         return vec4<f32>(0.05, 0.05, 0.06, 1.0);
                     }}
-                "#.to_string()
-            }
+                "#
+            .to_string(),
         }
     }
 }
@@ -91,6 +90,12 @@ impl SdfGenerator {
 /// Main entry point for the UI Renderer.
 pub struct UiRenderer {
     pub sdf_generator: SdfGenerator,
+}
+
+impl Default for UiRenderer {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl UiRenderer {

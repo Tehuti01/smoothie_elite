@@ -21,7 +21,7 @@ keywords.workspace = true
 categories.workspace = true
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
-smoothie-math = { path = "../../01-silicon/smoothie-math" }
-smoothie-lock-free-queue = { path = "../../01-silicon/lock-free-queue" }
-smoothie-params = { path = "../smoothie-params" }
+smoothie-core = { workspace = true }
+smoothie-math = { workspace = true }
+smoothie-lock-free-queue = { workspace = true }
+smoothie-params = { workspace = true }

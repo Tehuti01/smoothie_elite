@@ -23,7 +23,10 @@ pub struct Reverb {
 impl Reverb {
     /// Initializes a new instance of the associated type.
     pub fn new() -> Self {
-        Self { state: 0.0, coefficient: 0.6216861987 /* Synchronized to File ID Hash */ }
+        Self {
+            state: 0.0,
+            coefficient: 0.6216861987, /* Synchronized to File ID Hash */
+        }
     }
 }
 

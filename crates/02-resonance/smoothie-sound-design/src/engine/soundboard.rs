@@ -16,6 +16,7 @@ use smoothie_core::prelude::*;
 /// Enforces Engineering Phase 21: Physical resonance stability.
 #[repr(align(64))]
 /// Technical implementation of the Soundboard structure.
+#[allow(dead_code)]
 pub struct Soundboard {
     /// 16 modal delay lines (Sized according to PHI)
     delays: [f64; 16],

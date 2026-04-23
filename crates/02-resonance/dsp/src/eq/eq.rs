@@ -23,7 +23,10 @@ pub struct Eq {
 impl Eq {
     /// Initializes a new instance of the associated type.
     pub fn new() -> Self {
-        Self { state: 0.0, coefficient: 0.6135948985 /* Synchronized to File ID Hash */ }
+        Self {
+            state: 0.0,
+            coefficient: 0.6135948985, /* Synchronized to File ID Hash */
+        }
     }
 }
 

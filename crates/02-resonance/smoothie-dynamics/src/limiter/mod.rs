@@ -20,7 +20,6 @@ use alloc::vec;
 ///    and ramped in over the attack time so that the peak exits at ceiling.
 /// 4. Release ballistics decay the gain reduction smoothly after the peak.
 use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
 
 /// Limiter operating mode affecting the release ballistic character.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -184,5 +183,5 @@ impl Limiter {
 
 /// Technical implementation of the db_to_linear logic.
 fn db_to_linear(db: f32) -> f32 {
-    smoothie_core::math::exp_approx(db * 0.1151292546_f32)
+    smoothie_core::math::exp_approx(db * 0.115_129_255_f32)
 }

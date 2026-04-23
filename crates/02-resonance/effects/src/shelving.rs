@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::prelude::*;
 use smoothie_core::primitives::Sample;
 
 #[derive(Clone, Copy, Default)]

@@ -15,7 +15,6 @@ extern crate alloc;
 
 use smoothie_core::{
     SmoothiePlugin, PluginInfo, PluginCategory, ProcessStatus,
-    AudioProcessor,
 };
 
 // ═══════════════════════════════════════════════════════════════

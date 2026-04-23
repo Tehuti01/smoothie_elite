@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::prelude::*;
 use smoothie_core::primitives::Sample;
 
 /// Technical implementation of the Exciter structure.
@@ -124,7 +123,7 @@ pub struct PresenceBooster {
 
 impl PresenceBooster {
     /// Initializes a new instance of the associated type.
-    pub fn new(_sample_rate: f32) -> Self {
+    pub fn new(sample_rate: f32) -> Self {
         let mut p = Self {
             freq: 3000.0,
             boost: 0.0,

@@ -14,7 +14,6 @@
 use alloc::vec::Vec;
 use smoothie_core::constants::{F_233, TAU};
 use smoothie_core::math::sine_approx;
-use smoothie_core::math::FloatExt;
 
 /// Technical implementation of the WavetableGenerator structure.
 pub struct WavetableGenerator {

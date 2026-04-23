@@ -12,7 +12,6 @@
  */
 
 use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
 use wide::*;
 
 /// Technical implementation of the DenseLayer structure.

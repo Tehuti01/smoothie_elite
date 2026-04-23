@@ -82,10 +82,10 @@ pub const F_256: usize = 256; // Power of 2 for FFT (nearest Fibonacci-ish)
 pub const STANDARD_PITCH: f32 = 432.0;
 
 /// MIDI Note 0 (C-1) frequency (at 432Hz standard)
-pub const MIDI_NOTE_0_FREQ: f32 = 8.027_148_026_f32;
+pub const MIDI_NOTE_0_FREQ: f32 = 8.027_148_f32;
 
 /// Semitone ratio (2^(1/12))
-pub const SEMITONE_RATIO: f32 = 1.059_463_094_359_295f32;
+pub const SEMITONE_RATIO: f32 = 1.059_463_1_f32;
 
 /// Octave ratio
 pub const OCTAVE_RATIO: f32 = 2.0;
@@ -335,18 +335,18 @@ pub const MIDI_PITCH_BEND_RANGE: f32 = 2.0;
 // ═══════════════════════════════════════════════════════════════
 
 /// π (Pi)
-pub const PI: f32 = 3.141592653589793f32;
-pub const PI_F64: f64 = 3.141592653589793;
+pub const PI: f32 = core::f32::consts::PI;
+pub const PI_F64: f64 = core::f64::consts::PI;
 
 /// 2π (Tau)
-pub const TAU: f32 = 6.283185307179586f32;
-pub const TAU_F64: f64 = 6.283185307179586;
+pub const TAU: f32 = core::f32::consts::TAU;
+pub const TAU_F64: f64 = core::f64::consts::TAU;
 
 /// √2
-pub const SQRT_2: f32 = 1.414213562373095f32;
+pub const SQRT_2: f32 = core::f32::consts::SQRT_2;
 
 /// 1/√2
-pub const INV_SQRT_2: f32 = 0.707_106_781_186_547_524_400_844_362_104_849_039f32;
+pub const INV_SQRT_2: f32 = core::f32::consts::FRAC_1_SQRT_2;
 
 /// Golden angle (radians)
 pub const GOLDEN_ANGLE: f32 = 2.39_996_322_972_865_332_954_971_056_563_266_559f32;
@@ -428,7 +428,12 @@ mod tests {
         // f = Note0 * 2^(69/12)
         let a4_freq = MIDI_NOTE_0_FREQ * 2.0_f32.powf(69.0 / 12.0);
         let diff = (a4_freq - STANDARD_PITCH).abs();
-        assert!(diff < 0.0001, "A4 freq {} != standard pitch {}", a4_freq, STANDARD_PITCH);
+        assert!(
+            diff < 0.0001,
+            "A4 freq {} != standard pitch {}",
+            a4_freq,
+            STANDARD_PITCH
+        );
     }
 }
 
@@ -449,5 +454,5 @@ pub const PYTHAGOREAN_FOURTH: f64 = 1.333333333333333;
 /// Technical implementation of the harmonic_product logic.
 pub const fn harmonic_product() -> f64 {
     // PHI * PI * 3/2 — natural resonance baseline
-    1.618033988749895 * 3.141592653589793 * 1.5
+    1.618033988749895 * core::f64::consts::PI * 1.5
 }

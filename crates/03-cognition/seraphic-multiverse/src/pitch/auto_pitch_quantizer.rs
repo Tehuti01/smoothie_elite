@@ -65,7 +65,8 @@ impl PitchQuantizer {
         }
 
         // 3. Convert MIDI back to Hz
-        let target_f0 = smoothie_core::constants::STANDARD_PITCH * 2.0f32.powf((best_midi as f32 - 69.0) / 12.0);
+        let target_f0 = smoothie_core::constants::STANDARD_PITCH
+            * 2.0f32.powf((best_midi as f32 - 69.0) / 12.0);
         self.last_target_f0 = target_f0;
 
         // 4. Intensity Blending: input + (target - input) * intensity

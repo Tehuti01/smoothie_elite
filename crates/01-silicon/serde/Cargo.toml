@@ -15,4 +15,4 @@ authors.workspace = true
 license.workspace = true
 
 [dependencies]
-smoothie-core = { path = "../core" }
+smoothie-core = { workspace = true }

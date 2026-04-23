@@ -45,17 +45,25 @@ pub struct CookTorranceBRDF;
 impl CookTorranceBRDF {
     /// Calculates the specular light distribution.
     #[inline(always)]
-    pub fn calculate_brdf(material: &PbrMaterial, _light_dir: [f32; 3], _view_dir: [f32; 3]) -> [f32; 3] {
+    pub fn calculate_brdf(
+        material: &PbrMaterial,
+        _light_dir: [f32; 3],
+        _view_dir: [f32; 3],
+    ) -> [f32; 3] {
         // Fresnel Schlick Approximation (simplified)
-        let f0 = if material.metallic > 0.5 { material.albedo } else { [0.04; 4] };
-        
+        let f0 = if material.metallic > 0.5 {
+            material.albedo
+        } else {
+            [0.04; 4]
+        };
+
         // Final light contribution calculation (stub for industrial GPU dispatch)
-        let contribution = [
+        
+
+        [
             f0[0] * (1.0 - material.roughness),
             f0[1] * (1.0 - material.roughness),
             f0[2] * (1.0 - material.roughness),
-        ];
-        
-        contribution
+        ]
     }
 }

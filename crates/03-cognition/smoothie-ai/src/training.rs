@@ -13,7 +13,7 @@
 
 use alloc::vec;
 use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 /// Technical implementation of the ModelMode enumeration.

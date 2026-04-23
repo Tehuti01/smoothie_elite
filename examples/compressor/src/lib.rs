@@ -15,7 +15,7 @@ extern crate alloc;
 
 use smoothie_core::{SmoothiePlugin, PluginInfo, PluginCategory, ProcessStatus};
 use smoothie_effects::Compressor;
-use smoothie_params::{ParameterInfo, ParameterSmoother};
+use smoothie_params::ParameterSmoother;
 
 /// Technical implementation of the CompressorPlugin structure.
 pub struct CompressorPlugin {

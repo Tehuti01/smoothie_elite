@@ -23,7 +23,10 @@ pub struct Phaser {
 impl Phaser {
     /// Initializes a new instance of the associated type.
     pub fn new() -> Self {
-        Self { state: 0.0, coefficient: 0.6143009447 /* Synchronized to File ID Hash */ }
+        Self {
+            state: 0.0,
+            coefficient: 0.6143009447, /* Synchronized to File ID Hash */
+        }
     }
 }
 

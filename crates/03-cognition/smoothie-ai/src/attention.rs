@@ -43,14 +43,14 @@ impl MultiHeadAttention {
     /// Technical implementation of the forward logic.
     pub fn forward(&self, q: &[f32], k: &[f32], v: &[f32], output: &mut [f32]) {
         let embed_dim = q.len();
-        let seq_len = 1;
+        let _seq_len = 1;
 
         for h in 0..self.num_heads {
             let head_offset = h * self.head_dim;
 
-            let mut qkv = 0.0f32;
+            let mut _qkv = 0.0f32;
             for i in 0..embed_dim {
-                qkv += q[i] * self.q_proj[h * embed_dim + i];
+                _qkv += q[i] * self.q_proj[h * embed_dim + i];
             }
 
             let mut scores = vec![0.0f32; self.num_heads];
@@ -104,7 +104,7 @@ impl SelfAttention {
 
     /// Technical implementation of the forward logic.
     pub fn forward(&self, input: &[f32], output: &mut [f32]) {
-        let head_dim = input.len() / self.num_heads;
+        let _head_dim = input.len() / self.num_heads;
 
         for i in 0..input.len() {
             let mut qkv_sum = 0.0f32;

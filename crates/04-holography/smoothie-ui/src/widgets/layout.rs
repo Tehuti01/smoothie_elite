@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// Provides absolute, flex, and grid layout engines.
 extern crate alloc;
@@ -233,7 +232,7 @@ impl FlexLayout {
         };
 
         let mut x = start_x;
-        for (_i, size) in sizes.iter().enumerate() {
+        for size in sizes.iter() {
             let y = match self.align {
                 FlexAlign::Stretch => inner.y,
                 FlexAlign::Start => inner.y,
@@ -313,7 +312,7 @@ pub struct GridLayout {
     rows: Vec<GridTrack>,
     column_gap: f32,
     row_gap: f32,
-    padding: f32,
+    _padding: f32,
 }
 
 impl GridLayout {
@@ -324,7 +323,7 @@ impl GridLayout {
             rows: Vec::new(),
             column_gap: 4.0,
             row_gap: 4.0,
-            padding: 8.0,
+            _padding: 8.0,
         }
     }
 

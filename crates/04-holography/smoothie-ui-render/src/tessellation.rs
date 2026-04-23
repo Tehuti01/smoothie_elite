@@ -11,8 +11,8 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use alloc::vec::Vec;
 use crate::svg::SvgCommand;
+use alloc::vec::Vec;
 
 #[derive(Clone, Copy, Debug)]
 #[repr(C)]

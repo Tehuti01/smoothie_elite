@@ -12,7 +12,6 @@
  */
 
 use smoothie_core::math::db_to_amplitude;
-use smoothie_core::prelude::*;
 use smoothie_core::primitives::Sample;
 
 /// Noise gate state.
@@ -39,6 +38,7 @@ pub struct Gate {
     envelope: f32,
     gain: f32,
     state: GateState,
+    #[allow(dead_code)]
     sample_rate: f32,
 }
 
@@ -57,7 +57,8 @@ impl Gate {
         attack_ms: f32,
         release_ms: f32,
         hold_ms: f32,
-        sample_rate: f32,
+        #[allow(dead_code)]
+    sample_rate: f32,
     ) -> Self {
         let attack_coeff = 1.0 - (-1.0 / (attack_ms * 0.001 * sample_rate)).exp_gate();
         let release_coeff = 1.0 - (-1.0 / (release_ms * 0.001 * sample_rate)).exp_gate();

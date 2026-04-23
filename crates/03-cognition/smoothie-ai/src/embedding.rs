@@ -17,8 +17,7 @@ use alloc::boxed::Box;
 /// velocity values, timing/position, and other musical attributes.
 use alloc::vec;
 use alloc::vec::Vec;
-use smoothie_core::math::sqrt_approx;
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 
 /// Technical implementation of the Embedding structure.
 pub struct Embedding {
@@ -45,7 +44,7 @@ impl Embedding {
 
     /// Technical implementation of the forward logic.
     pub fn forward(&self, indices: &[usize], output: &mut [f32]) {
-        let output_len = indices.len() * self.embedding_dim;
+        let _output_len = indices.len() * self.embedding_dim;
 
         for (i, &idx) in indices.iter().enumerate() {
             if idx < self.num_embeddings {
@@ -342,7 +341,7 @@ impl SinusoidalEmbedding {
             for d in 0..self.embedding_dim {
                 let idx = i * self.embedding_dim + d;
                 if idx < output.len() {
-                    let angle = (val / freq.powf(2.0 * d as f32 / self.embedding_dim as f32));
+                    let angle = val / freq.powf(2.0 * d as f32 / self.embedding_dim as f32);
                     output[idx] = if d % 2 == 0 { angle.sin() } else { angle.cos() };
                 }
             }

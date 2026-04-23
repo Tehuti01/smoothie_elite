@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use super::types::*;
 use core::ffi::c_void;
 
 #[repr(C)]
@@ -26,9 +25,9 @@ pub struct AAX_Algorithm_Context {
 /// The C-API entry point called by the AAX C++ Algorithm wrapper for every block.
 #[no_mangle]
 pub unsafe extern "C" fn AAX_Algorithm_ProcessBlock(
-    in_instances: *const *mut AAX_Algorithm_Context,
-    in_instances_begin: *const c_void,
-    in_instances_end: *const c_void,
+    _in_instances: *const *mut AAX_Algorithm_Context,
+    _in_instances_begin: *const c_void,
+    _in_instances_end: *const c_void,
 ) {
     // Process block iteration for AAX
     // 1. Map pointers

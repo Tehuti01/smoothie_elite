@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// Fixed-band parametric EQ for visual/mixing applications.
 extern crate alloc;

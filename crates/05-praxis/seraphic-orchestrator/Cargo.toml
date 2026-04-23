@@ -17,19 +17,19 @@ description = "Native Rust executive tier for autonomic self-healing orchestrati
 
 [dependencies]
 # Workspace Dependencies
-smoothie-core = { workspace = true }
-seraphic-agent = { path = "../../03-cognition/seraphic-agent" }
-seraphic-prime = { path = "../../03-cognition/seraphic-prime" }
+smoothie-core = {workspace = true}
+seraphic-agent = { path = "../../03-cognition/seraphic-agent" , version = "1.0.0"}
+seraphic-prime = { path = "../../03-cognition/seraphic-prime" , version = "1.0.0"}
 
 # Third-Party
-anyhow = { workspace = true }
-clap = { workspace = true }
-regex = { workspace = true }
-walkdir = { workspace = true }
-colored = { workspace = true }
-tokio = { workspace = true }
-serde = { workspace = true }
-serde_json = { workspace = true }
+anyhow = {workspace = true}
+clap = {workspace = true}
+regex = {workspace = true}
+walkdir = {workspace = true}
+colored = {workspace = true}
+tokio = {workspace = true}
+serde = {workspace = true}
+serde_json = {workspace = true}
 subprocess = "0.2"
 
 [[bin]]

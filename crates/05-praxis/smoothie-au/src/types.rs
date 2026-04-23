@@ -24,7 +24,7 @@ pub struct AudioComponentDescription {
 /// Technical implementation of the AudioBuffer structure.
 pub struct AudioBuffer {
     pub m_number_channels: u32,
-    pub m_data_byte_size: u32,
+    pub m_data_bytesize: u32,
     pub m_data: *mut core::ffi::c_void,
 }
 

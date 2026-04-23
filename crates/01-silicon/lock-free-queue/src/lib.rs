@@ -13,9 +13,9 @@
 
 extern crate alloc;
 
-use core::sync::atomic::{AtomicUsize, Ordering};
-use core::mem::MaybeUninit;
 use alloc::vec::Vec;
+use core::mem::MaybeUninit;
+use core::sync::atomic::{AtomicUsize, Ordering};
 
 /// Cache line size for optimal cache performance
 const CACHE_LINE: usize = 64;

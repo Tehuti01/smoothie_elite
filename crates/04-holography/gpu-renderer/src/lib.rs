@@ -14,6 +14,7 @@
 use core::sync::atomic::{AtomicU32, Ordering};
 
 /// Cache line size (64 bytes) - mandatory alignment for hot-path structures
+#[allow(dead_code)]
 const CACHE_LINE: usize = 64;
 
 /// PHI ratio (golden ratio) for UI layout proportions
@@ -42,6 +43,7 @@ pub struct GpuRenderer {
 
 /// Pre-allocated vertex and index buffers (ring buffer, 3 frames deep)
 #[repr(align(64))]
+#[allow(dead_code)]
 struct RenderState {
     /// Vertex buffer (pre-allocated, max 1M vertices)
     vertices: Vec<Vertex>,
@@ -90,6 +92,7 @@ pub enum BlendMode {
 
 ///
 /// Technical implementation of the ComputeExecutor structure.
+#[allow(dead_code)]
 pub struct ComputeExecutor {
     /// Pre-allocated compute buffer for FFT input
     compute_input: Vec<[f32; 4]>, // RGBA format for texture compatibility
@@ -102,6 +105,7 @@ pub struct ComputeExecutor {
 }
 
 #[repr(align(64))]
+#[allow(dead_code)]
 struct ComputeJobMetadata {
     // Dispatch parameters
     work_group_count_x: u32,

@@ -11,9 +11,12 @@
 name = "smoothie-core"
 version = "1.0.0"
 edition = "2021"
+license = "MIT"
+description = "A Seraphic Technologies Elite audio plugin framework crate."
+repository = "https://github.com/seraphic/smoothie-elite"
 
 [dependencies]
-smoothie-macros = { path = "../smoothie-macros" }
+smoothie-macros = { workspace = true }
 
 [lib]
 path = "src/lib.rs"

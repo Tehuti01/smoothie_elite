@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::prelude::*;
 use smoothie_core::primitives::Sample;
 
 /// Technical implementation of the Crossover structure.
@@ -65,8 +64,8 @@ impl Crossover {
 
     /// Primary real-time signal processing execution block.
     pub fn process_high(&mut self, input: Sample) -> Sample {
-        let hp = input - self.process_low(input);
-        hp
+        
+        input - self.process_low(input)
     }
 }
 

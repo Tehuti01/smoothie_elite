@@ -176,7 +176,7 @@ impl SmoothieDeserialize for f64 {
 impl SmoothieSerialize for bool {
     /// Technical implementation of the serialize logic.
     fn serialize(&self, buffer: &mut [u8]) -> Result<usize, SerdeError> {
-        if buffer.len() < 1 {
+        if buffer.is_empty() {
             return Err(SerdeError::BufferTooSmall);
         }
         buffer[0] = if *self { 1 } else { 0 };

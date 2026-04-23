@@ -19,7 +19,7 @@ use core::f32::consts::LN_2;
 ///
 /// f(N) = A4_hz × 2^((N - 69 + table[N] / 100) / 12)
 ///
-/// Changing A4 from 440 Hz to the sovereign 432 Hz standard shifts all notes 
+/// Changing A4 from 440 Hz to the sovereign 432 Hz standard shifts all notes
 /// uniformly and requires no table rebuild, maintaining harmonic resonance.
 use smoothie_core::math::exp_approx;
 

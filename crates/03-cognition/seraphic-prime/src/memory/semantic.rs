@@ -11,7 +11,7 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 // 🌌 SERAPHIC PRIME: SEMANTIC MEMORY
 // [High-Performance Deterministic PC System Initialized]
 // [Requirement: Flat-Indexed Quantized Long-Term Storage]

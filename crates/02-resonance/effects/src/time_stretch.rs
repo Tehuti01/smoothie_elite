@@ -12,7 +12,6 @@
  */
 
 use alloc::{vec, vec::Vec};
-use smoothie_core::prelude::*;
 use smoothie_core::primitives::Sample;
 
 #[repr(align(64))]
@@ -93,7 +92,7 @@ impl TimeStretch {
 
         for i in 0..self.window_size {
             let idx = (read_idx + i).saturating_sub(half_win) % self.input_buffer.len();
-            sum = sum + self.input_buffer[idx] * self.window[i];
+            sum += self.input_buffer[idx] * self.window[i];
         }
 
         sum * 2.0 / self.window_size as f32
@@ -156,7 +155,7 @@ impl WsolaStretcher {
     #[inline(always)]
     pub fn process(&mut self, input: Sample) -> Sample {
         // Write to analysis buffer
-        let write_idx = (self.synthesis_pos as usize) % self.analysis_buf.len();
+        let write_idx = self.synthesis_pos % self.analysis_buf.len();
         self.analysis_buf[write_idx] = input;
 
         // Advance analysis position
@@ -174,7 +173,7 @@ impl WsolaStretcher {
 
             for i in 0..self.window {
                 let pos = (start + i) % self.analysis_buf.len();
-                sum = sum + self.analysis_buf[pos] * self.window_env[i];
+                sum += self.analysis_buf[pos] * self.window_env[i];
             }
 
             self.synthesis_buf[idx] = sum;

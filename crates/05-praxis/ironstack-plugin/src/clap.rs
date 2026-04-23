@@ -11,8 +11,8 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_clap::{ClapDescriptor, features};
 use crate::IronStackPlugin;
+use smoothie_clap::{features, ClapDescriptor};
 
 /// Initializes the CLAP descriptor for the IRONSTACK-100 instrument.
 pub const fn init_clap_descriptor() -> ClapDescriptor {

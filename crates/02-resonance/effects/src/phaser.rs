@@ -13,7 +13,6 @@
 
 use smoothie_core::constants::TAU;
 use smoothie_core::math::sine_approx;
-use smoothie_core::prelude::*;
 use smoothie_core::primitives::Sample;
 
 const NUM_STAGES: usize = 6;
@@ -23,6 +22,7 @@ pub struct Phaser {
     allpass_delays: [f32; NUM_STAGES],
     lfo_phase: f32,
     lfo_rate: f32,
+    lfo_depth: f32,
     depth: f32,
     feedback: f32,
     mix: f32,
@@ -44,6 +44,7 @@ impl Phaser {
             allpass_delays: [0.0; NUM_STAGES],
             lfo_phase: 0.0,
             lfo_rate: rate,
+            lfo_depth: depth,
             depth: depth.clamp(0.0, 1.0),
             feedback: feedback.clamp(-0.95, 0.95),
             mix: 0.5,

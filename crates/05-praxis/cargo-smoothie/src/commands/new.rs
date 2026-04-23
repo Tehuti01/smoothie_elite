@@ -82,7 +82,7 @@ fn extract_dir(dir: &Dir, target: &Path, project_name: &str) {
                     .replace("{{project_name_pascal}}", &to_pascal_case(project_name));
 
                 // If it was a .template file, remove the extension
-                let final_path = if file_path.extension().map_or(false, |ext| ext == "template") {
+                let final_path = if file_path.extension().is_some_and(|ext| ext == "template") {
                     file_path.with_extension("")
                 } else {
                     file_path
@@ -101,7 +101,7 @@ fn extract_dir(dir: &Dir, target: &Path, project_name: &str) {
 
 /// Technical implementation of the to_pascal_case logic.
 fn to_pascal_case(s: &str) -> String {
-    s.split(|c: char| c == '-' || c == '_')
+    s.split(['-', '_'])
         .map(|word| {
             let mut chars = word.chars();
             match chars.next() {

@@ -11,27 +11,28 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
+use alloc::vec::Vec;
 use smoothie_core::primitives::Sample;
 use wide::*;
-use alloc::vec::Vec;
 
 const NUM_LINES: usize = 16;
 
 /// Technical implementation of the QuantumReverb structure.
 /// uses a 16-channel Feedback Delay Network (FDN) with SIMD optimization.
+#[allow(dead_code)]
 pub struct QuantumReverb {
     /// Delay lines of prime sample lengths
     delays: Vec<DelayLine>,
     /// Feedback matrix (Implicit Householder for N=16)
     feedback: [f32; NUM_LINES],
-    
+
     pub rt60: f32,
     pub size: f32,
     pub damping: f32,
     pub mix: f32,
-    
+
     sample_rate: f32,
-    
+
     /// SIMD temporary buffer
     simd_buf: [f32x4; 4],
 }
@@ -65,8 +66,8 @@ impl QuantumReverb {
     pub fn new(sample_rate: f32) -> Self {
         // Prime sample lengths for transparent density (approx. 30ms to 100ms)
         let lengths = [
-            1103, 1277, 1459, 1637, 1823, 2011, 2203, 2411,
-            2609, 2801, 3011, 3217, 3413, 3617, 3821, 4013,
+            1103, 1277, 1459, 1637, 1823, 2011, 2203, 2411, 2609, 2801, 3011, 3217, 3413, 3617,
+            3821, 4013,
         ];
 
         let mut delays = Vec::with_capacity(NUM_LINES);
@@ -94,7 +95,7 @@ impl QuantumReverb {
         }
 
         let mut outputs = [0.0f32; NUM_LINES];
-        
+
         // 1. Read from delay lines
         for i in 0..NUM_LINES {
             outputs[i] = self.delays[i].buffer[self.delays[i].ptr];
@@ -104,7 +105,7 @@ impl QuantumReverb {
         // This is highly efficient: output = output - (2/N) * sum(output)
         let sum: f32 = outputs.iter().sum();
         let householder_factor = sum * (2.0 / NUM_LINES as f32);
-        
+
         for i in 0..NUM_LINES {
             outputs[i] -= householder_factor;
         }
@@ -112,7 +113,7 @@ impl QuantumReverb {
         // 3. Feedback and Delay Write
         // Calculate gain based on RT60
         let g = (-6.9078 * (lengths_average() / (self.rt60 * self.sample_rate))).exp();
-        
+
         for i in 0..NUM_LINES {
             let val = input + outputs[i] * g;
             self.delays[i].process(val);
@@ -120,7 +121,7 @@ impl QuantumReverb {
 
         // 4. Mix outputs (Mono for now, could be stereo decorrelated)
         let wet: f32 = outputs.iter().sum::<f32>() / (NUM_LINES as f32).sqrt();
-        
+
         input * (1.0 - self.mix) + wet * self.mix
     }
 }
@@ -133,13 +134,13 @@ mod tests {
     fn test_reverb_signal() {
         let mut reverb = QuantumReverb::new(44100.0);
         reverb.mix = 1.0;
-        
+
         // Process enough samples to bypass initial delay line latency
         let mut last_out = 0.0;
         for _ in 0..2000 {
             last_out = reverb.process(1.0);
         }
-        
+
         assert!(last_out.abs() > 0.0);
     }
 }

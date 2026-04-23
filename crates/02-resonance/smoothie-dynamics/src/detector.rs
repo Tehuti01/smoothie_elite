@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// the side-chain level detector. Supports peak, RMS, and true-RMS modes,
 /// all processed sample-by-sample without any memory allocation.

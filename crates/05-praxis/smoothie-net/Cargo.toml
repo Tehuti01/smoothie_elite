@@ -11,11 +11,12 @@
 name = "smoothie-net"
 version = "1.0.0"
 edition = "2021"
-publish = false
-description = "Zero-allocation Open Sound Control (OSC) and Network Synchronization Engine"
+license = "MIT"
+description = "A Seraphic Technologies Elite audio plugin framework crate."
+repository = "https://github.com/seraphic/smoothie-elite"
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
+smoothie-core = { workspace = true }
 
 [lib]
 path = "src/lib.rs"

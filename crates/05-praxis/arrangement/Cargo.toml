@@ -2,9 +2,12 @@
 name = "smoothie-arrangement"
 version = "1.0.0"
 edition = "2021"
+license = "MIT"
+description = "A Seraphic Technologies Elite audio plugin framework crate."
+repository = "https://github.com/seraphic/smoothie-elite"
 
 [dependencies]
-smoothie-core = { path = "../../01-silicon/core" }
-smoothie-ai = { path = "../../03-cognition/smoothie-ai" }
-serde = { workspace = true, features = ["derive"] }
+smoothie-core = { workspace = true }
+smoothie-ai = { workspace = true }
+serde = {workspace = true, features = ["derive"]}
 anyhow.workspace = true

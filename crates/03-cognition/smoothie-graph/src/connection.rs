@@ -60,6 +60,7 @@ impl Connection {
 /// Technical implementation of the ConnectionManager structure.
 pub struct ConnectionManager {
     connections: Vec<Connection>,
+    #[allow(dead_code)]
     adjacency: Vec<Vec<usize>>,
     node_port_counts: [(u8, u8); 64],
 }

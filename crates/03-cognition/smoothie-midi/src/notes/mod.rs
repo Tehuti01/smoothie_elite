@@ -32,7 +32,8 @@ impl NoteTracker {
 
 /// Technical implementation of the note_to_frequency logic.
 pub fn note_to_frequency(note: u8) -> f32 {
-    smoothie_core::constants::STANDARD_PITCH * smoothie_core::math::fast_pow(2.0, (note as f32 - 69.0) / 12.0)
+    smoothie_core::constants::STANDARD_PITCH
+        * smoothie_core::math::fast_pow(2.0, (note as f32 - 69.0) / 12.0)
 }
 
 /// Technical implementation of the velocity_to_amplitude logic.

@@ -29,7 +29,7 @@ fn log2f(x: f32) -> f32 {
         let bits = x.to_bits();
         let exp = ((bits >> 23) & 0xFF) as f32 - 127.0;
         let mantissa = f32::from_bits((bits & 0x7FFFFF) | 0x3F800000) - 1.0;
-        exp + mantissa * (1.4426950 - 0.4426950 * mantissa)
+        exp + mantissa * (core::f32::consts::LOG2_E - 0.442_695 * mantissa)
     }
 }
 
@@ -38,7 +38,7 @@ fn log2f(x: f32) -> f32 {
 fn pow2f(x: f32) -> f32 {
     let xi = if x >= 0.0 { x as i32 } else { x as i32 - 1 };
     let xf = x - xi as f32;
-    let frac = 1.0 + xf * (0.6931472 + xf * (0.2402265 + xf * 0.0558015));
+    let frac = 1.0 + xf * (core::f32::consts::LN_2 + xf * (0.2402265 + xf * 0.0558015));
     let exp_bits = ((xi + 127) as u32) << 23;
     f32::from_bits(exp_bits) * frac
 }
@@ -46,17 +46,7 @@ fn pow2f(x: f32) -> f32 {
 #[inline]
 /// Technical implementation of the log10f logic.
 fn log10f(x: f32) -> f32 {
-    log2f(x) / 1.4426950408889634
-}
-
-#[inline]
-/// Technical implementation of the round_f32 logic.
-fn round_f32(x: f32) -> f32 {
-    if x >= 0.0 {
-        x + 0.5
-    } else {
-        x - 0.5
-    }
+    log2f(x) / core::f32::consts::LOG2_E
 }
 
 #[inline]
@@ -217,7 +207,7 @@ impl Frequency {
             return 0;
         }
         let note = 69.0 + 12.0 * log2f(self.0 / a4);
-        note.max(0.0).min(127.0) as u8
+        note.clamp(0.0, 127.0) as u8
     }
 
     /// Technical implementation of the to_radians logic.

@@ -27,7 +27,6 @@ use super::filters::BiquadCoeffs;
 /// The `BandType::Peaking` shelf provides both a `q` field and an optional
 /// `bandwidth_oct` override for direct integration with legacy plugin presets.
 use core::f64::consts::PI;
-use smoothie_core::math::FloatExt;
 
 /// Enumeration of all available filter shapes.
 #[derive(Debug, Clone, Copy)]
@@ -311,7 +310,7 @@ fn newton_sqrt_f64(x: f64) -> f64 {
         return 0.0;
     }
     // Initial guess via bit trick
-    let init_bits = ((x.to_bits() >> 1) + (1023u64 << 51)) as u64;
+    let init_bits = (x.to_bits() >> 1) + (1023u64 << 51);
     let mut y = f64::from_bits(init_bits);
     // Newton iterations: y = (y + x/y) / 2
     y = (y + x / y) * 0.5;

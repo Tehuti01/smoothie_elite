@@ -12,7 +12,6 @@
  */
 
 extern crate alloc;
-use smoothie_core::math::FloatExt;
 
 #[inline]
 /// Computes the floor of a 32-bit float.
@@ -48,10 +47,10 @@ pub fn sine_approx(x: f32) -> f32 {
     let p5 = p2 * p3;
 
     let coef_a = 1.0;
-    let coef_b = -1.7697093648102520e-02;
-    let coef_c = -1.3133092835963626;
-    let coef_d = 2.3316092661930180e-03;
-    let coef_e = 1.3189779426533570e-01;
+    let coef_b = -1.769_709_4e-2;
+    let coef_c = -1.313_309_3;
+    let coef_d = 2.331_609_4e-3;
+    let coef_e = 1.318_977_9e-1;
 
     sign * (coef_a * p + coef_c * p3 + coef_e * p5 + p * (coef_b * p2 + coef_d * p2 * p2))
 }
@@ -86,10 +85,10 @@ pub fn atan_approx(x: f32) -> f32 {
     let abs_x = x.abs();
     let sign = if x < 0.0 { -1.0 } else { 1.0 };
 
-    let a = 0.9770730039819331e+00;
-    let b = -1.7147340501192252e-01;
-    let c = 1.6681272505821389e-02;
-    let _d = -5.2023823488226298e-01;
+    let a = 9.770_73e-1;
+    let b = -1.714_734e-1;
+    let c = 1.668_127_3e-2;
+    let _d = -5.202_382_348_822_63e-1;
 
     let z = (abs_x - 1.0) / (abs_x + 1.0);
     let z2 = z * z;

@@ -11,8 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use crate::prelude::*;
-use crate::smoothie_graph::AudioNode;
 use winit::{
     application::ApplicationHandler,
     event::WindowEvent,

@@ -17,6 +17,7 @@ use smoothie_dsp::prelude::DelayLine;
 /// Enforces Engineering Phase 21: Acoustic modeling stability.
 #[repr(align(64))]
 /// Technical implementation of the StiffString structure.
+#[allow(dead_code)]
 pub struct StiffString {
     /// Left-traveling wave delay line
     left_wave: DelayLine,

@@ -1,0 +1,21 @@
+import base64
+import sys
+
+def xor_cipher(data, key):
+    key_bytes = key.encode('utf-8')
+    result = bytearray()
+    for i, b in enumerate(data):
+        result.append(b ^ key_bytes[i % len(key_bytes)])
+    return result.decode('utf-8')
+
+# The base64 string from zdf.rs
+encoded_str = """QDQgKGk9GQoHARwAUmpQXjgkaXc5PBEJHRERUw0fCDtAMSYvaT0AFx0WAEltUVViPCdzNkNuVEVIBkVTF1MFBWZLc21pbgdXUlUSXwMZORFqYXMqc24SU1xZfkkXFRNacGE1e31ifhhifx0ER1kTay4nADsvbg9vSFVUSUdAUREsL3MjLDlcTEhYSklkUF9XajpZbWluVEVIVVQ6UllVETFhIHxzbkRLWFlUGgUPEwFkcX9tLnRUVUZFWElcDxMBZHFzMENuVEVICH5JFxUTO2phc205OxZFDhtUGlJBbEErMzIgOmZSCB0BVBpSWVUdaiImOSYoEl9IE0JdGxVBVDkuPSwnLRFfSBNCXRsVQFAnMT8oFjwVEQ1PVA8BARoRMUtzbWluVEVIVRgMQxVEVWp8c39nflRPSEZaWAMEBgh4d2Z+fHZNUlFGVEMXVkZFJSc1dkNuVEVIVVRJF1lWRWo1c3Bpf1pVSFpUGlZYQ10vHiEsPStPb0hVVEkXFRMRJiQnbT4vVFhIXUZHBxUcET5oc2dpZgMBSF9UHRcaEwNkcXpjPS8aTUFOfkkXFRMRamFzPiwiEksPVUlJQFQTG2o1c2JpfFpVU39USRcVExFqYSAoJShaDkhIVFsZBRMcanN9fWlkVBcNBhsHVltQVHFLc21pbglvFX9+AFpFXxEaLSYqICA7FiYaEAwXU1xDahs3Kxo4EkUTf1RJFxUQaiMvPyQnK1wEBAIVEEQcbjtqYXNtLyBUFRoaFwxERhsXJzQnbTorGANEVQxTF1MFBWNhfnNpKEJRSA5+SRcVExFqYXMhLDpUAQ0bVFQXBB0BampzPiwiEksPVV5JH0ZWXSxvNG1ibgcABBNaAh4OORFqYXNtaW5UCQ0BVBBoXUMRd2F7NWljVBYNGRJHRAQTG2ppICglKFoCSF5UGlJZVR8haHNgaT0RCQ5bB1seFRwRLiQ9dkNuVEVIVVRJF1lWRWo3Ym10bgcABBNaDhcfE0gVKSN2Q25URUhVVEkXWVZFajgMLzluSUUeRFRCF0ZWXSxvIHxyRFRFSFVUSRcVQFQmJ30+eG5JRR5EVEIXTGxTOnpZbWluVEVIVVQFUkETR3hhbm06KxgDRhJUQxdMbFM6elltaW5URUhVVAVSQRNIFS0jbXRuAldIXlQaUllVHzlzaEdpblRFSFVUSURQX1dkMmFtdG4CV0heVBBoWUMKQGFzbWluVEVIDCsFRz8TEWphLkc0RA=="""
+
+# Clean up newlines and decode
+encoded_str = encoded_str.replace('\n', '')
+decoded_bytes = base64.b64decode(encoded_str)
+
+master_key = "JASMINtehuti7531"
+
+decrypted = xor_cipher(decoded_bytes, master_key)
+print(decrypted)

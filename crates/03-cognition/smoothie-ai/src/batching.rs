@@ -13,7 +13,7 @@
 
 use alloc::vec;
 use alloc::vec::Vec;
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 
 /// Technical implementation of the BatchBuffer structure.
 pub struct BatchBuffer {
@@ -206,6 +206,7 @@ pub struct BatchProcessor {
     input_size: usize,
     output_size: usize,
     buffer: Vec<f32>,
+    #[allow(dead_code)]
     temp_output: Vec<f32>,
 }
 

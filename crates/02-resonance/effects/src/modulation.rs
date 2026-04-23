@@ -1,7 +1,7 @@
 /*
  *  S E R A P H I C   T E C H N O L O G I E S
  * ╭──────────────────────────────────────────────────────────────────────────╮
- * │ FILE ID: SER-0xf5752940 | REVISION: 2026.04.20                           │
+ * │ FILE ID: SER-0x0d2a3e7b | REVISION: 2026.04.20                           │
  * │ PATH: smoothie_elite/crates/02-resonance/effects/src/modulation.rs                                                         │
  * ├──────────────────────────────────────────────────────────────────────────┤
  * │ DESCRIPTION: Professional technical implementation and documentation.    │
@@ -11,7 +11,7 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::constants::TAU;
+use core::f32::consts::TAU;
 use smoothie_core::math::{hermite_interpolate, sine_approx, tan_approx};
 use smoothie_core::primitives::Sample;
 
@@ -21,7 +21,8 @@ pub struct Chorus {
     write_pos: usize,
     lfo_phase: f32,
     lfo_rate: f32,
-    lfo_depth: f32,  // Samples
+    lfo_depth: f32,
+    depth: f32,  // Samples
     base_delay: f32, // Samples
     feedback: f32,
     mix: f32,
@@ -36,6 +37,7 @@ impl Chorus {
             lfo_phase: 0.0,
             lfo_rate: 0.5,
             lfo_depth: 88.0,
+            depth: 88.0,
             base_delay: 882.0,
             feedback: 0.2,
             mix: 0.5,
@@ -46,31 +48,33 @@ impl Chorus {
     pub fn set_rate(&mut self, rate: f32) {
         self.lfo_rate = rate.clamp(0.1, 10.0);
     }
+
     /// Technical implementation of the set_depth logic.
     pub fn set_depth(&mut self, depth_ms: f32, sample_rate: f32) {
         self.lfo_depth = depth_ms * sample_rate / 1000.0;
+        self.depth = self.lfo_depth;
     }
 
     /// Primary real-time signal processing execution block.
     pub fn process(&mut self, input: Sample, sample_rate: f32) -> Sample {
-        let lfo = sine_approx(self.lfo_phase * TAU);
+        let mask = 4095;
+        let lfo = (sine_approx(self.lfo_phase * TAU) + 1.0) * 0.5;
         self.lfo_phase += self.lfo_rate / sample_rate;
         if self.lfo_phase >= 1.0 {
             self.lfo_phase -= 1.0;
         }
 
         let delay_samples = self.base_delay + lfo * self.lfo_depth;
-
-        let mask = 4095;
         let read_pos = (self.write_pos as f32 - delay_samples + 4096.0) % 4096.0;
-        let i0 = read_pos as usize;
+
+        let i0 = read_pos.floor() as usize;
         let i1 = (i0 + 1) & mask;
         let i2 = (i1 + 1) & mask;
-        let im1 = if i0 > 0 { i0 - 1 } else { mask };
+        let i3 = (i0 + 4095) & mask;
         let frac = read_pos - i0 as f32;
 
         let delayed = hermite_interpolate(
-            self.buffer[im1],
+            self.buffer[i3],
             self.buffer[i0],
             self.buffer[i1],
             self.buffer[i2],
@@ -88,6 +92,7 @@ impl Chorus {
 pub struct Phaser {
     lfo_phase: f32,
     lfo_rate: f32,
+    lfo_depth: f32,
     depth: f32,
     feedback: f32,
     stages: [f32; 6],
@@ -100,6 +105,7 @@ impl Phaser {
         Self {
             lfo_phase: 0.0,
             lfo_rate: 0.2,
+            lfo_depth: 0.7,
             depth: 0.7,
             feedback: 0.5,
             stages: [0.0; 6],
@@ -137,6 +143,7 @@ impl Phaser {
 pub struct Tremolo {
     lfo_phase: f32,
     lfo_rate: f32,
+    lfo_depth: f32,
     depth: f32,
 }
 
@@ -146,6 +153,7 @@ impl Tremolo {
         Self {
             lfo_phase: 0.0,
             lfo_rate: 5.0,
+            lfo_depth: 0.5,
             depth: 0.5,
         }
     }
@@ -159,24 +167,5 @@ impl Tremolo {
 
         let mod_val = 1.0 - self.depth + lfo * self.depth;
         input * mod_val
-    }
-}
-
-impl Default for Chorus {
-    /// Technical implementation of the default logic.
-    fn default() -> Self {
-        Self::new(44100.0)
-    }
-}
-impl Default for Phaser {
-    /// Technical implementation of the default logic.
-    fn default() -> Self {
-        Self::new()
-    }
-}
-impl Default for Tremolo {
-    /// Technical implementation of the default logic.
-    fn default() -> Self {
-        Self::new()
     }
 }

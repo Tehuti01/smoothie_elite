@@ -14,10 +14,9 @@
 use super::parser::OscValue;
 ///
 /// Formats arguments into byte buffers for UDP transmission.
-use alloc::vec::Vec;
 
 /// Technical implementation of the build_osc_datagram logic.
-pub fn build_osc_datagram(address: &str, args: &[OscValue], out_buffer: &mut [u8]) -> usize {
+pub fn build_osc_datagram(_address: &str, _args: &[OscValue], _out_buffer: &mut [u8]) -> usize {
     // Write address padded to 4 bytes
     // Write type tags string
     // Write raw binary arguments (Big-Endian network byte order natively)

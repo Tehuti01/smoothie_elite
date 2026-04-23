@@ -9,11 +9,12 @@
 
 [package]
 name = "smoothie-example-eq"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
 publish = false
 
 [dependencies]
-smoothie-core = { path = "../../crates/core" }
-smoothie-dsp = { path = "../../crates/dsp" }
-smoothie-params = { path = "../../crates/smoothie-params" }
+smoothie-core = { workspace = true }
+smoothie-dsp = { workspace = true }
+smoothie-eq = { workspace = true }
+smoothie-params = { workspace = true }

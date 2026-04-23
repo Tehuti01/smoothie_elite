@@ -12,10 +12,9 @@
  */
 
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
-use midir::MidiInput;
+
 ///
 /// Enforces zero-allocation in the real-time audio thread.
-use smoothie_core::prelude::*;
 
 /// Technical implementation of the AutonomousAudioHost structure.
 pub struct AutonomousAudioHost {

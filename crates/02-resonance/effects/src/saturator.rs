@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::prelude::*;
 ///
 /// presence, and character to audio signals.
 use smoothie_core::primitives::Sample;

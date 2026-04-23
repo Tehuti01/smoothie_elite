@@ -15,18 +15,19 @@ extern crate alloc;
 
 use smoothie_core::primitives::Sample;
 use smoothie_logging::info;
-use smoothie_sync::SmoothieMutex;
+
 use smoothie_params::bank::ParameterBank;
 
-pub mod triode_stage;
-pub mod power_stage;
 pub mod cabinet_stage;
 pub mod neural_resonator;
-pub mod reverb;
 pub mod params;
+pub mod power_stage;
+pub mod reverb;
+pub mod triode_stage;
 
 /// 🧬 The IronStack-100 DSP Engine
 /// A silicon-locked integration hub for physical modeling components.
+#[allow(dead_code)]
 pub struct IronStackEngine {
     /// WDF Non-linear Triode Preamplifier stage
     pub triode: triode_stage::TriodeStage,
@@ -38,7 +39,7 @@ pub struct IronStackEngine {
     pub cabinet: cabinet_stage::CabinetStage,
     /// High-fidelity Quantum Reverb stage (Spatial resonance)
     pub reverb: reverb::QuantumReverb,
-    
+
     /// Integrated Parameter Bank for host automation
     pub params: ParameterBank,
 
@@ -50,7 +51,7 @@ impl IronStackEngine {
     /// Initializes a new instance of the associated type.
     pub fn new(sample_rate: f32) -> Self {
         info("⚙️ Initializing IRONSTACK-100 Industrial Core...");
-        
+
         Self {
             triode: triode_stage::TriodeStage::new(sample_rate),
             power: power_stage::PowerStage::new(sample_rate),
@@ -67,7 +68,7 @@ impl IronStackEngine {
     #[inline(always)]
     pub fn process(&mut self, mut input: Sample) -> Sample {
         // Phase X: Executive Parameter Synchronization
-        // We sync neural parameters. 
+        // We sync neural parameters.
         // Note: In a production scenario, we might use a smoothed value or sync less frequently.
         if let Some(drive) = self.params.get_value("Neural Drive") {
             self.neural_drive.drive = drive;

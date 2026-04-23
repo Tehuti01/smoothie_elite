@@ -13,7 +13,6 @@
 
 use super::detector::{DetectionMode, LevelDetector};
 use super::gain_computer::GainComputer;
-use smoothie_core::math::FloatExt;
 
 /// Analogue topology style influencing detector and saturation behaviour.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -69,6 +68,7 @@ impl Default for CompressorParams {
 
 /// (dual-mono) unless the user enables sidechain linking.
 /// Technical implementation of the Compressor structure.
+#[allow(dead_code)]
 pub struct Compressor {
     style: CompressorStyle,
     params: CompressorParams,
@@ -196,5 +196,5 @@ fn linear_to_db(x: f32) -> f32 {
         let mantissa = f32::from_bits(mantissa_bits) - 1.0;
         exponent as f32 * core::f32::consts::LN_2 + mantissa * (1.0 - mantissa * 0.5)
     };
-    8.685889638_f32 * approx_ln
+    8.685_889_f32 * approx_ln
 }

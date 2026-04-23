@@ -15,6 +15,7 @@ use core::sync::atomic::{AtomicU32, Ordering};
 use num_complex::Complex;
 
 /// Cache line size
+#[allow(dead_code)]
 const CACHE_LINE: usize = 64;
 
 /// Convolution state machine
@@ -72,7 +73,7 @@ impl ConvolutionEngine {
         let fft_size = partition_size * 2; // For overlap-add
 
         // Partition impulse response via FFT
-        let num_partitions = (ir_data.len() + partition_size - 1) / partition_size;
+        let num_partitions = ir_data.len().div_ceil(partition_size);
         let mut ir_partitions = Vec::with_capacity(num_partitions);
 
         for p in 0..num_partitions {
@@ -160,7 +161,7 @@ impl ConvolutionEngine {
         }
 
         // Frequency-domain convolution (multiplication)
-        for (partition_idx, ir_partition) in self.ir_partitions.iter().enumerate() {
+        for ir_partition in self.ir_partitions.iter() {
             for i in 0..self.fft_size {
                 self.freq_output[i] += self.freq_input[i] * ir_partition[i];
             }

@@ -13,10 +13,11 @@
 
 use crate::wdf::ports::WdfNode;
 use smoothie_core::math::exp_approx;
-use smoothie_core::math::FloatExt;
+// use smoothie_core::math::FloatExt;
 
 /// Technical implementation of the DiodeComponent structure.
 pub struct DiodeComponent {
+    #[allow(dead_code)]
     model: DiodeModel,
     forward_voltage: f32,
     saturation_current: f32,

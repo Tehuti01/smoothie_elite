@@ -11,7 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use smoothie_core::math::FloatExt;
 ///
 /// with independently configurable curve shapes per stage.
 /// # Stage Transitions
@@ -260,7 +259,7 @@ fn apply_curve(start: f32, target: f32, t: f32, curve: EnvelopeCurve) -> f32 {
         }
         EnvelopeCurve::Logarithmic => {
             // y = ln(1 + 9t) / ln(10) — fast initial movement
-            let ln10_inv = 0.4342944819_f32;
+            let ln10_inv = 0.434_294_5_f32;
             smoothie_core::math::exp_approx(fast_ln(1.0 + 9.0 * t) * ln10_inv)
         }
     };

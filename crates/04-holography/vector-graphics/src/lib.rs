@@ -11,8 +11,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-use core::f32::consts::PI;
-
 ///
 /// P(t) = (1-t)²·P0 + 2(1-t)t·P1 + t²·P2
 #[repr(C, align(16))]
@@ -111,13 +109,7 @@ pub fn tessellate_quad_bezier(
     output.clear();
     output.push(curve.p0);
 
-    subdivide_quad_bezier_adaptive(
-        curve,
-        tolerance,
-        max_segments,
-        0,
-        output,
-    );
+    subdivide_quad_bezier_adaptive(curve, tolerance, max_segments, 0, output);
 
     output.push(curve.p2);
 }
@@ -145,12 +137,18 @@ fn subdivide_quad_bezier_adaptive(
     if (dist > tolerance) && (depth < 10) && (output.len() < max_segments) {
         // Split at midpoint
         let t = 0.5;
-        let p01 = [(1.0 - t) * curve.p0[0] + t * curve.p1[0],
-                   (1.0 - t) * curve.p0[1] + t * curve.p1[1]];
-        let p12 = [(1.0 - t) * curve.p1[0] + t * curve.p2[0],
-                   (1.0 - t) * curve.p1[1] + t * curve.p2[1]];
-        let p01_12 = [(1.0 - t) * p01[0] + t * p12[0],
-                      (1.0 - t) * p01[1] + t * p12[1]];
+        let p01 = [
+            (1.0 - t) * curve.p0[0] + t * curve.p1[0],
+            (1.0 - t) * curve.p0[1] + t * curve.p1[1],
+        ];
+        let p12 = [
+            (1.0 - t) * curve.p1[0] + t * curve.p2[0],
+            (1.0 - t) * curve.p1[1] + t * curve.p2[1],
+        ];
+        let p01_12 = [
+            (1.0 - t) * p01[0] + t * p12[0],
+            (1.0 - t) * p01[1] + t * p12[1],
+        ];
 
         let left = QuadBezier {
             p0: curve.p0,
@@ -172,6 +170,7 @@ fn subdivide_quad_bezier_adaptive(
 
 ///
 /// Technical implementation of the PathStroker structure.
+#[allow(dead_code)]
 pub struct PathStroker {
     width: f32,
     join_type: JoinType,
@@ -234,7 +233,7 @@ impl PathStroker {
 pub struct GlyphSDF {
     pub width: u32,
     pub height: u32,
-    pub data: Vec<u8>,  // 8-bit signed distance values
+    pub data: Vec<u8>, // 8-bit signed distance values
     pub advance: f32,
 }
 
@@ -252,13 +251,7 @@ impl SdfTextRenderer {
     }
 
     /// Render text string to glyph positions
-    pub fn layout_text(
-        &self,
-        text: &str,
-        font_size: f32,
-        x: f32,
-        y: f32,
-    ) -> Vec<GlyphInstance> {
+    pub fn layout_text(&self, text: &str, font_size: f32, x: f32, y: f32) -> Vec<GlyphInstance> {
         let mut glyphs = Vec::new();
         let mut pos_x = x;
 
