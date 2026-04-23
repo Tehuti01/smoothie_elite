@@ -9,11 +9,11 @@
 
 [package]
 name = "smoothie-ui"
-version = "1.0.0"
-edition = "2021"
-license = "MIT"
-description = "A Seraphic Technologies Elite audio plugin framework crate."
-repository = "https://github.com/seraphic/smoothie-elite"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description.workspace = true
+repository.workspace = true
 
 [dependencies]
 smoothie-core = { workspace = true }

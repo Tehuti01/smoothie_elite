@@ -12,7 +12,7 @@ name = "smoothie-midi"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "MIDI protocol and note management for Smoothie Elite"
+description.workspace = true
 
 [dependencies]
 smoothie-core = { workspace = true }

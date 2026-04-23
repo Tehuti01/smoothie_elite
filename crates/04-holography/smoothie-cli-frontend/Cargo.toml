@@ -9,11 +9,11 @@
 
 [package]
 name = "smoothie-cli-frontend"
-version = "1.0.0"
-edition = "2021"
-authors = ["Smoothie Audio <smoothie@smoothieaudio.dev>"]
-license = "MIT OR Apache-2.0"
-description = "Professional CLI frontend for the Smoothie Elite ecosystem"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description.workspace = true
 
 [dependencies]
 smoothie-core = {workspace = true}

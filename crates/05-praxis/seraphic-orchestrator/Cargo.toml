@@ -13,13 +13,13 @@ version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
-description = "Native Rust executive tier for autonomic self-healing orchestration"
+description.workspace = true
 
 [dependencies]
 # Workspace Dependencies
 smoothie-core = {workspace = true}
-seraphic-agent = { path = "../../03-cognition/seraphic-agent" , version = "1.0.0"}
-seraphic-prime = { path = "../../03-cognition/seraphic-prime" , version = "1.0.0"}
+seraphic-agent = { workspace = true }
+seraphic-prime = { workspace = true }
 
 # Third-Party
 anyhow = {workspace = true}

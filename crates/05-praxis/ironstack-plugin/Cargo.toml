@@ -13,7 +13,7 @@ version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
-description = "Industrial-grade VST3/CLAP wrapper for the IRONSTACK-100 instrument"
+description.workspace = true
 
 [lib]
 crate-type = ["cdylib", "rlib"]

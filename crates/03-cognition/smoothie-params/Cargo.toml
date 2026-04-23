@@ -12,7 +12,7 @@ name = "smoothie-params"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "Type-safe parameter system for Smoothie Elite audio plugins"
+description.workspace = true
 
 [dependencies]
 smoothie-core = { workspace = true }

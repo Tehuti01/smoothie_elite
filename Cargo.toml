@@ -24,7 +24,7 @@ members = [
 ]
 
 [workspace.package]
-version = "1.0.0"
+version = "0.0.1-beta"
 edition = "2021"
 authors = ["Smoothie Audio <smoothie@smoothieaudio.dev>"]
 license = "MIT OR Apache-2.0"
@@ -37,74 +37,74 @@ categories = ["multimedia::audio", "no-std"]
 
 [workspace.dependencies]
 # Silicon (Core Layer)
-smoothie-core = { path = "crates/01-silicon/core" , version = "1.0.0"}
-smoothie-macros = { path = "crates/01-silicon/smoothie-macros" , version = "1.0.0"}
-smoothie-math = { path = "crates/01-silicon/smoothie-math" , version = "1.0.0"}
-smoothie-realtime-pool = { path = "crates/01-silicon/realtime-pool" , version = "1.0.0"}
-smoothie-lock-free-queue = { path = "crates/01-silicon/lock-free-queue" , version = "1.0.0"}
-smoothie-async = { path = "crates/01-silicon/async" , version = "1.0.0"}
-smoothie-sync = { path = "crates/01-silicon/sync" , version = "1.0.0"}
-smoothie-logging = { path = "crates/01-silicon/logging" , version = "1.0.0"}
-smoothie-serde = { path = "crates/01-silicon/serde" , version = "1.0.0"}
-smoothie-sync-distributed = { path = "crates/01-silicon/sync-distributed" , version = "1.0.0"}
+smoothie-core = { path = "crates/01-silicon/core" , version = "0.0.1-beta"}
+smoothie-macros = { path = "crates/01-silicon/smoothie-macros" , version = "0.0.1-beta"}
+smoothie-math = { path = "crates/01-silicon/smoothie-math" , version = "0.0.1-beta"}
+smoothie-realtime-pool = { path = "crates/01-silicon/realtime-pool" , version = "0.0.1-beta"}
+smoothie-lock-free-queue = { path = "crates/01-silicon/lock-free-queue" , version = "0.0.1-beta"}
+smoothie-async = { path = "crates/01-silicon/async" , version = "0.0.1-beta"}
+smoothie-sync = { path = "crates/01-silicon/sync" , version = "0.0.1-beta"}
+smoothie-logging = { path = "crates/01-silicon/logging" , version = "0.0.1-beta"}
+smoothie-serde = { path = "crates/01-silicon/serde" , version = "0.0.1-beta"}
+smoothie-sync-distributed = { path = "crates/01-silicon/sync-distributed" , version = "0.0.1-beta"}
 
 # Resonance (DSP Layer)
-smoothie-dsp = { path = "crates/02-resonance/dsp" , version = "1.0.0"}
-smoothie-eq = { path = "crates/02-resonance/smoothie-eq" , version = "1.0.0"}
-smoothie-dynamics = { path = "crates/02-resonance/smoothie-dynamics" , version = "1.0.0"}
-smoothie-modulation = { path = "crates/02-resonance/smoothie-modulation" , version = "1.0.0"}
-smoothie-physics = { path = "crates/02-resonance/smoothie-physics" , version = "1.0.0"}
-smoothie-reverb = { path = "crates/02-resonance/smoothie-reverb" , version = "1.0.0"}
-smoothie-spectrum = { path = "crates/02-resonance/smoothie-spectrum" , version = "1.0.0"}
-smoothie-tuning = { path = "crates/02-resonance/smoothie-tuning" , version = "1.0.0"}
-smoothie-advanced-dsp = { path = "crates/02-resonance/advanced-dsp" , version = "1.0.0"}
-smoothie-gpu-fft = { path = "crates/02-resonance/gpu-fft" , version = "1.0.0"}
-smoothie-convolution = { path = "crates/02-resonance/convolution" , version = "1.0.0"}
-smoothie-spatial-audio = { path = "crates/02-resonance/spatial-audio" , version = "1.0.0"}
-smoothie-synth = { path = "crates/02-resonance/synth" , version = "1.0.0"}
-smoothie-effects = { path = "crates/02-resonance/effects" , version = "1.0.0"}
-smoothie-ironstack = { path = "crates/02-resonance/ironstack" , version = "1.0.0"}
-smoothie-granular = { path = "crates/02-resonance/smoothie-granular" , version = "1.0.0"}
-smoothie-sound-design = { path = "crates/02-resonance/smoothie-sound-design" , version = "1.0.0"}
-smoothie-audio-format = { path = "crates/02-resonance/smoothie-audio-format" , version = "1.0.0"}
+smoothie-dsp = { path = "crates/02-resonance/dsp" , version = "0.0.1-beta"}
+smoothie-eq = { path = "crates/02-resonance/smoothie-eq" , version = "0.0.1-beta"}
+smoothie-dynamics = { path = "crates/02-resonance/smoothie-dynamics" , version = "0.0.1-beta"}
+smoothie-modulation = { path = "crates/02-resonance/smoothie-modulation" , version = "0.0.1-beta"}
+smoothie-physics = { path = "crates/02-resonance/smoothie-physics" , version = "0.0.1-beta"}
+smoothie-reverb = { path = "crates/02-resonance/smoothie-reverb" , version = "0.0.1-beta"}
+smoothie-spectrum = { path = "crates/02-resonance/smoothie-spectrum" , version = "0.0.1-beta"}
+smoothie-tuning = { path = "crates/02-resonance/smoothie-tuning" , version = "0.0.1-beta"}
+smoothie-advanced-dsp = { path = "crates/02-resonance/advanced-dsp" , version = "0.0.1-beta"}
+smoothie-gpu-fft = { path = "crates/02-resonance/gpu-fft" , version = "0.0.1-beta"}
+smoothie-convolution = { path = "crates/02-resonance/convolution" , version = "0.0.1-beta"}
+smoothie-spatial-audio = { path = "crates/02-resonance/spatial-audio" , version = "0.0.1-beta"}
+smoothie-synth = { path = "crates/02-resonance/synth" , version = "0.0.1-beta"}
+smoothie-effects = { path = "crates/02-resonance/effects" , version = "0.0.1-beta"}
+smoothie-ironstack = { path = "crates/02-resonance/ironstack" , version = "0.0.1-beta"}
+smoothie-granular = { path = "crates/02-resonance/smoothie-granular" , version = "0.0.1-beta"}
+smoothie-sound-design = { path = "crates/02-resonance/smoothie-sound-design" , version = "0.0.1-beta"}
+smoothie-audio-format = { path = "crates/02-resonance/smoothie-audio-format" , version = "0.0.1-beta"}
 
 # Cognition (Logic Layer)
-smoothie-ai = { path = "crates/03-cognition/smoothie-ai" , version = "1.0.0"}
-smoothie-ai-core = { path = "crates/03-cognition/smoothie-ai-core" , version = "1.0.0"}
-smoothie-params = { path = "crates/03-cognition/smoothie-params" , version = "1.0.0"}
-smoothie-graph = { path = "crates/03-cognition/smoothie-graph" , version = "1.0.0"}
-smoothie-midi = { path = "crates/03-cognition/smoothie-midi" , version = "1.0.0"}
-smoothie-preset = { path = "crates/03-cognition/smoothie-preset" , version = "1.0.0"}
-smoothie-param-automation = { path = "crates/03-cognition/param-automation" , version = "1.0.0"}
-smoothie-ai-distributed = { path = "crates/03-cognition/distributed-ai" , version = "1.0.0"}
-seraphic-agent = { path = "crates/03-cognition/seraphic-agent" , version = "1.0.0"}
-seraphic-multiverse = { path = "crates/03-cognition/seraphic-multiverse" , version = "1.0.0"}
-seraphic-prime = { path = "crates/03-cognition/seraphic-prime" , version = "1.0.0"}
+smoothie-ai = { path = "crates/03-cognition/smoothie-ai" , version = "0.0.1-beta"}
+smoothie-ai-core = { path = "crates/03-cognition/smoothie-ai-core" , version = "0.0.1-beta"}
+smoothie-params = { path = "crates/03-cognition/smoothie-params" , version = "0.0.1-beta"}
+smoothie-graph = { path = "crates/03-cognition/smoothie-graph" , version = "0.0.1-beta"}
+smoothie-midi = { path = "crates/03-cognition/smoothie-midi" , version = "0.0.1-beta"}
+smoothie-preset = { path = "crates/03-cognition/smoothie-preset" , version = "0.0.1-beta"}
+smoothie-param-automation = { path = "crates/03-cognition/param-automation" , version = "0.0.1-beta"}
+smoothie-ai-distributed = { path = "crates/03-cognition/distributed-ai" , version = "0.0.1-beta"}
+seraphic-agent = { path = "crates/03-cognition/seraphic-agent" , version = "0.0.1-beta"}
+seraphic-multiverse = { path = "crates/03-cognition/seraphic-multiverse" , version = "0.0.1-beta"}
+seraphic-prime = { path = "crates/03-cognition/seraphic-prime" , version = "0.0.1-beta"}
 
 # Holography (UI Layer)
-smoothie-ui = { path = "crates/04-holography/smoothie-ui" , version = "1.0.0"}
-smoothie-ui-core = { path = "crates/04-holography/smoothie-ui-core" , version = "1.0.0"}
-smoothie-ui-render = { path = "crates/04-holography/smoothie-ui-render" , version = "1.0.0"}
-smoothie-ui-vfx = { path = "crates/04-holography/smoothie-ui-vfx" , version = "1.0.0"}
-smoothie-gpu-renderer = { path = "crates/04-holography/gpu-renderer" , version = "1.0.0"}
-smoothie-vector-graphics = { path = "crates/04-holography/vector-graphics" , version = "1.0.0"}
-smoothie-cli-frontend = { path = "crates/04-holography/smoothie-cli-frontend" , version = "1.0.0"}
-smoothie-frontend = { path = "crates/04-holography/smoothie-frontend" , version = "1.0.0"}
+smoothie-ui = { path = "crates/04-holography/smoothie-ui" , version = "0.0.1-beta"}
+smoothie-ui-core = { path = "crates/04-holography/smoothie-ui-core" , version = "0.0.1-beta"}
+smoothie-ui-render = { path = "crates/04-holography/smoothie-ui-render" , version = "0.0.1-beta"}
+smoothie-ui-vfx = { path = "crates/04-holography/smoothie-ui-vfx" , version = "0.0.1-beta"}
+smoothie-gpu-renderer = { path = "crates/04-holography/gpu-renderer" , version = "0.0.1-beta"}
+smoothie-vector-graphics = { path = "crates/04-holography/vector-graphics" , version = "0.0.1-beta"}
+smoothie-cli-frontend = { path = "crates/04-holography/smoothie-cli-frontend" , version = "0.0.1-beta"}
+smoothie-frontend = { path = "crates/04-holography/smoothie-frontend" , version = "0.0.1-beta"}
 
 # Praxis (Platform Layer)
-smoothie-vst3 = { path = "crates/05-praxis/smoothie-vst3" , version = "1.0.0"}
-smoothie-au = { path = "crates/05-praxis/smoothie-au" , version = "1.0.0"}
-smoothie-clap = { path = "crates/05-praxis/smoothie-clap" , version = "1.0.0"}
-smoothie-aax = { path = "crates/05-praxis/smoothie-aax" , version = "1.0.0"}
-smoothie-net = { path = "crates/05-praxis/smoothie-net" , version = "1.0.0"}
-smoothie-standalone = { path = "crates/05-praxis/smoothie-standalone" , version = "1.0.0"}
-smoothie-mastering = { path = "crates/05-praxis/smoothie-mastering" , version = "1.0.0"}
-smoothie-plugin-host = { path = "crates/05-praxis/plugin-host" , version = "1.0.0"}
-smoothie-arrangement = { path = "crates/05-praxis/arrangement" , version = "1.0.0"}
-cargo-smoothie = { path = "crates/05-praxis/cargo-smoothie" , version = "1.0.0"}
-seraphic-orchestrator = { path = "crates/05-praxis/seraphic-orchestrator" , version = "1.0.0"}
-ironstack-plugin = { path = "crates/05-praxis/ironstack-plugin" , version = "1.0.0"}
-ironstack-100 = { path = "crates/05-praxis/ironstack-standalone" , version = "1.0.0"}
+smoothie-vst3 = { path = "crates/05-praxis/smoothie-vst3" , version = "0.0.1-beta"}
+smoothie-au = { path = "crates/05-praxis/smoothie-au" , version = "0.0.1-beta"}
+smoothie-clap = { path = "crates/05-praxis/smoothie-clap" , version = "0.0.1-beta"}
+smoothie-aax = { path = "crates/05-praxis/smoothie-aax" , version = "0.0.1-beta"}
+smoothie-net = { path = "crates/05-praxis/smoothie-net" , version = "0.0.1-beta"}
+smoothie-standalone = { path = "crates/05-praxis/smoothie-standalone" , version = "0.0.1-beta"}
+smoothie-mastering = { path = "crates/05-praxis/smoothie-mastering" , version = "0.0.1-beta"}
+smoothie-plugin-host = { path = "crates/05-praxis/plugin-host" , version = "0.0.1-beta"}
+smoothie-arrangement = { path = "crates/05-praxis/arrangement" , version = "0.0.1-beta"}
+cargo-smoothie = { path = "crates/05-praxis/cargo-smoothie" , version = "0.0.1-beta"}
+seraphic-orchestrator = { path = "crates/05-praxis/seraphic-orchestrator" , version = "0.0.1-beta"}
+ironstack-plugin = { path = "crates/05-praxis/ironstack-plugin" , version = "0.0.1-beta"}
+ironstack-100 = { path = "crates/05-praxis/ironstack-standalone" , version = "0.0.1-beta"}
 
 # Third-Party Dependencies
 anyhow = "1.0"

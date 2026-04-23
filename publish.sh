@@ -1,0 +1,80 @@
+#!/bin/bash
+set -e
+
+# S E R A P H I C   T E C H N O L O G I E S
+# Crate Publication Orchestrator
+
+CRATES=(
+  "crates/01-silicon/smoothie-macros"
+  "crates/01-silicon/core"
+  "crates/04-holography/smoothie-cli-frontend"
+  "crates/05-praxis/smoothie-aax"
+  "crates/02-resonance/dsp"
+  "crates/03-cognition/smoothie-midi"
+  "crates/03-cognition/smoothie-params"
+  "crates/05-praxis/smoothie-clap"
+  "crates/01-silicon/smoothie-math"
+  "crates/04-holography/smoothie-ui-core"
+  "crates/04-holography/smoothie-ui-render"
+  "crates/05-praxis/smoothie-vst3"
+  "crates/05-praxis/smoothie-au"
+  "crates/02-resonance/effects"
+  "crates/01-silicon/async"
+  "crates/01-silicon/sync"
+  "crates/01-silicon/lock-free-queue"
+  "crates/01-silicon/logging"
+  "crates/01-silicon/realtime-pool"
+  "crates/01-silicon/serde"
+  "crates/01-silicon/sync-distributed"
+  "crates/02-resonance/advanced-dsp"
+  "crates/02-resonance/gpu-fft"
+  "crates/02-resonance/convolution"
+  "crates/03-cognition/smoothie-ai"
+  "crates/02-resonance/smoothie-physics"
+  "crates/02-resonance/ironstack"
+  "crates/02-resonance/smoothie-audio-format"
+  "crates/02-resonance/smoothie-dynamics"
+  "crates/02-resonance/smoothie-eq"
+  "crates/02-resonance/smoothie-granular"
+  "crates/02-resonance/smoothie-modulation"
+  "crates/02-resonance/smoothie-reverb"
+  "crates/02-resonance/smoothie-sound-design"
+  "crates/02-resonance/smoothie-spectrum"
+  "crates/02-resonance/smoothie-tuning"
+  "crates/02-resonance/spatial-audio"
+  "crates/03-cognition/seraphic-agent"
+  "crates/03-cognition/seraphic-multiverse"
+  "crates/02-resonance/synth"
+  "crates/03-cognition/distributed-ai"
+  "crates/03-cognition/param-automation"
+  "crates/03-cognition/seraphic-prime"
+  "crates/03-cognition/smoothie-ai-core"
+  "crates/03-cognition/smoothie-graph"
+  "crates/03-cognition/smoothie-preset"
+  "crates/04-holography/gpu-renderer"
+  "crates/04-holography/smoothie-frontend"
+  "crates/04-holography/smoothie-ui-vfx"
+  "crates/04-holography/smoothie-ui"
+  "crates/04-holography/vector-graphics"
+  "crates/05-praxis/arrangement"
+  "crates/05-praxis/cargo-smoothie"
+  "crates/05-praxis/ironstack-plugin"
+  "crates/05-praxis/ironstack-standalone"
+  "crates/05-praxis/plugin-host"
+  "crates/05-praxis/seraphic-orchestrator"
+  "crates/05-praxis/smoothie-mastering"
+  "crates/05-praxis/smoothie-net"
+  "crates/05-praxis/smoothie-standalone"
+)
+
+echo "Starting publication of Smoothie Elite v0.0.1-beta..."
+
+for crate in "${CRATES[@]}"; do
+  echo "--------------------------------------------------------"
+  echo "Publishing $crate..."
+  (cd "$crate" && cargo publish --allow-dirty)
+  echo "Waiting for crates.io to index..."
+  sleep 20
+done
+
+echo "Publication complete."

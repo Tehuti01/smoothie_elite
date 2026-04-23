@@ -13,7 +13,7 @@ version.workspace = true
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
-description = "Standalone reference implementation for the IRONSTACK-100 DSP engine"
+description.workspace = true
 
 [dependencies]
 smoothie-core = {workspace = true}
