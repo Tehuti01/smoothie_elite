@@ -81,7 +81,7 @@ impl WavefoldOsc {
     }
 
     /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> Sample {
+    pub fn process(&mut self) -> Sample {
         // Generate base sine
         let input = sine_approx(self.phase * TAU);
         self.phase += self.phase_inc;
@@ -107,7 +107,7 @@ impl WavefoldOsc {
     }
 
     /// Primary real-time signal processing execution block.
-    pub fn process(&mut self, input: Sample) -> Sample {
+    pub fn process_input(&mut self, input: Sample) -> Sample {
         let driven = input * self.config.drive;
         let folded = self.fold_bounce(driven);
         self.last_out = folded * self.config.output_gain;

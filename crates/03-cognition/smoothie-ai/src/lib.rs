@@ -39,4 +39,5 @@ pub use autoencoder::{AudioEncoder, LayerNorm as AutoLayerNorm};
 pub use conformer::{ConformerBlock, PreNorm as ConformerPreNorm};
 pub use dense::DenseLayer;
 pub use diffusion::{DenoisingDiffusion, NoisePredictor};
+pub use nam::{LSTMBlock, NAMBlock, NeuralAmpModeler};
 pub use transformer::{PreNorm as TransformerPreNorm, TransformerEncoderLayer};

@@ -15,6 +15,9 @@ use smoothie_core::constants::TAU;
 use smoothie_core::math::{cosine_approx, sine_approx, tan_approx};
 use smoothie_core::primitives::Sample;
 
+pub mod dc_blocker;
+pub use dc_blocker::*;
+
 #[derive(Clone, Copy, Debug)]
 /// Technical implementation of the FilterType enumeration.
 pub enum FilterType {

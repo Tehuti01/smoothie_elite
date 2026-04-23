@@ -67,7 +67,7 @@ impl MonophonicSynth {
     }
 
     /// Generate next sample with exponential pitch glide
-    pub fn next(&mut self) -> Sample {
+    pub fn process(&mut self) -> Sample {
         let delta_time = 1.0 / self.sample_rate;
 
         // Exponential Glide (Silicon stable pitch warping)
@@ -78,12 +78,12 @@ impl MonophonicSynth {
         self.voice.oscillator.set_frequency(self.glide_current_freq);
 
         if self.voice.state != crate::voice::VoiceState::Inactive {
-            let env_val = self.voice.envelope.next();
+            let env_val = self.voice.envelope.process();
             if self.voice.envelope.is_finished() {
                 self.voice.finish();
                 return 0.0;
             }
-            return self.voice.oscillator.next() * env_val * self.voice.velocity;
+            return self.voice.oscillator.process() * env_val * self.voice.velocity;
         }
 
         0.0
@@ -92,7 +92,7 @@ impl MonophonicSynth {
     /// Technical implementation of the generate_into logic.
     pub fn generate_into(&mut self, buffer: &mut [Sample]) {
         for i in 0..buffer.len() {
-            buffer[i] = self.next();
+            buffer[i] = self.process();
         }
     }
 }

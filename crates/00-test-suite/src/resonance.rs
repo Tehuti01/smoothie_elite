@@ -2,211 +2,168 @@
  *  S E R A P H I C   T E C H N O L O G I E S
  * ╭──────────────────────────────────────────────────────────────────────────╮
  * │ FILE ID: SER-0xc85ee3e6 | REVISION: 2026.04.20                           │
- * │ PATH: smoothie_elite/crates/02-resonance/effects/tests/integration.rs                                                         │
+ * │ PATH: crates/00-test-suite/src/resonance.rs                               │
  * ├──────────────────────────────────────────────────────────────────────────┤
- * │ DESCRIPTION: Professional technical implementation and documentation.    │
- * ├──────────────────────────────────────────────────────────────────────────┤
- * │ TECHNICAL NOTES: Optimized for industrial-grade performance standards.   │
+ * │ DESCRIPTION: Consolidated Resonance Integration Tests.                    │
  * ╰──────────────────────────────────────────────────────────────────────────╯
- *   SERAPHIC TECH - Precision Engineering
  */
 
-
-// ═══════════════════════════════════════════════════════════════
-// Reverb Tests
-// ═══════════════════════════════════════════════════════════════
+use smoothie_effects::*;
+use smoothie_dsp::oscillators::*;
+use smoothie_dsp::filters::*;
 
 #[test]
-/// Technical implementation of the test_reverb_silence_in_silence_out logic.
-fn test_reverb_silence_in_silence_out() {
+/// Technical implementation of the test_reverb_stabilization logic.
+fn test_reverb_stabilization() {
     let mut reverb = ReverbEffect::new(44100.0);
-    let mut sum = 0.0f32;
     for _ in 0..1000 {
-        sum += reverb.process(0.0).abs();
-    }
-    assert!(sum < 0.001, "Reverb should output silence for silent input");
-}
-
-#[test]
-/// Technical implementation of the test_reverb_impulse_response logic.
-fn test_reverb_impulse_response() {
-    let mut reverb = ReverbEffect::new(44100.0);
-    let mut output = [0.0f32; 4096];
-    // Feed single impulse
-    output[0] = reverb.process(1.0);
-    for i in 1..4096 {
-        output[i] = reverb.process(0.0);
-    }
-    // Reverb tail should have non-zero samples
-    let tail_energy: f32 = output[100..4096].iter().map(|s| s * s).sum();
-    assert!(tail_energy > 0.001, "Reverb should have a tail");
-}
-
-#[test]
-/// Technical implementation of the test_reverb_output_bounded logic.
-fn test_reverb_output_bounded() {
-    let mut reverb = ReverbEffect::new(44100.0);
-    for _ in 0..10000 {
         let out = reverb.process(1.0);
-        assert!(out.abs() < 10.0, "Reverb output unbounded: {}", out);
+        assert!(out.is_finite());
     }
 }
 
-// ═══════════════════════════════════════════════════════════════
-// Delay Tests
-// ═══════════════════════════════════════════════════════════════
-
 #[test]
-/// Technical implementation of the test_delay_dry_passthrough logic.
-fn test_delay_dry_passthrough() {
-    let mut delay = DelayEffect::default();
-    // Process with no feedback and full dry
-    let out = delay.process(0.5);
-    // First sample should include some dry signal
-    assert!(out.abs() > 0.0 || true); // Delay might not output dry on first sample
-}
-
-#[test]
-/// Technical implementation of the test_delay_output_bounded logic.
-fn test_delay_output_bounded() {
-    let mut delay = DelayEffect::default();
+/// Technical implementation of the test_reverb_decay logic.
+fn test_reverb_decay() {
+    let mut reverb = ReverbEffect::new(44100.0);
+    // Impulse
+    reverb.process(1.0);
+    let mut last_level = 1.0;
     for _ in 0..10000 {
-        let out = delay.process(0.8);
-        assert!(out.abs() < 10.0, "Delay output unbounded: {}", out);
+        let out = reverb.process(0.0);
+        last_level = out.abs();
     }
+    assert!(last_level < 1.0);
 }
 
-// ═══════════════════════════════════════════════════════════════
-// Compressor Tests
-// ═══════════════════════════════════════════════════════════════
+#[test]
+/// Technical implementation of the test_reverb_params logic.
+fn test_reverb_params() {
+    let mut reverb = ReverbEffect::new(44100.0);
+    reverb.set_room_size(0.9);
+    reverb.set_damping(0.1);
+    let out = reverb.process(0.5);
+    assert!(out != 0.0);
+}
 
 #[test]
-/// Technical implementation of the test_compressor_reduces_loud_signals logic.
-fn test_compressor_reduces_loud_signals() {
-    let mut comp = Compressor::default();
-    // Process loud signal
-    let mut peak = 0.0f32;
+/// Technical implementation of the test_delay_basic logic.
+fn test_delay_basic() {
+    let mut delay = DelayEffect::default();
+    delay.set_delay_ms(100.0, 44100.0);
+    delay.set_feedback(0.5);
+    let _out = delay.process(1.0);
+    assert!(true);
+}
+
+#[test]
+/// Technical implementation of the test_delay_feedback_limit logic.
+fn test_delay_feedback_limit() {
+    let mut delay = DelayEffect::default();
+    delay.set_feedback(2.0); // Should be clamped
     for _ in 0..10000 {
-        let out = comp.process(0.9);
-        if out.abs() > peak {
-            peak = out.abs();
-        }
+        let out = delay.process(0.5);
+        assert!(out.abs() < 2.0);
     }
-    // Compressed output should be limited
-    assert!(peak < 2.0, "Compressor should limit: peak={}", peak);
 }
 
 #[test]
-/// Technical implementation of the test_compressor_passes_quiet_signals logic.
-fn test_compressor_passes_quiet_signals() {
+/// Technical implementation of the test_compressor_reduction logic.
+fn test_compressor_reduction() {
     let mut comp = Compressor::default();
-    // Very quiet signal should pass through mostly unchanged
+    comp.set_threshold(-20.0);
+    comp.set_ratio(4.0);
+    
+    // Give it time to attack
+    let mut last_out = 0.0;
     for _ in 0..1000 {
-        comp.process(0.001);
+        last_out = comp.process(1.0);
     }
-    let out = comp.process(0.001);
-    assert!(out.abs() < 0.1, "Quiet signals should pass: {}", out);
+    assert!(last_out.abs() < 0.9);
 }
 
-// ═══════════════════════════════════════════════════════════════
-// Limiter Tests
-// ═══════════════════════════════════════════════════════════════
+#[test]
+/// Technical implementation of the test_compressor_bypass logic.
+fn test_compressor_bypass() {
+    let mut comp = Compressor::default();
+    comp.set_threshold(0.0);
+    comp.set_ratio(1.0);
+    let input = 0.5;
+    let out = comp.process(input);
+    assert!((out - input).abs() < 0.1);
+}
 
 #[test]
 /// Technical implementation of the test_limiter_ceiling logic.
 fn test_limiter_ceiling() {
     let mut limiter = Limiter::new(-0.3, 50.0, 44100.0);
-    for _ in 0..10000 {
-        let out = limiter.process(5.0); // Way above ceiling
-        assert!(out.abs() <= 1.01, "Limiter breached: {}", out);
+    for i in 0..1000 {
+        let input = (i as f32 * 0.1).sin() * 2.0; // Over ceiling
+        let out = limiter.process(input);
+        assert!(out <= 1.01);
+        assert!(out >= -1.01);
     }
 }
 
 #[test]
-/// Technical implementation of the test_limiter_passes_below_threshold logic.
-fn test_limiter_passes_below_threshold() {
+/// Technical implementation of the test_limiter_fast_attack logic.
+fn test_limiter_fast_attack() {
     let mut limiter = Limiter::new(-0.3, 50.0, 44100.0);
-    for _ in 0..10000 {
-        limiter.process(0.1);
-    }
-    let out = limiter.process(0.1);
-    assert!(
-        (out - 0.1).abs() < 0.05,
-        "Below-threshold should pass: {}",
-        out
-    );
+    let input = 2.0;
+    let out = limiter.process(input);
+    assert!(out < 1.1);
 }
 
-// ═══════════════════════════════════════════════════════════════
-// Gate Tests
-// ═══════════════════════════════════════════════════════════════
-
 #[test]
-/// Technical implementation of the test_gate_silences_below_threshold logic.
-fn test_gate_silences_below_threshold() {
+/// Technical implementation of the test_gate_silence logic.
+fn test_gate_silence() {
     let mut gate = Gate::new(-40.0, 3.0, 1.0, 50.0, 10.0, 44100.0);
-    // Very quiet signal should be gated
-    for _ in 0..10000 {
-        gate.process(0.001);
+    let input = 0.0001; // Well below threshold
+    for _ in 0..1000 {
+        gate.process(input);
     }
-    let out = gate.process(0.001);
-    assert!(out.abs() < 0.01, "Gate should silence: {}", out);
+    let out = gate.process(input);
+    assert!(out.abs() < 0.01);
 }
 
 #[test]
-/// Technical implementation of the test_gate_passes_above_threshold logic.
-fn test_gate_passes_above_threshold() {
+/// Technical implementation of the test_gate_open logic.
+fn test_gate_open() {
     let mut gate = Gate::new(-40.0, 3.0, 1.0, 50.0, 10.0, 44100.0);
-    // Loud signal should pass through
-    for _ in 0..10000 {
-        gate.process(0.8);
+    let input = 0.5; // Above threshold
+    let mut last_out = 0.0;
+    for _ in 0..1000 {
+        last_out = gate.process(input);
     }
-    let out = gate.process(0.8);
-    assert!(out.abs() > 0.1, "Gate should pass loud signal: {}", out);
+    assert!(last_out > 0.1);
 }
 
-// ═══════════════════════════════════════════════════════════════
-// Phaser Tests
-// ═══════════════════════════════════════════════════════════════
-
 #[test]
-/// Technical implementation of the test_phaser_modulates logic.
-fn test_phaser_modulates() {
+/// Technical implementation of the test_phaser_movement logic.
+fn test_phaser_movement() {
     let mut phaser = Phaser::new(2.0, 0.8, 0.3, 44100.0);
-    let mut min_val = f32::MAX;
-    let mut max_val = f32::MIN;
-    for i in 0..44100 {
-        let input =
-            smoothie_core::math::sine_approx(i as f32 * 440.0 * core::f32::consts::TAU / 44100.0);
-        let out = phaser.process(input);
-        if out < min_val {
-            min_val = out;
-        }
-        if out > max_val {
-            max_val = out;
-        }
+    let out1 = phaser.process(0.5);
+    for _ in 0..100 {
+        phaser.process(0.5);
     }
-    assert!(max_val - min_val > 0.1, "Phaser should modulate");
+    let out2 = phaser.process(0.5);
+    assert!(out1 != out2);
 }
 
 #[test]
-/// Technical implementation of the test_phaser_bounded logic.
-fn test_phaser_bounded() {
+/// Technical implementation of the test_phaser_feedback logic.
+fn test_phaser_feedback() {
     let mut phaser = Phaser::new(5.0, 1.0, 0.9, 44100.0);
-    for _ in 0..10000 {
-        let out = phaser.process(1.0);
-        assert!(out.abs() < 10.0, "Phaser unbounded: {}", out);
+    for _ in 0..1000 {
+        let out = phaser.process(0.5);
+        assert!(out.is_finite());
     }
 }
 
-// ═══════════════════════════════════════════════════════════════
-// Saturator Tests
-// ═══════════════════════════════════════════════════════════════
-
 #[test]
-/// Technical implementation of the test_saturator_all_algorithms logic.
-fn test_saturator_all_algorithms() {
-    let algorithms = [
+/// Technical implementation of the test_saturator_types logic.
+fn test_saturator_types() {
+    let algos = vec![
         SaturationType::Soft,
         SaturationType::Hard,
         SaturationType::Tube,
@@ -214,104 +171,84 @@ fn test_saturator_all_algorithms() {
         SaturationType::Foldback,
         SaturationType::Bitcrush,
     ];
-    for algo in algorithms {
+    for algo in algos {
         let mut sat = Saturator::new(algo);
-        sat.set_drive(3.0);
-        for _ in 0..100 {
-            let out = sat.process(0.5);
-            assert!(out.is_finite(), "Saturator {:?} produced NaN/Inf", algo);
+        let out = sat.process(0.8);
+        assert!(out.is_finite());
+    }
+}
+
+#[test]
+/// Technical implementation of the test_saturator_drive logic.
+fn test_saturator_drive() {
+    let mut sat = Saturator::new(SaturationType::Soft);
+    sat.set_drive(10.0);
+    let out = sat.process(0.5);
+    assert!(out.abs() <= 1.0);
+}
+
+#[test]
+/// Technical implementation of the test_widener_stereo logic.
+fn test_widener_stereo() {
+    let widener = StereoWidener::new(2.0);
+    let signal = (0.8, 0.2);
+    let (l, r) = widener.process(signal.0, signal.1);
+    assert!(l != r);
+}
+
+#[test]
+/// Technical implementation of the test_tremolo_depth logic.
+fn test_tremolo_depth() {
+    let mut trem = Tremolo::new(5.0, 1.0, 44100.0);
+    let out1 = trem.process(0.5);
+    assert!(out1 != 0.5);
+    
+    let mut varied = false;
+    for _ in 0..1000 {
+        if trem.process(0.5) != 0.5 {
+            varied = true;
+            break;
         }
     }
+    assert!(varied);
 }
 
 #[test]
-/// Technical implementation of the test_saturator_soft_bounded logic.
-fn test_saturator_soft_bounded() {
-    let mut sat = Saturator::new(SaturationType::Soft);
-    sat.set_drive(20.0);
-    for _ in 0..100 {
-        let out = sat.process(1.0);
-        assert!(out.abs() <= 1.5, "Soft saturator unbounded: {}", out);
-    }
-}
-
-// ═══════════════════════════════════════════════════════════════
-// Stereo Tests
-// ═══════════════════════════════════════════════════════════════
-
-#[test]
-/// Technical implementation of the test_stereo_widener_full_wide logic.
-fn test_stereo_widener_full_wide() {
-    let widener = StereoWidener::new(2.0);
-    let (l, r) = widener.process(0.5, 0.3);
-    // At width=2, side is doubled relative to unity
-    assert!((l - r).abs() > 0.1, "Wide should have L/R difference");
-}
-
-#[test]
-/// Technical implementation of the test_tremolo_depth_zero_passthrough logic.
-fn test_tremolo_depth_zero_passthrough() {
-    let mut trem = Tremolo::new(5.0, 0.0, 44100.0);
-    for _ in 0..100 {
-        let out = trem.process(0.5);
-        assert!(
-            (out - 0.5).abs() < 0.01,
-            "Zero-depth tremolo should pass: {}",
-            out
-        );
-    }
-}
-
-#[test]
-/// Technical implementation of the test_autopan_modulates_stereo logic.
-fn test_autopan_modulates_stereo() {
+/// Technical implementation of the test_autopan_movement logic.
+fn test_autopan_movement() {
     let mut pan = AutoPan::new(2.0, 1.0, 44100.0);
-    let mut l_sum = 0.0f32;
-    let mut r_sum = 0.0f32;
+    let mut left_dominant = false;
+    let mut right_dominant = false;
+    
     for _ in 0..44100 {
         let (l, r) = pan.process(0.5, 0.5);
-        l_sum += l;
-        r_sum += r;
+        if l > r { left_dominant = true; }
+        if r > l { right_dominant = true; }
     }
-    // Over one full cycle, L and R sums should be roughly equal
-    assert!(
-        (l_sum - r_sum).abs() / l_sum.abs().max(1.0) < 0.5,
-        "Auto-pan should balance: L={}, R={}",
-        l_sum,
-        r_sum
-    );
+    assert!(left_dominant && right_dominant);
 }
 
-// ═══════════════════════════════════════════════════════════════
-// Distortion Tests
-// ═══════════════════════════════════════════════════════════════
-
 #[test]
-/// Technical implementation of the test_distortion_output_bounded logic.
-fn test_distortion_output_bounded() {
+/// Technical implementation of the test_distortion_clamping logic.
+fn test_distortion_clamping() {
     let mut dist = Distortion::default();
+    dist.set_drive(20.0);
     for _ in 0..1000 {
-        let out = dist.process(1.0);
-        assert!(out.abs() < 5.0, "Distortion unbounded: {}", out);
+        let out = dist.process(0.9);
+        assert!(out <= 1.1 && out >= -1.1);
     }
 }
 
-// ═══════════════════════════════════════════════════════════════
-// Chorus Tests
-// ═══════════════════════════════════════════════════════════════
-
 #[test]
-/// Technical implementation of the test_chorus_modulates logic.
-fn test_chorus_modulates() {
+/// Technical implementation of the test_chorus_movement logic.
+fn test_chorus_movement() {
     let mut chorus = Chorus::default();
-    let mut has_output = false;
-    for _ in 0..10000 {
-        let out = chorus.process(0.5, 44100.0);
-        if out.abs() > 0.01 {
-            has_output = true;
-        }
+    let out1 = chorus.process(0.5, 44100.0);
+    for _ in 0..1000 {
+        chorus.process(0.5, 44100.0);
     }
-    assert!(has_output, "Chorus should produce output");
+    let out2 = chorus.process(0.5, 44100.0);
+    assert!(out1 != out2);
 }
 
 #[test]

@@ -11,6 +11,7 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
+#![forbid(unsafe_code)]
 extern crate alloc;
 extern crate smoothie_core;
 

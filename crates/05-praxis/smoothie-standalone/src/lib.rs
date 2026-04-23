@@ -24,4 +24,5 @@ pub use smoothie_graph;
 
 pub use app::AutonomousApp;
 pub use audio::AutonomousAudioHost;
+pub use input::AutonomousInput;
 pub use window::AutonomousWindow;

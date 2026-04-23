@@ -68,8 +68,7 @@ impl AdsrEnvelope {
     }
 
     #[inline]
-    /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> Sample {
+    pub fn process(&mut self) -> Sample {
         match self.stage {
             EnvelopeStage::Idle => {
                 self.current = 0.0;
@@ -179,7 +178,7 @@ impl ArEnvelope {
     }
 
     /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> Sample {
+    pub fn process(&mut self) -> Sample {
         match self.stage {
             EnvelopeStage::Attack => {
                 self.current += self.attack_rate;
@@ -270,7 +269,7 @@ impl Lfo {
     }
 
     /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> f32 {
+    pub fn process(&mut self) -> f32 {
         let dt = self.frequency / self.sample_rate;
         let value = match self.shape {
             LfoShape::Sine => {
@@ -312,7 +311,7 @@ impl Lfo {
 
     /// Technical implementation of the next_mapped logic.
     pub fn next_mapped(&mut self, center: f32, range: f32) -> f32 {
-        center + self.next() * range
+        center + self.process() * range
     }
 }
 
@@ -647,7 +646,7 @@ impl AsdEnvelope {
     }
 
     /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> Sample {
+    pub fn process(&mut self) -> Sample {
         match self.stage {
             EnvelopeStage::Attack => {
                 self.current += self.attack_rate;
@@ -748,7 +747,7 @@ impl MultiStageEnvelope {
     }
 
     /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> Sample {
+    pub fn process(&mut self) -> Sample {
         if self.current_stage >= self.stage_count {
             return self.current;
         }
@@ -831,7 +830,7 @@ impl DadsrEnvelope {
     }
 
     /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> Sample {
+    pub fn process(&mut self) -> Sample {
         match self.stage {
             EnvelopeStage::Idle => {
                 if self.delay_counter < self.delay_samples {
@@ -1001,7 +1000,7 @@ impl EnhancedLfo {
     }
 
     /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> Sample {
+    pub fn process(&mut self) -> Sample {
         use smoothie_core::{constants::TAU, math::sine_approx};
         let dt = self.frequency / self.sample_rate;
         let value = match self.shape {
@@ -1044,7 +1043,7 @@ impl EnhancedLfo {
 
     /// Technical implementation of the next_mapped logic.
     pub fn next_mapped(&mut self, min: f32, max: f32) -> f32 {
-        let lfo = self.next();
+        let lfo = self.process();
         let normalized = (lfo + 1.0) / 2.0;
         min + normalized * (max - min)
     }
@@ -1084,8 +1083,8 @@ impl SyncedLfo {
         self.inner.set_tempo(bpm);
     }
     /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> f32 {
-        self.inner.next()
+    pub fn process(&mut self) -> f32 {
+        self.inner.process()
     }
     /// Resets the internal state of the component.
     pub fn reset(&mut self) {

@@ -48,7 +48,7 @@ impl FmOperator {
     #[inline]
     /// Primary real-time signal processing execution block.
     pub fn process(&mut self, base_freq: f32, phase_modulation: f32, sample_rate: f32) -> f32 {
-        let env_val = self.envelope.next();
+        let env_val = self.envelope.process();
         let freq = base_freq * self.ratio;
 
         // Calculate phase increment

@@ -85,9 +85,9 @@ impl IronStackPolySynth {
 
     /// Generate the next sample by mixing voices and passing through the IronStack Hub.
     #[inline(always)]
-    pub fn next(&mut self) -> Sample {
+    pub fn process(&mut self) -> Sample {
         // 1. Silicon-summing of all active polyphonic voices
-        let mixed = self.allocator.process_mix(|voice| voice.oscillator.next());
+        let mixed = self.allocator.process_mix(|voice| voice.oscillator.process());
 
         // 2. High-fidelity global processing via IRONSTACK-100 stages
         self.engine.process(mixed)
@@ -96,7 +96,7 @@ impl IronStackPolySynth {
     /// Technical implementation of the generate_into logic for buffer processing.
     pub fn generate_into(&mut self, buffer: &mut [Sample]) {
         for sample in buffer.iter_mut() {
-            *sample = self.next();
+            *sample = self.process();
         }
     }
 

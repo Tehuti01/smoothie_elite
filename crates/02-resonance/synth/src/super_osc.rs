@@ -103,7 +103,7 @@ impl SuperOsc {
     }
 
     /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> Sample {
+    pub fn process(&mut self) -> Sample {
         // Main oscillator
         let main = self.waveform(self.main_phase, self.config.main_wave);
         self.main_phase += self.main_phase_inc;

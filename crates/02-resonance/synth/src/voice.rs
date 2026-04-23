@@ -151,7 +151,7 @@ impl<O: Default, const N: usize> VoiceAllocator<O, N> {
 
         for voice in self.voices.iter_mut() {
             if voice.state != VoiceState::Inactive {
-                let env_val = voice.envelope.next();
+                let env_val = voice.envelope.process();
 
                 // If envelope has finished decaying
                 if voice.envelope.is_finished() {

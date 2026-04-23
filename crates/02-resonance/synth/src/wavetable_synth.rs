@@ -47,14 +47,14 @@ impl WavetableSynth {
     }
 
     /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> Sample {
-        self.allocator.process_mix(|voice| voice.oscillator.next())
+    pub fn process(&mut self) -> Sample {
+        self.allocator.process_mix(|voice| voice.oscillator.process())
     }
 
     /// Technical implementation of the generate_into logic.
     pub fn generate_into(&mut self, buffer: &mut [Sample]) {
         for i in 0..buffer.len() {
-            buffer[i] = self.next();
+            buffer[i] = self.process();
         }
     }
 }

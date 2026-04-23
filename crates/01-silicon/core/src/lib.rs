@@ -58,7 +58,7 @@ pub mod prelude {
     pub use crate::PluginOsNode;
 }
 
-pub use smoothie_macros::seraphic_specification;
+pub use smoothie_macros::{seraphic_specification, SmoothieParams};
 pub use crate::plugin::{SmoothiePlugin, PluginInfo, PluginCategory, ProcessStatus, AudioProcessor};
 
 /// The Autonomous Node Trait: Defines the contract for all real-time processing blocks.

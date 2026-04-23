@@ -18,6 +18,7 @@ repository.workspace = true
 [dependencies]
 smoothie-core = { workspace = true }
 smoothie-dsp = { workspace = true }
+wide = { workspace = true }
 
 [lib]
 path = "src/lib.rs"

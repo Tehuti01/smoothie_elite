@@ -8,6 +8,10 @@
  * ╰──────────────────────────────────────────────────────────────────────────╯
  */
 
+use smoothie_cli_frontend::init::perform_init;
+use smoothie_cli_frontend::build::perform_build;
+use smoothie_cli_frontend::dev_server::start_dev_server;
+use smoothie_cli_frontend::scaffold::{show_scaffold_complete, show_scaffold_start};
 
 #[test]
 fn test_init_ui() {

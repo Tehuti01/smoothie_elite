@@ -36,3 +36,77 @@ pub fn seraphic_specification(_attr: TokenStream, item: TokenStream) -> TokenStr
         _ => TokenStream::from(quote! { #input_item }),
     }
 }
+
+#[proc_macro_derive(SmoothieParams, attributes(param))]
+/// Automatically implements the parameter interface for a SmoothiePlugin.
+pub fn derive_smoothie_params(input: TokenStream) -> TokenStream {
+    let input = parse_macro_input!(input as syn::DeriveInput);
+    let name = input.ident;
+
+    let fields = match input.data {
+        syn::Data::Struct(s) => s.fields,
+        _ => panic!("SmoothieParams can only be derived for structs"),
+    };
+
+    let mut param_names = Vec::new();
+    let mut get_cases = Vec::new();
+    let mut set_cases = Vec::new();
+
+    let mut param_count = 0;
+    for field in fields {
+        let field_name = field.ident.unwrap();
+        for attr in field.attrs {
+            if attr.path().is_ident("param") {
+                // Extract name from #[param(name = "Gain")]
+                let mut p_name = field_name.to_string();
+                let _ = attr.parse_nested_meta(|meta| {
+                    if meta.path.is_ident("name") {
+                        let value = meta.value()?;
+                        let s: syn::LitStr = value.parse()?;
+                        p_name = s.value();
+                    }
+                    Ok(())
+                });
+
+                param_names.push(p_name);
+                let idx = param_count;
+                get_cases.push(quote! { #idx => self.#field_name.get(), });
+                set_cases.push(quote! { #idx => self.#field_name.set(value), });
+                param_count += 1;
+            }
+        }
+    }
+
+    let param_names_cases = param_names.iter().enumerate().map(|(i, n)| {
+        quote! { #i => #n, }
+    });
+
+    let expanded = quote! {
+        impl #name {
+            pub fn get_derived_param_count(&self) -> usize { #param_count }
+            
+            pub fn get_derived_param_name(&self, index: usize) -> &'static str {
+                match index {
+                    #(#param_names_cases)*
+                    _ => "",
+                }
+            }
+
+            pub fn get_derived_param(&self, index: usize) -> f32 {
+                match index {
+                    #(#get_cases)*
+                    _ => 0.0,
+                }
+            }
+
+            pub fn set_derived_param(&mut self, index: usize, value: f32) {
+                match index {
+                    #(#set_cases)*
+                    _ => {}
+                }
+            }
+        }
+    };
+
+    TokenStream::from(expanded)
+}

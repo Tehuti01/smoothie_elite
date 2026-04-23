@@ -438,7 +438,7 @@ mod tests {
 }
 
 /// Framework version constant.
-pub const FRAMEWORK_VERSION: &str = "1.0.0";
+pub const FRAMEWORK_VERSION: &str = "0.0.2";
 
 /// Framework name constant.
 pub const FRAMEWORK_NAME: &str = "Smoothie Elite";

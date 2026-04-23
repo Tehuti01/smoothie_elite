@@ -121,7 +121,7 @@ impl ParameterRamp {
     }
 
     /// Get next sample value and advance ramp
-    pub fn next(&mut self) -> f32 {
+    pub fn process(&mut self) -> f32 {
         if self.samples_remaining == 0 {
             return self.target_value;
         }
@@ -291,7 +291,7 @@ mod tests {
     /// Technical implementation of the test_parameter_ramp logic.
     fn test_parameter_ramp() {
         let mut ramp = ParameterRamp::new(0.0, 1.0, 100, AutomationCurve::Linear);
-        let first = ramp.next();
+        let first = ramp.process();
         assert!(first > 0.0 && first < 1.0);
     }
 

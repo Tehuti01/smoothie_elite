@@ -75,7 +75,7 @@ impl SyncedOscillator {
     }
 
     /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> Sample {
+    pub fn process(&mut self) -> Sample {
         self.master_phase += self.master_phase_inc;
         if self.master_phase >= 1.0 {
             self.master_phase -= 1.0;

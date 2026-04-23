@@ -187,6 +187,24 @@ impl ModMatrix {
         &self.destination_deltas
     }
 
+    /// Applies the accumulated modulation to a ParameterBank based on destination mapping.
+    pub fn apply_to_bank(&self, bank: &mut smoothie_params::ParameterBank) {
+        for (dest, value) in &self.destination_deltas {
+            let name = match dest {
+                ModDestination::Pitch => "Pitch",
+                ModDestination::Volume => "Volume",
+                ModDestination::Pan => "Pan",
+                ModDestination::FilterCutoff => "Cutoff",
+                ModDestination::FilterResonance => "Resonance",
+                _ => continue, // Custom destinations or unimplemented ones
+            };
+            if let Some(param) = bank.get_by_name(name) {
+                let current = param.atomic.load();
+                param.atomic.store(current + value);
+            }
+        }
+    }
+
     /// Returns the total modulation amount applied to a destination (summed).
     pub fn modulation_for(&self, dest: ModDestination) -> f32 {
         self.destination_deltas

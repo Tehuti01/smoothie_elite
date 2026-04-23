@@ -15,6 +15,9 @@ use smoothie_core::constants::{F_233, STANDARD_PITCH, TAU};
 use smoothie_core::math::sine_approx;
 use smoothie_core::primitives::Sample;
 
+pub mod noise;
+pub use noise::*;
+
 #[derive(Clone, Copy, Debug)]
 /// Technical implementation of the OscillatorMode enumeration.
 pub enum OscillatorMode {
@@ -62,8 +65,8 @@ impl Oscillator {
         self.phase
     }
 
-    /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> Sample {
+    #[inline(always)]
+    pub fn process(&mut self) -> Sample {
         let dt = self.frequency / self.sample_rate;
         let sample = match self.mode {
             OscillatorMode::Sine => sine_approx(self.phase * TAU),
@@ -178,8 +181,8 @@ impl WavetableOscillator {
         }
     }
 
-    /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> Sample {
+    #[inline(always)]
+    pub fn process(&mut self) -> Sample {
         let pos = self.phase * (F_233 as f32);
         let i0 = pos as usize;
         let i1 = (i0 + 1) % F_233;

@@ -33,7 +33,7 @@ impl ParameterSmoother {
     }
 
     /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> f32 {
+    pub fn process(&mut self) -> f32 {
         self.value = self.value + self.coeff * (self.target - self.value);
         self.value
     }
@@ -95,7 +95,7 @@ impl LinearSmoother {
         }
     }
 
-    pub fn next(&mut self) -> f32 {
+    pub fn process(&mut self) -> f32 {
         if self.remaining_samples > 0 {
             self.value += self.step;
             self.remaining_samples -= 1;
@@ -113,7 +113,7 @@ impl OnePoleSmoother {
     pub fn new(value: f32, time_ms: f32, sample_rate: f32) -> Self {
         Self(ParameterSmoother::new(value, time_ms, sample_rate))
     }
-    pub fn next(&mut self) -> f32 {
-        self.0.next()
+    pub fn process(&mut self) -> f32 {
+        self.0.process()
     }
 }

@@ -31,6 +31,38 @@ impl NAMBlock {
     }
 }
 
+/// High-performance Neural Amp Modeler.
+pub struct NeuralAmpModeler {
+    pub blocks: Vec<NAMBlock>,
+    pub lstm: Option<LSTMBlock>,
+}
+
+impl NeuralAmpModeler {
+    pub fn new() -> Self {
+        Self {
+            blocks: Vec::new(),
+            lstm: None,
+        }
+    }
+
+    pub fn process_sample(&mut self, input: f32) -> f32 {
+        let mut curr = [input];
+        let mut next = [0.0];
+        
+        for block in &mut self.blocks {
+            block.process(&curr, &mut next);
+            curr[0] = next[0];
+        }
+
+        if let Some(lstm) = &mut self.lstm {
+            lstm.process(&curr, &mut next);
+            return next[0];
+        }
+
+        curr[0]
+    }
+}
+
 /// Technical implementation of the LSTMBlock structure.
 pub struct LSTMBlock {
     pub hidden_size: usize,

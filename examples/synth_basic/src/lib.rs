@@ -63,7 +63,7 @@ impl SmoothiePlugin for BasicSynth {
             self.amplitude += 0.001 * (self.target_amplitude - self.amplitude);
 
             // Generate saw wave from phase accumulator
-            let phase = self.oscillator.next();
+            let phase = self.oscillator.process();
             let saw = (phase / core::f32::consts::PI) - 1.0; // Normalize to [-1, 1]
 
             // Apply filter

@@ -8,6 +8,13 @@
  * ╰──────────────────────────────────────────────────────────────────────────╯
  */
 
+use smoothie_ui_core::{Material, widgets::*};
+use smoothie_ui_render::materials::{CookTorranceBRDF, PbrMaterial};
+use smoothie_ui_render::SdfGenerator;
+use smoothie_ui_render::svg::{SvgCommand, SvgDocument};
+use smoothie_math::matrix::Vec3;
+use smoothie_ui_render::raytrace::Ray;
+use smoothie_ui_render::tessellation::Tessellator;
 
 #[test]
 fn test_sdf_compilation() {

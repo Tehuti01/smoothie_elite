@@ -27,7 +27,7 @@ impl GrainOscillator {
         self.freq = freq;
     }
     /// Technical implementation of the next logic.
-    pub fn next(&mut self, _sr: f32) -> Sample {
+    pub fn process(&mut self, _sr: f32) -> Sample {
         0.0
     }
 }
@@ -55,10 +55,10 @@ impl GrainSynth {
     }
 
     /// Technical implementation of the next logic.
-    pub fn next(&mut self) -> Sample {
+    pub fn process(&mut self) -> Sample {
         let sr = self.sample_rate;
         self.allocator
-            .process_mix(|voice| voice.oscillator.next(sr))
+            .process_mix(|voice| voice.oscillator.process(sr))
     }
 }
 

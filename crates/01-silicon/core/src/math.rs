@@ -408,7 +408,7 @@ impl PhaseAccumulator {
         self.phase_inc = freq_hz / sample_rate;
     }
 
-    pub fn next(&mut self) -> f32 {
+    pub fn process(&mut self) -> f32 {
         let current = self.phase;
         self.phase = (self.phase + self.phase_inc).fract();
         current
@@ -469,10 +469,12 @@ pub fn abs_approx(x: f32) -> f32 {
 #[inline(always)]
 /// Technical implementation of the tanh_approx logic.
 pub fn tanh_approx(x: f32) -> f32 {
+    if x > 5.0 { return 1.0; }
+    if x < -5.0 { return -1.0; }
     let x2 = x * x;
     let a = x * (135135.0 + x2 * (17325.0 + x2 * (378.0 + x2)));
     let b = 135135.0 + x2 * (62370.0 + x2 * (3150.0 + 28.0 * x2));
-    a / b
+    (a / b).clamp(-1.0, 1.0)
 }
 
 #[inline(always)]
@@ -624,4 +626,16 @@ pub fn hermite_interpolate(y0: f32, y1: f32, y2: f32, y3: f32, mu: f32) -> f32 {
     let a2 = -0.5 * y0 + 0.5 * y2;
     let a3 = y1;
     a0 * mu * mu2 + a1 * mu2 + a2 * mu + a3
+}
+
+/// Hard-clips a signal to the [-1.0, 1.0] range.
+#[inline(always)]
+pub fn hard_clip(input: f32) -> f32 {
+    input.clamp(-1.0, 1.0)
+}
+
+/// Applies soft-knee saturation using a tanh approximation.
+#[inline(always)]
+pub fn soft_saturate(input: f32, drive: f32) -> f32 {
+    (input * drive).tanh()
 }

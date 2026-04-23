@@ -15,6 +15,7 @@ use core::f32::consts::TAU;
 use smoothie_core::math::{hermite_interpolate, sine_approx, tan_approx};
 use smoothie_core::primitives::Sample;
 
+#[derive(Debug, Clone)]
 /// Technical implementation of the Chorus structure.
 pub struct Chorus {
     buffer: [Sample; 4096],
@@ -31,17 +32,7 @@ pub struct Chorus {
 impl Chorus {
     /// Initializes a new instance of the associated type.
     pub fn new(_sample_rate: f32) -> Self {
-        Self {
-            buffer: [0.0; 4096],
-            write_pos: 0,
-            lfo_phase: 0.0,
-            lfo_rate: 0.5,
-            lfo_depth: 88.0,
-            depth: 88.0,
-            base_delay: 882.0,
-            feedback: 0.2,
-            mix: 0.5,
-        }
+        Self::default()
     }
 
     /// Technical implementation of the set_rate logic.
@@ -88,6 +79,23 @@ impl Chorus {
     }
 }
 
+impl Default for Chorus {
+    fn default() -> Self {
+        Self {
+            buffer: [0.0; 4096],
+            write_pos: 0,
+            lfo_phase: 0.0,
+            lfo_rate: 0.5,
+            lfo_depth: 88.0,
+            depth: 88.0,
+            base_delay: 882.0,
+            feedback: 0.2,
+            mix: 0.5,
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
 /// Technical implementation of the Phaser structure.
 pub struct Phaser {
     lfo_phase: f32,
@@ -102,15 +110,7 @@ pub struct Phaser {
 impl Phaser {
     /// Initializes a new instance of the associated type.
     pub fn new() -> Self {
-        Self {
-            lfo_phase: 0.0,
-            lfo_rate: 0.2,
-            lfo_depth: 0.7,
-            depth: 0.7,
-            feedback: 0.5,
-            stages: [0.0; 6],
-            prev_out: 0.0,
-        }
+        Self::default()
     }
 
     /// Primary real-time signal processing execution block.
@@ -139,6 +139,21 @@ impl Phaser {
     }
 }
 
+impl Default for Phaser {
+    fn default() -> Self {
+        Self {
+            lfo_phase: 0.0,
+            lfo_rate: 0.2,
+            lfo_depth: 0.7,
+            depth: 0.7,
+            feedback: 0.5,
+            stages: [0.0; 6],
+            prev_out: 0.0,
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
 /// Technical implementation of the Tremolo structure.
 pub struct Tremolo {
     lfo_phase: f32,
@@ -150,13 +165,9 @@ pub struct Tremolo {
 impl Tremolo {
     /// Initializes a new instance of the associated type.
     pub fn new() -> Self {
-        Self {
-            lfo_phase: 0.0,
-            lfo_rate: 5.0,
-            lfo_depth: 0.5,
-            depth: 0.5,
-        }
+        Self::default()
     }
+
     /// Primary real-time signal processing execution block.
     pub fn process(&mut self, input: Sample, sample_rate: f32) -> Sample {
         let lfo = (sine_approx(self.lfo_phase * TAU) + 1.0) * 0.5;
@@ -167,5 +178,16 @@ impl Tremolo {
 
         let mod_val = 1.0 - self.depth + lfo * self.depth;
         input * mod_val
+    }
+}
+
+impl Default for Tremolo {
+    fn default() -> Self {
+        Self {
+            lfo_phase: 0.0,
+            lfo_rate: 5.0,
+            lfo_depth: 0.5,
+            depth: 0.5,
+        }
     }
 }

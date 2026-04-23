@@ -11,6 +11,7 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
+#![forbid(unsafe_code)]
 extern crate alloc;
 extern crate smoothie_core;
 
@@ -22,7 +23,6 @@ pub mod compressor;
 pub mod delay;
 pub mod distortion;
 pub mod envelope_mod;
-pub mod eq;
 pub mod exciter;
 pub mod expander;
 pub mod expansion;

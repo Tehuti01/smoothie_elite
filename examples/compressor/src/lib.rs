@@ -73,10 +73,10 @@ impl SmoothiePlugin for CompressorPlugin {
 
         let block_len = buffer[0].len();
         for i in 0..block_len {
-            let _threshold = self.threshold_smoother.next();
-            let _ratio = self.ratio_smoother.next();
-            let makeup = self.makeup_smoother.next();
-            let mix = self.mix_smoother.next();
+            let _threshold = self.threshold_smoother.process();
+            let _ratio = self.ratio_smoother.process();
+            let makeup = self.makeup_smoother.process();
+            let mix = self.mix_smoother.process();
 
             let dry_l = buffer[0][i];
             let dry_r = buffer[1][i];
