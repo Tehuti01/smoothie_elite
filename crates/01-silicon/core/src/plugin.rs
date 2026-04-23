@@ -36,10 +36,55 @@ pub struct PluginInfo {
     pub category: PluginCategory,
     pub input_channels: usize,
     pub output_channels: usize,
+    pub description: &'static str,
+    pub website: &'static str,
+}
+
+impl Default for PluginInfo {
+    fn default() -> Self {
+        Self {
+            name: "Smoothie Plugin",
+            vendor: "Smoothie Audio",
+            version: "0.1.0",
+            category: PluginCategory::Other,
+            input_channels: 2,
+            output_channels: 2,
+            description: "Built with Smoothie Elite",
+            website: "https://smoothieaudio.dev",
+        }
+    }
+}
+
+/// A handle for type-safe parameter access.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct ParamHandle(pub usize);
+
+/// Trait for reporting signal latency.
+pub trait Latency {
+    /// Returns the latency of the component in samples.
+    fn latency(&self) -> usize { 0 }
+}
+
+/// Trait for reporting instrument tail time.
+pub trait TailTime {
+    /// Returns the decay tail time in samples.
+    fn tail_samples(&self) -> usize { 0 }
+}
+
+/// Unified Reset Trait for all DSP components.
+pub trait Reset {
+    /// Resets the component to its initial state.
+    fn reset(&mut self);
+}
+
+/// Trait for high-performance block-based processing.
+pub trait ProcessBlock {
+    /// Processes a block of audio samples.
+    fn process_block(&mut self, inputs: &[&[f32]], outputs: &mut [&mut [f32]]);
 }
 
 /// The Master Plugin Trait: Every Seraphic plugin must implement this.
-pub trait SmoothiePlugin: Send + Sync {
+pub trait SmoothiePlugin: Send + Sync + Reset + Latency + TailTime {
     /// Returns metadata about the plugin.
     fn info() -> PluginInfo where Self: Sized;
     
@@ -51,17 +96,12 @@ pub trait SmoothiePlugin: Send + Sync {
     
     /// Updates the sample rate.
     fn set_sample_rate(&mut self, sr: f32);
-    
-    /// Resets the internal state.
-    fn reset(&mut self);
 
     // Optional parameter interface
     fn param_count(&self) -> usize { 0 }
     fn get_param(&self, _index: usize) -> f32 { 0.0 }
     fn set_param(&mut self, _index: usize, _value: f32) {}
     fn get_param_name(&self, _index: usize) -> &'static str { "" }
-    fn tail_length(&self) -> usize { 0 }
-    fn latency(&self) -> usize { 0 }
 }
 
 /// Helper trait for unified audio processing.

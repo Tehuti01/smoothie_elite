@@ -344,9 +344,11 @@ pub const TAU_F64: f64 = core::f64::consts::TAU;
 
 /// √2
 pub const SQRT_2: f32 = core::f32::consts::SQRT_2;
+pub const SQRT_2_F64: f64 = core::f64::consts::SQRT_2;
 
 /// 1/√2
 pub const INV_SQRT_2: f32 = core::f32::consts::FRAC_1_SQRT_2;
+pub const INV_SQRT_2_F64: f64 = core::f64::consts::FRAC_1_SQRT_2;
 
 /// Golden angle (radians)
 pub const GOLDEN_ANGLE: f32 = 2.39_996_322_972_865_332_954_971_056_563_266_559f32;

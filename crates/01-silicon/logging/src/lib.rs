@@ -184,34 +184,50 @@ impl SmoothieLogger {
 /// The global logger instance.
 pub static GLOBAL_LOGGER: SmoothieLogger = SmoothieLogger::new();
 
+/// Get the current system time in microseconds.
+pub fn get_timestamp_micros() -> u64 {
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_micros() as u64
+}
+
+#[macro_export]
+/// Logs an error message to the global logger.
+macro_rules! log_error {
+    ($msg:expr) => {
+        $crate::error($msg);
+    };
+}
+
 /// Technical implementation of the trace logic.
 pub fn trace(msg: &'static str) {
-    GLOBAL_LOGGER.log(LogLevel::Trace, msg, 0);
+    GLOBAL_LOGGER.log(LogLevel::Trace, msg, get_timestamp_micros());
 }
 
 /// Technical implementation of the debug logic.
 pub fn debug(msg: &'static str) {
-    GLOBAL_LOGGER.log(LogLevel::Debug, msg, 0);
+    GLOBAL_LOGGER.log(LogLevel::Debug, msg, get_timestamp_micros());
 }
 
 /// Technical implementation of the info logic.
 pub fn info(msg: &'static str) {
-    GLOBAL_LOGGER.log(LogLevel::Info, msg, 0);
+    GLOBAL_LOGGER.log(LogLevel::Info, msg, get_timestamp_micros());
 }
 
 /// Technical implementation of the warn logic.
 pub fn warn(msg: &'static str) {
-    GLOBAL_LOGGER.log(LogLevel::Warn, msg, 0);
+    GLOBAL_LOGGER.log(LogLevel::Warn, msg, get_timestamp_micros());
 }
 
 /// Technical implementation of the error logic.
 pub fn error(msg: &'static str) {
-    GLOBAL_LOGGER.log(LogLevel::Error, msg, 0);
+    GLOBAL_LOGGER.log(LogLevel::Error, msg, get_timestamp_micros());
 }
 
 /// Technical implementation of the fatal logic.
 pub fn fatal(msg: &'static str) {
-    GLOBAL_LOGGER.log(LogLevel::Fatal, msg, 0);
+    GLOBAL_LOGGER.log(LogLevel::Fatal, msg, get_timestamp_micros());
 }
 
 /// Technical implementation of the set_log_level logic.

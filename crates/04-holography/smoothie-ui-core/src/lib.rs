@@ -74,6 +74,8 @@ pub mod fluid;
 pub mod glass;
 pub mod shadow;
 pub mod skeuomorphic;
+pub mod types;
 pub mod widgets;
 
+pub use types::*;
 pub use widgets::*;

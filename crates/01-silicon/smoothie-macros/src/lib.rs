@@ -110,3 +110,15 @@ pub fn derive_smoothie_params(input: TokenStream) -> TokenStream {
 
     TokenStream::from(expanded)
 }
+
+#[proc_macro]
+/// Returns the build timestamp as a string.
+pub fn build_timestamp(_input: TokenStream) -> TokenStream {
+    let now = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_secs();
+    let s = format!("{}", now);
+    let expanded = quote! { #s };
+    TokenStream::from(expanded)
+}

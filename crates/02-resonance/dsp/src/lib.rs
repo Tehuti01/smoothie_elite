@@ -38,6 +38,7 @@ pub mod phaser;
 pub mod reverb;
 pub mod ringmod;
 pub mod tremolo;
+pub mod utils;
 pub mod vibrato;
 pub mod wavetables;
 pub mod widener;

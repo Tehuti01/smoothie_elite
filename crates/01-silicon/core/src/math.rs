@@ -461,12 +461,51 @@ impl OnePoleFilter {
 }
 
 #[inline(always)]
+#[must_use]
 /// Technical implementation of the abs_approx logic.
 pub fn abs_approx(x: f32) -> f32 {
     f32::from_bits(x.to_bits() & 0x7FFFFFFF)
 }
 
 #[inline(always)]
+#[must_use]
+/// Negates a float using bit manipulation.
+pub fn neg_approx(x: f32) -> f32 {
+    f32::from_bits(x.to_bits() ^ 0x80000000)
+}
+
+#[inline(always)]
+#[must_use]
+/// Linearly interpolates between a and b by t.
+pub fn lerp(a: f32, b: f32, t: f32) -> f32 {
+    a + t * (b - a)
+}
+
+#[inline(always)]
+#[must_use]
+/// Technical implementation of the is_power_of_two logic.
+pub fn is_power_of_two(n: usize) -> bool {
+    n != 0 && (n & (n - 1)) == 0
+}
+
+#[inline(always)]
+#[must_use]
+/// Returns the next power of two greater than or equal to n.
+pub fn next_power_of_two(mut n: usize) -> usize {
+    if n == 0 { return 1; }
+    n -= 1;
+    n |= n >> 1;
+    n |= n >> 2;
+    n |= n >> 4;
+    n |= n >> 8;
+    n |= n >> 16;
+    #[cfg(target_pointer_width = "64")]
+    { n |= n >> 32; }
+    n + 1
+}
+
+#[inline(always)]
+#[must_use]
 /// Technical implementation of the tanh_approx logic.
 pub fn tanh_approx(x: f32) -> f32 {
     if x > 5.0 { return 1.0; }
@@ -608,16 +647,55 @@ impl PowiApprox for f32 {
 
 pub const PHI: f32 = 1.618_034;
 
+#[must_use]
 /// Technical implementation of the amplitude_to_db logic.
 pub fn amplitude_to_db(amp: f32) -> f32 {
     20.0 * fast_log2(amp.abs() + 1e-9) * core::f32::consts::LOG10_2
 }
 
+#[must_use]
 /// Technical implementation of the db_to_amplitude logic.
 pub fn db_to_amplitude(db: f32) -> f32 {
     fast_pow(10.0, db / 20.0)
 }
 
+#[must_use]
+/// Double-precision amplitude to dB conversion.
+pub fn amplitude_to_db_f64(amp: f64) -> f64 {
+    20.0 * (amp.abs() + 1e-12).ln_approx() * (1.0 / core::f64::consts::LN_10)
+}
+
+#[must_use]
+/// Double-precision dB to amplitude conversion.
+pub fn db_to_amplitude_f64(db: f64) -> f64 {
+    (db / 20.0 * core::f64::consts::LN_10).exp_approx()
+}
+
+#[must_use]
+/// Converts a MIDI note to frequency in Hz.
+pub fn midi_to_hz(note: f32) -> f32 {
+    crate::constants::MIDI_NOTE_0_FREQ * SEMITONE_RATIO.powf(note)
+}
+
+#[must_use]
+/// Converts a MIDI note to frequency in Hz (f64).
+pub fn midi_to_hz_f64(note: f64) -> f64 {
+    crate::constants::MIDI_NOTE_0_FREQ as f64 * 2.0f64.powf((note - 69.0 + 51.0) / 12.0)
+}
+
+#[must_use]
+/// Converts frequency in Hz to MIDI note.
+pub fn hz_to_midi(freq: f32) -> f32 {
+    12.0 * (freq / crate::constants::MIDI_NOTE_0_FREQ).log2()
+}
+
+#[must_use]
+/// Converts frequency in Hz to MIDI note (f64).
+pub fn hz_to_midi_f64(freq: f64) -> f64 {
+    12.0 * (freq / (crate::constants::MIDI_NOTE_0_FREQ as f64)).log2() + 69.0 - 51.0
+}
+
+#[must_use]
 /// Technical implementation of the hermite_interpolate logic.
 pub fn hermite_interpolate(y0: f32, y1: f32, y2: f32, y3: f32, mu: f32) -> f32 {
     let mu2 = mu * mu;

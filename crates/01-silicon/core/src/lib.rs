@@ -13,6 +13,8 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
+#![forbid(unsafe_code)]
+#![deny(missing_docs)]
 extern crate alloc;
 
 // Foundational audio processing primitives.
@@ -43,7 +45,7 @@ pub mod word_length;
 pub mod plugin;
 
 pub mod prelude {
-    pub use crate::audio::PeakMeter;
+    pub use crate::audio::{AudioFrame, PeakMeter};
     pub use crate::buffer::DelayLine as CoreDelayLine;
     pub use crate::constants::{PHI, PHI_F64, PI, TAU};
     pub use crate::error::{Result as SmoothieResult, SmoothieError};
@@ -56,20 +58,21 @@ pub mod prelude {
     pub use crate::types::*;
     pub use crate::word_length::WordLength;
     pub use crate::PluginOsNode;
+    pub use crate::plugin::{Reset, Latency, TailTime, ProcessBlock, ParamHandle};
 }
 
-pub use smoothie_macros::{seraphic_specification, SmoothieParams};
-pub use crate::plugin::{SmoothiePlugin, PluginInfo, PluginCategory, ProcessStatus, AudioProcessor};
+pub use smoothie_macros::{seraphic_specification, SmoothieParams, build_timestamp};
+pub use crate::plugin::{SmoothiePlugin, PluginInfo, PluginCategory, ProcessStatus, AudioProcessor, Reset, Latency, TailTime, ProcessBlock, ParamHandle};
+
+/// Returns the current version of the Smoothie Elite framework.
+pub fn version() -> &'static str {
+    crate::constants::FRAMEWORK_VERSION
+}
 
 /// The Autonomous Node Trait: Defines the contract for all real-time processing blocks.
-pub trait PluginOsNode: Send + Sync {
+pub trait PluginOsNode: Send + Sync + Reset {
     /// Processes a single sample through the node.
     #[seraphic_specification(L0, A0)]
     /// Primary real-time signal processing execution block.
     fn process(&mut self, input: f64) -> f64;
-    /// Resets the node's internal state to its genesis condition.
-    fn reset(&mut self);
 }
-
-// Internal Glue
-// Removed unused re-exports to satisfy zero-flaw specification
