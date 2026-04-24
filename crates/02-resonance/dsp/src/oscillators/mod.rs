@@ -18,6 +18,20 @@ use smoothie_core::primitives::Sample;
 pub mod noise;
 pub use noise::*;
 
+use smoothie_core::plugin::Reset;
+
+impl Reset for Oscillator {
+    fn reset(&mut self) {
+        self.phase = 0.0;
+    }
+}
+
+impl Reset for WavetableOscillator {
+    fn reset(&mut self) {
+        self.phase = 0.0;
+    }
+}
+
 #[derive(Clone, Copy, Debug)]
 /// Technical implementation of the OscillatorMode enumeration.
 pub enum OscillatorMode {

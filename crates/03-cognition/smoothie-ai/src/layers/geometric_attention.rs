@@ -1,3 +1,4 @@
+use smoothie_core::plugin::Reset;
 /*
  *  S E R A P H I C   T E C H N O L O G I E S
  * ╭──────────────────────────────────────────────────────────────────────────╮
@@ -30,6 +31,13 @@ impl GeometricAttention {
     }
 }
 
+impl Reset for GeometricAttention {
+        // Resets the internal state of the component.
+        fn reset(&mut self) {
+            self.state = 0.0;
+        }
+}
+
 impl PluginOsNode for GeometricAttention {
     #[seraphic_specification(L0, A0, PHI)]
     /// Primary real-time signal processing execution block.
@@ -40,8 +48,4 @@ impl PluginOsNode for GeometricAttention {
         self.state
     }
 
-    /// Resets the internal state of the component.
-    fn reset(&mut self) {
-        self.state = 0.0;
-    }
 }

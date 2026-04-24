@@ -11,7 +11,7 @@
 use crate::primitives::Sample;
 
 /// A single frame of multi-channel interleaved audio.
-#[derive(Debug, Clone, Copy, Default)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct AudioFrame<const CHANNELS: usize> {
     pub samples: [Sample; CHANNELS],
 }
@@ -25,5 +25,11 @@ impl<const CHANNELS: usize> AudioFrame<CHANNELS> {
     /// Returns a mono sum of all channels.
     pub fn mono_sum(&self) -> Sample {
         self.samples.iter().sum::<f32>() / CHANNELS as f32
+    }
+}
+
+impl<const CHANNELS: usize> Default for AudioFrame<CHANNELS> {
+    fn default() -> Self {
+        Self { samples: [0.0; CHANNELS] }
     }
 }

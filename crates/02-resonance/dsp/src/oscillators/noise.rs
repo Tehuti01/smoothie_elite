@@ -64,6 +64,7 @@ impl PinkNoise {
             rows: [0.0; 16],
             running_sum: 0.0,
             index: 0,
+            count: 0,
         }
     }
 

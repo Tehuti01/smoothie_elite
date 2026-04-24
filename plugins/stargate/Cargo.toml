@@ -1,0 +1,30 @@
+[package]
+name = "stargate"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+smoothie-core = { workspace = true }
+smoothie-dsp = { workspace = true }
+smoothie-synth = { workspace = true }
+smoothie-effects = { workspace = true }
+smoothie-params = { workspace = true }
+smoothie-modulation = { workspace = true }
+smoothie-ui-core = { workspace = true }
+smoothie-ui = { workspace = true }
+smoothie-ui-vfx = { workspace = true }
+smoothie-standalone = { workspace = true }
+smoothie-math = { workspace = true }
+wgpu = { workspace = true }
+winit = { workspace = true }
+log = { workspace = true }
+anyhow = { workspace = true }
+parking_lot = { workspace = true }
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "stargate-app"
+path = "src/main.rs"

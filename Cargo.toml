@@ -21,6 +21,7 @@ members = [
     "crates/05-praxis/*",
     "crates/05-praxis/ironstack-plugin",
     "examples/*",
+    "plugins/stargate",
 ]
 
 [workspace.package]

@@ -18,6 +18,25 @@ use smoothie_core::primitives::Sample;
 pub mod dc_blocker;
 pub use dc_blocker::*;
 
+use smoothie_core::plugin::Reset;
+
+impl Reset for BiquadFilter {
+    fn reset(&mut self) {
+        self.x1 = 0.0;
+        self.x2 = 0.0;
+        self.y1 = 0.0;
+        self.y2 = 0.0;
+    }
+}
+
+impl Reset for StateVariableFilter {
+    fn reset(&mut self) {
+        self.lowpass = 0.0;
+        self.bandpass = 0.0;
+        self.highpass = 0.0;
+    }
+}
+
 #[derive(Clone, Copy, Debug)]
 /// Technical implementation of the FilterType enumeration.
 pub enum FilterType {

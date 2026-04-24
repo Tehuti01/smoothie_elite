@@ -13,6 +13,7 @@
 
 use core::f32::consts::{PI, TAU};
 use core::f64::consts::PI as PI_F64;
+use crate::constants::SEMITONE_RATIO;
 
 ///
 /// Technical implementation of the EnterpriseMath structure.

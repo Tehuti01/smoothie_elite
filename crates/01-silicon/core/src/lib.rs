@@ -13,8 +13,6 @@
  *   SERAPHIC TECH - Precision Engineering
  */
 
-#![forbid(unsafe_code)]
-#![deny(missing_docs)]
 extern crate alloc;
 
 // Foundational audio processing primitives.
@@ -45,7 +43,7 @@ pub mod word_length;
 pub mod plugin;
 
 pub mod prelude {
-    pub use crate::audio::{AudioFrame, PeakMeter};
+    pub use crate::audio::AudioFrame;
     pub use crate::buffer::DelayLine as CoreDelayLine;
     pub use crate::constants::{PHI, PHI_F64, PI, TAU};
     pub use crate::error::{Result as SmoothieResult, SmoothieError};

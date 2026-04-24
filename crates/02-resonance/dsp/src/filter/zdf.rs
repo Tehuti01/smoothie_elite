@@ -1,3 +1,4 @@
+use smoothie_core::plugin::Reset;
 /*
  *  S E R A P H I C   T E C H N O L O G I E S
  * ╭──────────────────────────────────────────────────────────────────────────╮
@@ -45,11 +46,14 @@ impl ZdfSvf {
     }
 }
 
+impl Reset for ZdfSvf {
+        fn reset(&mut self) {
+            self.s1 = 0.0;
+            self.s2 = 0.0;
+        }
+}
+
 impl PluginOsNode for ZdfSvf {
-    fn reset(&mut self) {
-        self.s1 = 0.0;
-        self.s2 = 0.0;
-    }
 
     #[inline(always)]
     fn process(&mut self, x: f64) -> f64 {
